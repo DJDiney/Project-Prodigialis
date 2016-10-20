@@ -1,0 +1,84 @@
+.tabs-left > .nav-tabs > li,
+				.tabs-right > .nav-tabs > li {
+				  float: none;
+				}
+
+				.tabs-left > .nav-tabs > li > a,
+				.tabs-right > .nav-tabs > li > a {
+				  min-width: 74px;
+				  margin-right: 0;
+				  margin-bottom: 3px;
+				}
+
+				.tabs-left > .nav-tabs {
+				  float: left;
+				  margin-right: 19px;
+				  border-right: 2px solid #d1d1d1;
+				}
+
+				.tabs-left > .nav-tabs > li > a {
+				  margin-right: -1px;
+				  -webkit-border-radius: 4px 0 0 4px;
+					 -moz-border-radius: 4px 0 0 4px;
+						  border-radius: 4px 0 0 4px;
+				}
+
+				.tabs-left > .nav-tabs > li > a:hover,
+				.tabs-left > .nav-tabs > li > a:focus {
+				  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+				}
+
+				.tabs-left > .nav-tabs .active > a,
+				.tabs-left > .nav-tabs .active > a:hover,
+				.tabs-left > .nav-tabs .active > a:focus {
+				  border-color: #ddd transparent #ddd #ddd;
+				  *border-right-color: #ffffff;
+				}
+				
+				.nav-tabs > li.active :after {
+				  border-bottom: 11px solid #ffffff;
+				  border-left: 11px solid transparent;
+				  border-right: 11px solid transparent;
+				  content: "";
+				  display: inline-block;
+				  position: absolute;
+				   right: -8px;
+				  bottom: 40%;
+				  transform:rotate(-90deg);
+				   -webkit-transform:rotate(-90deg);
+				}
+				.nav-tabs > li.active :before {
+				  border-bottom: 11px solid #d1d1d1;
+				  border-left: 11px solid transparent;
+				  border-right: 11px solid transparent;
+				  content: "";
+				  display: inline-block;
+				  position: absolute;
+				  right: -6px;
+				  bottom: 40%;
+				  transform:rotate(-90deg);
+				   -webkit-transform:rotate(-90deg);
+				}
+								
+				
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}

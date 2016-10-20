@@ -1,0 +1,1 @@
+SELECT * FROM cidade NATURAL JOIN estado
