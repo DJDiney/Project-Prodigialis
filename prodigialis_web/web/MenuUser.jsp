@@ -23,22 +23,25 @@
     <script src="assets/js/ct-paper.js"></script>
     <script>
         $(document).ready(function () {
-            $("#EnvCurriculoMenu").load("EnvCurriculos.html");
-        });
-
-        $("nav li").on("click", function () {
-            $("nav li").removeClass("active");
-            $(this).addClass("active");
-        });
-		
-		$('#file-7').change(function () {
-            var filename = $('#file-7').val();
-            $('#Filename').html(filename);
-        });
-
+			$('#file-7').change(function () {
+				var filename = $('#file-7').val();
+				$('#Filename').html(filename);
+			});
+		});
     </script>
     <script src="x_login-register modal/login-register.js"></script>
     <style>
+	
+		form-group>.form-control{
+			background-color:#D1D1D1;
+			color:#66615B;
+			}
+			
+		.form-group>.form-control:focus{
+			background-color:white;
+			color:#66615B;
+			}	
+			
         .form-group>.form-control{
             background-color:#D1D1D1;
             color:#66615B;
@@ -67,19 +70,19 @@
 
         #btnSubmit{
             border-color:#66615B;
-            color:#d1d1d1;
         }
 
-
-
-        #btnInput{
+		#btnInput{
             border-color:#66615B;
-            color:#66615B;
         }
+		
+		#btnSubmit:hover{
+            border-color:#333;
+        }
+
 
         #btnInput:hover{
-            background-color:#66615B;
-            color:#d1d1d1;
+            border-color:#333;
         }
 
         .inputfile {
@@ -96,7 +99,7 @@
 
 </head>
 
-<body style="font-family:Oswald">
+<body>
 
 
     <div id="navbar">
@@ -219,9 +222,9 @@
 
 					<div class="row">
 
-						<div class="input-field col-md-12">
+						<div class="input-field col-md-12" >
 							<input type="file" name="file-7[]" id="file-7" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
-							<label for="file-7" class="width">
+							<label for="file-7" class="width" >
 								<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Arquivo…</a> 
 								<span id="Filename"></span>
 							</label>
@@ -231,13 +234,10 @@
 					</div>
 
 					<div class="row">
-
-
-
 						<div class="form-group pull-right col-md-4">
 							<form id="form1" action="" method="post">
 								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
-									Enviar <i class="fa fa-paper-plane" aria-hidden="true"></i>
+									Enviar <span class="fa fa-paper-plane" aria-hidden="true"></span>
 								</button>
 							</form>
 						</div>
