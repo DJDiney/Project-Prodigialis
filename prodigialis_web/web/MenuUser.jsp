@@ -11,10 +11,10 @@
     <link href="assets/css/ct-paper.css" rel="stylesheet"/>
     <meta charset="UTF-8">
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
     <script src="assets/js/custom.js"></script> 
     <script src="assets/js/jquery-1.10.2.js"></script>
@@ -93,6 +93,8 @@
             position: absolute;
             z-index: -1;
         }
+		
+		 
     </style>
 
 
@@ -124,11 +126,30 @@
                                 <a href="Saiba.html" class="btn btn-simple">Sobre a empresa</a>
                             </li>
                             <li>
-                                <a href="EnvCurriculos.html" class="btn btn-simple">Envie seu currículo</a>
-                            </li>
-                            <li>
-                                <a href="index.html"  class="btn btn-primary">Sair</a>
-                            </li>
+								
+								<div class="dropdown">
+
+								  <button class="btn btn-simple dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+									
+									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span>Nome Usuário</span>
+
+									<span class="caret"></span>
+
+								  </button>
+
+								  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Informações da conta</a></li>
+
+									<li role="presentation" class="divider"></li>
+
+									<li role="presentation"><a href="index.html" tabindex="-1" role="menuitem">Sair</a></li>
+
+								  </ul>
+
+								</div>
+							</li>
+							
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-->
@@ -146,9 +167,101 @@
         </div>
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="VerProc">
-                <p>Here are your messages.</p>
-            </div>
-            <div class="tab-pane" id="EnvCurr">
+				<div class="container">
+					<h3 class="header">Ver Processo Seletivo</h3>
+					<div class="row">
+					
+						<div class="form-group col-md-10">
+							
+							<select class="form-control">
+							
+								<option value="" disabled selected>Escolha um processo</option>
+								<option value="1">123 - 22</option>
+								<option value="2">322 - 22</option>
+								<option value="3">434 - 33</option>
+								
+							</select>
+						
+						</div>
+						
+						<div class="form-group col-md-2 ">
+							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Listar Dados
+							<i class=" fa fa-list-alt"></i>
+							</button>
+								
+						</div>
+						
+					
+					</div>
+					<hr/>
+					<div class="row" id="proc" >
+						<div class="form-group col-md-4 ">
+							
+							<label for="disabled">Nome do Processo</label>
+							<input disable value="123 - 22" id="disabled" type="text" class="form-control">
+							
+						</div>
+						
+						<div class="form-group col-md-4 ">
+							<label for="disabled">Vagas de</label>
+							<input disable value="Programador" id="disabled" type="text" class="form-control">
+						</div>
+						
+						<div class="form-group col-md-4 ">
+							<label for="disabled">Número de vagas</label>
+							<input disable value="32" id="disabled" type="text" class="form-control">
+						</div>
+					
+					</div>
+					
+					<div class="row">
+					
+						<div class="form-group col-md-6 ">
+							
+							<label for="disabled">Data de Início</label>
+							<input disable value="12/04/2016" id="disabled" type="text" class="form-control">
+							
+						</div>
+						
+						<div class="form-group col-md-6 ">
+						
+							<label for="disabled">Data de Fim</label>
+							<input disable value="21/04/2016" id="disabled" type="text" class="form-control">
+							
+						</div>
+					
+					</div>
+					
+					<div class="row">
+						<div class="form-group col-md-12 ">
+						
+							<label for="disabled">Especificações</label>
+							
+							<ul class="list-group">
+								<li class="list-group-item">Especificação 1</li>
+								<li class="list-group-item">Especificação 2</li>
+								<li class="list-group-item">Especificação 3</li>
+								<li class="list-group-item">Especificação 4</li>
+								<li class="list-group-item">Especificação 5</li>
+								<li class="list-group-item">Especificação 6</li>
+							</ul>
+							
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group pull-right col-md-4">
+							<form id="form1" action="" method="post">
+								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+									Enviar <span class="fa fa-check" aria-hidden="true"></span>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+            
+			<div class="tab-pane" id="EnvCurr">
                 <div class="container">
 					<h3> Enviar curriculo</h3>
 
@@ -159,7 +272,7 @@
 
 					<div class="row">
 
-						<div class="form-group col-md-8 col-xs-12">
+						<div class="form-group col-md-8 ">
 							<input type="text" value=""  placeholder="Endereço" class="form-control" />
 						</div>
 
@@ -222,7 +335,7 @@
 
 					<div class="row">
 
-						<div class="input-field col-md-12" >
+						<div class="form-group col-md-12" >
 							<input type="file" name="file-7[]" id="file-7" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
 							<label for="file-7" class="width" >
 								<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Arquivo…</a> 
@@ -254,7 +367,7 @@
 
 
 
-    <footer class="footer-demo" style="font-family:'Montserrat', 'Helvetica', Arial, sans-serif;background-color:#36312B;margin:0px;color:#d1d1d1;bottom:0px;text-align:center;padding-top:30px;padding-bottom:30px;position:absolute;width:100%">
+    <footer class="footer" style="background-color:#36312B;color:#d1d1d1;text-align:center;padding-top:30px;padding-bottom:30px;">
         <div class="container">
             <div>Prodigialis RH<span>  ·  </span>Trabalho de conclusão de curso</div>
             <div>Centro Federal de Educação Tecnológica de Minas Gerais</div>
