@@ -28,6 +28,17 @@
 				$('#Filename').html(filename);
 			});
 		});
+		$(function() {
+
+				var d1 = new DropDown( $('#d1') );
+				var d2 = new DropDown( $('#d2') );
+				
+				$(document).click(function() {
+					// all dropdowns
+					$('.wrapper-dropdown').removeClass('active');
+				});
+
+			});
     </script>
     <script src="x_login-register modal/login-register.js"></script>
     <style>
@@ -291,28 +302,45 @@
 
 						<div class="form-group col-md-4" >
 
-							<select class="form-control">
+							<!--<select class="form-control">
 
 								<option value="" disabled selected>Escolha um estado</option>
 								<option value="1">Minas Gerais</option>
 								<option value="2">Rio de Janeiro</option>
 								<option value="3">São Paulo</option>
 
-							</select>
+							</select>-->
 
+								<div id="d1" class="wrapper-dropdown" tabindex="1">
+									<span>Transport</span>
+									<ul class="select-dropdown">
+										<li><a href="#"><i class="icon-envelope icon-large"></i>Classic mail</a></li>
+										<li><a href="#"><i class="icon-truck icon-large"></i>UPS Delivery</a></li>
+										<li><a href="#"><i class="icon-plane icon-large"></i>Private jet</a></li>
+									</ul>
+							​	</div>
+							
 						</div>
 
 						<div class="form-group col-md-4" >
 
-							<select class="form-control">
+							<!--<select class="form-control">
 
 								<option value="" disabled selected>Escolha uma cidade</option>
 								<option value="1">Belo Horizonte</option>
 								<option value="2">Sabará</option>
 								<option value="3">Contagem</option>
 
-							</select>
+							</select>-->
 
+							<div id="d2" class="wrapper-dropdown" tabindex="1">
+								<span>Transport</span>
+								<ul class="select-dropdown">
+									<li><a href="#"><i class="icon-envelope icon-large"></i>Classic mail</a></li>
+									<li><a href="#"><i class="icon-truck icon-large"></i>UPS Delivery</a></li>
+									<li><a href="#"><i class="icon-plane icon-large"></i>Private jet</a></li>
+								</ul>
+						​	</div>
 						</div>
 
 						<div class="form-group col-md-4" >
@@ -375,5 +403,4 @@
             <div>Publicado sob a licença de <a href="http://www.creative-tim.com/license" style="color:#777;">Creative Tim</a></div>
         </div>
     </footer>
-</div>
 </body>

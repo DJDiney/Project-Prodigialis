@@ -4,7 +4,7 @@
 
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/ct-paper.css" rel="stylesheet"/>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
@@ -70,7 +70,7 @@
                                 <a href="Saiba.html" class="btn btn-simple">Sobre a empresa</a>
                             </li>
                             <li>
-                                <a href="EnvCurriculos.html" class="btn btn-simple">Envie seu currÃ­culo</a>
+                                <a href="EnvCurriculos.html" class="btn btn-simple">Envie seu currículo</a>
                             </li>
                             <li>
                                 <a target="_blank" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();" class="btn btn-primary">Log-in</a>
@@ -135,7 +135,7 @@
                                     ?</span>
                             </div>
                             <div class="forgot register-footer" style="display:none">
-                                <span>JÃ¡ tem uma conta?</span>
+                                <span>Já tem uma conta?</span>
                                 <a href="javascript: showLoginForm();">Login</a>
                             </div>
                         </div>        
@@ -150,8 +150,7 @@
         <div class="img-src blur" id="imgNavBlur"  style="opacity: 0; background-image: url('imagens/bg2_blur.jpg');"></div>
         <div class="text-center" style="padding-top:15%"></div>
     </div>
-</div>
-</div>
+    
 <div class="main">
     <div class="container" style="max-width:800px; padding-top:10px">
         <h1 class="text-center" style="color:black">Prodigialis RH<br><small class="subtitle" style="font-family:Grand Hotel">Diga-lÃ¡!</small></h1> 
@@ -167,44 +166,14 @@
 
         <!--     end extras -->        
     </div>
-    <footer class="page-footer" style="background-color:#36312B;margin:0px;color:#d1d1d1">
-
+    <footer class="footer" style="background-color:#36312B;color:#d1d1d1;text-align:center;padding-top:30px;padding-bottom:30px;">
         <div class="container">
-
-            <div class="row">
-
-                <div class="col l6 s12">
-
-                    <h5 class="white-text"> Prodigialis RH</h5>
-                    <p class="grey-text text-lighten-4">ServiÃ§o RH com qualidade e seguranÃ§a</p>
-
-                </div>
-
-                <div class="col l4 offset-l2 s12">
-
-                    <h5 class="white-text">Links</h5>
-                    <ul style="list-style-type: none">
-
-                        <li><a class="btn btn-simple" href="Sobre.html">Sobre a Empresa</a></li>
-                        <li><a class="btn btn-simple" href="Saiba.html">Saiba Mais</a></li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
+            <div>Prodigialis RH<span>  ?  </span>Trabalho de conclusão de curso</div>
+            <div>Centro Federal de Educação Tecnológica de Minas Gerais</div>
+            <div>Já nos conhece? Conheça a <a href="" style="color:#777;">staff</a></div>
+            <div>Publicado sob a licença de <a href="http://www.creative-tim.com/license" style="color:#777;">Creative Tim</a></div>
         </div>
-
-        <div class="footer-copyright">
-            <div class="container">
-                Â© 2016 Prodigialis, todos os direitos reservados
-            </div>
-
-        </div>
-
     </footer>
+        
 </div>
-
-
 </body>
