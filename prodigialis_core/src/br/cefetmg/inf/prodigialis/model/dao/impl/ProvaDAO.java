@@ -164,7 +164,7 @@ public class ProvaDAO implements IProvaDAO{
             while(resultSet.next()){
                 
                 Prova prova = new Prova();
-                prova.setCod_prova(resultSet.getLong("cod_prova"));
+                prova.setCod_prova(resultSet.getInt("cod_prova"));
                 EmpresaProva empresaProva = empresaProvaDAO.consultarPorId(resultSet.getString("cnpj").charAt(0));
                 prova.setEmpresa(empresaProva);
                 prova.setDat_prova(resultSet.getDate("dat_prova"));
@@ -212,7 +212,7 @@ public class ProvaDAO implements IProvaDAO{
             while(resultSet.next()){
                 
                 prova = new Prova();
-                prova.setCod_prova(resultSet.getLong("cod_prova"));
+                prova.setCod_prova(resultSet.getInt("cod_prova"));
                 EmpresaProva empresaProva = empresaProvaDAO.consultarPorId(resultSet.getString("cnpj").charAt(0));
                 prova.setEmpresa(empresaProva);
                 prova.setDat_prova(resultSet.getDate("dat_prova"));

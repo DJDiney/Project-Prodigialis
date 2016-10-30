@@ -3,10 +3,8 @@ package br.cefetmg.inf.prodigialis.model.dao.impl;
 
 import br.cefetmg.inf.prodigialis.model.dao.ICandidatoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IParticipanteDAO;
-import br.cefetmg.inf.prodigialis.model.dao.IProcessoSeletivoDAO;
 import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import br.cefetmg.inf.prodigialis.model.domain.Participante;
-import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import java.sql.Connection;
@@ -25,13 +23,14 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO Participante (cpf, est_aprov) " 
+            String sql = "INSERT INTO Participante (cod_prova, cpf, nro_inscricao) " 
                     + "VALUES(?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setString(1, String.valueOf(participante.getCandidato().getCpf()));
-            statement.setBoolean(2, participante.isEst_aprov());
+            statement.setInt(1, participante.getProva().getCod_prova());
+            statement.setString(2, String.valueOf(participante.getCandidato().getCpf()));
+            statement.setInt(3, participante.getNro_ins());
             
             statement.execute();
             
@@ -56,15 +55,19 @@ public class ParticipanteDAO implements IParticipanteDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
             String sql = "UPDATE Participante " +
-                            " SET cpf = ?, "
-                            + " est_aprov = ? " +   
+                            " SET cpf = ?, "+ 
+                            " est_aprov = ? " +  
+                            " vlr_nota = ? " +
+                            " nro_colocacao = ? " +
                             " WHERE nro_ins = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, String.valueOf(participante.getCandidato().getCpf()));
             statement.setBoolean(2, participante.isEst_aprov());
-            statement.setLong(3, participante.getNro_ins());
+            statement.setInt(3, participante.getNota());
+            statement.setInt(4, participante.getColocao());
+            statement.setLong(5, participante.getNro_ins());
             
             statement.execute();
             
@@ -158,7 +161,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
             while(resultSet.next()){
                 
                 Participante participante = new Participante();
-                participante.setNro_ins(resultSet.getLong("nro_ins"));
+                participante.setNro_ins(resultSet.getInt("nro_ins"));
                 Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
                 participante.setCandidato(candidato);
 
@@ -200,7 +203,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
             while(resultSet.next()){
                 
                 participante = new Participante();
-                participante.setNro_ins(resultSet.getLong("nro_ins"));
+                participante.setNro_ins(resultSet.getInt("nro_ins"));
                 Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
                 participante.setCandidato(candidato);
                     
