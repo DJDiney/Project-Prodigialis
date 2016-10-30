@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Prova {
     
-    private Long cod_prova;
+    private Integer cod_prova;
     private EmpresaProva empresa;
     private Date dat_prova;
     private byte[] arq_prova;
@@ -19,7 +19,7 @@ public class Prova {
     
     public Prova () {}
 
-    public Prova(Long cod_prova, EmpresaProva empresa, Date dat_prova, byte[] arq_prova, byte[] arq_edital, String path_prova, String path_edital, String desc_prova) {
+    public Prova(Integer cod_prova, EmpresaProva empresa, Date dat_prova, byte[] arq_prova, byte[] arq_edital, String path_prova, String path_edital, String desc_prova) {
         this.cod_prova = cod_prova;
         this.empresa = empresa;
         this.dat_prova = dat_prova;
@@ -30,11 +30,11 @@ public class Prova {
         this.desc_prova = desc_prova;
     }
     
-    public Long getCod_prova() {
+    public Integer getCod_prova() {
         return cod_prova;
     }
 
-    public void setCod_prova(Long cod_prova) {
+    public void setCod_prova(Integer cod_prova) {
         this.cod_prova = cod_prova;
     }
 

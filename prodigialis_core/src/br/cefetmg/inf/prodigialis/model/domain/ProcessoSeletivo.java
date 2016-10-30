@@ -1,6 +1,7 @@
 
 package br.cefetmg.inf.prodigialis.model.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ public class ProcessoSeletivo {
     private Long cod_proc;
     private Vaga vaga;
     private Prova prova;
-    private Participante participante;
+    private ArrayList<Participante> participante;
     private Date dat_ini;
     private Date dat_fim;
     private String nom_proc;
@@ -18,7 +19,7 @@ public class ProcessoSeletivo {
     
     public ProcessoSeletivo () {}
 
-    public ProcessoSeletivo(Long cod_proc, Vaga vaga, Prova prova, Participante participante, Date dat_ini, Date dat_fim, String nom_proc, String desc_proc, Long nro_vagas) {
+    public ProcessoSeletivo(Long cod_proc, Vaga vaga, Prova prova, ArrayList<Participante> participante, Date dat_ini, Date dat_fim, String nom_proc, String desc_proc, Long nro_vagas) {
         this.cod_proc = cod_proc;
         this.vaga = vaga;
         this.prova = prova;
@@ -54,11 +55,11 @@ public class ProcessoSeletivo {
         this.prova = prova;
     }
 
-    public Participante getParticipante() {
+    public ArrayList<Participante> getParticipante() {
         return participante;
     }
 
-    public void setParticipante(Participante participante) {
+    public void setParticipante(ArrayList<Participante> participante) {
         this.participante = participante;
     }
 

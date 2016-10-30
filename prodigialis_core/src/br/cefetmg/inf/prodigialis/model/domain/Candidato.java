@@ -7,7 +7,7 @@ public class Candidato {
     
     private char cpf;
     private Curriculo curriculo;
-    private String ibge;
+    private String cep;
     private Vaga vaga;
     private String nom_cand;
     private String email;
@@ -21,7 +21,7 @@ public class Candidato {
     public Candidato(char cpf, Curriculo curriculo, String cep, Vaga vaga, String nom_cand, String email, String password, String idt_perfil, String tel_fixo, String tel_movel) {
         this.cpf = cpf;
         this.curriculo = curriculo;
-        this.ibge = cep;
+        this.cep = cep;
         this.vaga = vaga;
         this.nom_cand = nom_cand;
         this.email = email;
@@ -47,12 +47,12 @@ public class Candidato {
         this.curriculo = curriculo;
     }
 
-    public String getIbge() {
-        return ibge;
+    public String getCep() {
+        return cep;
     }
 
-    public void setIbge(String ibge) {
-        this.ibge = ibge;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public String getNom_cand() {
