@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class PostgresqlJDBCConnection implements JDBCConnectionFactory {
 
     private final static String dbDriver = "org.postgresql.Driver";
-    private final static String dbURL = "jdbc:postgresql://pedrobeta.ddns.net:5432/prodigialis";
+    private final static String dbURL = "jdbc:postgresql://cul.ddns.net:5432/prodigialis";
     private final static String user = "postgres";
     private final static String pass = "123456";
 
