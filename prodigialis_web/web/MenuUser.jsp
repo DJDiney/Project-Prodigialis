@@ -265,23 +265,24 @@
 				</div>
 			
 			</div>
-					
+				
 			<div class="row">
-				<div class="form-group col-md-12 ">
-					<label data-toggle="collapse" data-target="#demo">EspecificaÃ§Ãµes</label>
-					<div id="demo" class="collapse">
+					<div class="form-group col-md-12 ">
+						<label data-toggle="collapse" data-target="#demo">Especificações</label>
+						<div id="demo" class="collapse">
 						<ul class="list-group">
-							<li class="list-group-item">EspecificaÃ§Ã£o 1</li>
-							<li class="list-group-item">EspecificaÃ§Ã£o 2</li>
-							<li class="list-group-item">EspecificaÃ§Ã£o 3</li>
-							<li class="list-group-item">EspecificaÃ§Ã£o 4</li>
-							<li class="list-group-item">EspecificaÃ§Ã£o 5</li>
-							<li class="list-group-item">EspecificaÃ§Ã£o 6</li>
+							<li class="list-group-item">Especificação 1</li>
+							<li class="list-group-item">Especificação 2</li>
+							<li class="list-group-item">Especificação 3</li>
+							<li class="list-group-item">Especificação 4</li>
+							<li class="list-group-item">Especificação 5</li>
+							<li class="list-group-item">Especificação 6</li>
 						</ul>
+						</div>
+						
+						
 					</div>
 				</div>
-			</div>
-
 			
 			<div class="row">
 			

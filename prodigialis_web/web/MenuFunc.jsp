@@ -152,7 +152,27 @@
                                 <a href="Saiba.jsp" class="btn btn-simple">Sobre a empresa</a>
                             </li>
                             <li>
-                                <a href="/prodigialis_web/ServletWeb?acao=Deslogar" id="btnSair"  class="btn btn-primary">Sair</a>
+                                <div class="dropdown">
+
+								  <button class="btn btn-simple dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+									
+									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span>Nome Usuário</span>
+
+									<span class="caret"></span>
+
+								  </button>
+
+								  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Informaçõe֥s da conta</a></li>
+
+									<li role="presentation" class="divider"></li>
+
+									<li role="presentation"><a href="index.html" tabindex="-1" role="menuitem">Sair</a></li>
+
+								  </ul>
+
+								</div>
                             </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -174,7 +194,191 @@
         </div>
         <div id="my-tab-content" class="tab-content text-center">
             <div class="tab-pane active" id="CriarProc"></div>
-            <div class="tab-pane" id="VerProc"></div>
+            <div class="tab-pane" id="VerProc">
+				<div class="container">
+					<h3 class="header">Ver Processo Seletivo</h3>
+					<div class="row">
+					
+						<div class="form-group col-md-10">
+							
+							<select class="form-control default-cursor">
+							
+								<option value="" disabled selected>Escolha um processo</option>
+								<option value="1">123 - 22</option>
+								<option value="2">322 - 22</option>
+								<option value="3">434 - 33</option>
+								
+							</select>
+							
+							<!--<div id="d1" class="wrapper-dropdown" tabindex="1">
+									<span>Processo...</span>
+									<ul class="select-dropdown">
+										<li><a href="#"><i class="icon-envelope icon-large"></i>123 - 22</a></li>
+										<li><a href="#"><i class="icon-truck icon-large"></i>322 - 22</a></li>
+										<li><a href="#"><i class="icon-plane icon-large"></i>434 - 33</a></li>
+									</ul>
+								</div>-->
+						
+						</div>
+						
+						<div class="form-group col-md-2 ">
+							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Listar Dados
+							<i class=" fa fa-list-alt"></i>
+							</button>
+								
+						</div>
+						
+					
+					</div>
+					
+					</div>
+					
+					<hr/>
+					
+					<div class="container">	
+						
+						<div class="row" id="proc" >
+							
+							<div class="form-group col-md-4 ">
+								
+								<label>Nome do Processo</label>
+								<input readonly value="123 - 22"  type="text" class="form-control default-cursor">
+								
+							</div>
+							
+							<div class="form-group col-md-4 ">
+								<label>Vagas de</label>
+								<input readonly value="Programador"  type="text" class="form-control default-cursor">
+							</div>
+							
+							<div class="form-group col-md-4 ">
+								<label>Número de vagas</label>
+								<input readonly value="32"  type="text" class="form-control default-cursor">
+							</div>
+						
+						</div>
+								
+						<div class="row">
+						
+							<div class="form-group col-md-6 ">
+								
+								<label>Data de Início</label>
+								<input readonly value="12/04/2016"  type="text" class="form-control default-cursor">
+								
+							</div>
+							
+							<div class="form-group col-md-6 ">
+							
+								<label>Data de Fim</label>
+								<input readonly value="21/04/2016"  type="text" class="form-control default-cursor">
+								
+							</div>
+						
+						</div>
+								
+						<div class="row">
+							<div class="form-group col-md-12 ">
+								<label data-toggle="collapse" data-target="#demo">Especificações</label>
+								<div id="demo" class="collapse">
+								<ul class="list-group">
+									<li class="list-group-item">Especificação 1</li>
+									<li class="list-group-item">Especificação 2</li>
+									<li class="list-group-item">Especificação 3</li>
+									<li class="list-group-item">Especificação 4</li>
+									<li class="list-group-item">Especificação 5</li>
+									<li class="list-group-item">Especificação 6</li>
+								</ul>
+								</div>
+								
+								
+							</div>
+						</div>
+					</div>
+					
+					<hr/>
+					
+					<div class="container">
+									
+						<div class="row">
+							<div class="form-group col-md-12">
+							
+								<label>Curriculos recebidos</label>
+								<select class="form-control">
+										
+									<option value="" disabled selected>Escolha um curriculo</option>
+									<option value="1">Jose</option>
+									<option value="2">Maria</option>
+									<option value="3">Heitor</option>
+									
+								</select>
+								
+								
+							</div>
+						</div>
+						<div class="row">
+							
+							<div class="form-group col-md-12">
+								<label>Nome do Candidato</label>
+								<input value="José da Silva Santos" readonly type="text" class="form-control default-cursor">
+							</div>
+							
+						</div>
+						
+						<div class="row">
+						
+							<div class="form-group col-md-8">
+								<label>E-mail</label>
+								<input value="jsilva@hotmail.com" type="text" readonly class="form-control default-cursor">
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label>Telefone</label>
+								<input value="(31)98888-8888" type="text" readonly class="form-control default-cursor">
+							</div>
+							
+						</div>
+						
+						<div class="row">
+						
+							<div class="col-md-8">
+								<label>Curriculo:</label>
+							</div>
+						</div>
+						
+						<div class="row">
+							
+							<div class="form-group col-md-8">
+								<input value="83217428 " readonly type="text" class="form-control default-cursor">
+							</div>	
+							
+							<div class="form-group pull-right col-md-4">
+								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Download
+									<i class=" fa fa-list-alt"></i>
+								</button>
+							</div>
+							
+						</div>	
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label>Enviar email para candidato escolhido</label>
+									<textarea placeholder="e-mail..." class="form-control"></textarea>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="form-group pull-right col-md-4">
+								<form id="form1" action="" method="post">
+									<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+										Aprovar candidato <span class="fa fa-check" aria-hidden="true"></span>
+									</button>
+								</form>
+							</div>
+						
+					</div>	
+				</div>
+			</div>
+				
             <div class="tab-pane" id="verCurri">
 	
 					<div class="container">
