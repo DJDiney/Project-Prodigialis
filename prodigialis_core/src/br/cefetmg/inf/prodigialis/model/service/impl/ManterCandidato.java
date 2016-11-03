@@ -36,7 +36,7 @@ public class ManterCandidato implements IManterCandidato {
             throw new NegocioException("Cpf deve ser informado.");
         
         
-        if((candidato.getIbge() == null))
+        if((candidato.getCep() == null))
             
             throw new NegocioException("Endereço do candidato deve ser informado.");
         
@@ -86,7 +86,7 @@ public class ManterCandidato implements IManterCandidato {
             throw new NegocioException("Cpf deve ser informado.");
         
         
-        if((candidato.getIbge() == null))
+        if((candidato.getCep() == null))
             
             throw new NegocioException("Endereço do candidato deve ser informado.");
         
