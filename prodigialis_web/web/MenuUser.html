@@ -28,17 +28,7 @@
 				$('#Filename').html(filename);
 			});
 		});
-		$(function() {
-
-				var d1 = new DropDown( $('#d1') );
-				var d2 = new DropDown( $('#d2') );
-				
-				$(document).click(function() {
-					// all dropdowns
-					$('.wrapper-dropdown').removeClass('active');
-				});
-
-			});
+		
     </script>
     <script src="x_login-register modal/login-register.js"></script>
     <style>
@@ -105,6 +95,24 @@
             z-index: -1;
         }
 		
+		.main{
+			z-index:0;
+		}
+		
+		html {
+		  position: relative;
+		}
+		body {
+		  /* Margin bottom by footer height */
+		  margin-bottom: 150px;
+		}
+		.footer {
+		  position: absolute;
+		  bottom: 0;
+		  width: 100%;
+		  /* Set the fixed height of the footer here */
+		  height: 150px;
+		}
 		 
     </style>
 
@@ -192,6 +200,15 @@
 								<option value="3">434 - 33</option>
 								
 							</select>
+							
+							<!--<div id="d1" class="wrapper-dropdown" tabindex="1">
+									<span>Processo...</span>
+									<ul class="select-dropdown">
+										<li><a href="#"><i class="icon-envelope icon-large"></i>123 - 22</a></li>
+										<li><a href="#"><i class="icon-truck icon-large"></i>322 - 22</a></li>
+										<li><a href="#"><i class="icon-plane icon-large"></i>434 - 33</a></li>
+									</ul>
+								</div>-->
 						
 						</div>
 						
@@ -204,73 +221,83 @@
 						
 					
 					</div>
+					
+		</div>
+		
 					<hr/>
-					<div class="row" id="proc" >
-						<div class="form-group col-md-4 ">
-							
-							<label for="disabled">Nome do Processo</label>
-							<input disable value="123 - 22" id="disabled" type="text" class="form-control">
-							
-						</div>
-						
-						<div class="form-group col-md-4 ">
-							<label for="disabled">Vagas de</label>
-							<input disable value="Programador" id="disabled" type="text" class="form-control">
-						</div>
-						
-						<div class="form-group col-md-4 ">
-							<label for="disabled">Número de vagas</label>
-							<input disable value="32" id="disabled" type="text" class="form-control">
-						</div>
+		<div class="container">	
+			
+			<div class="row" id="proc" >
+				
+				<div class="form-group col-md-4 ">
 					
-					</div>
+					<label for="disabled">Nome do Processo</label>
+					<input disable value="123 - 22" id="disabled" type="text" class="form-control">
 					
-					<div class="row">
+				</div>
+				
+				<div class="form-group col-md-4 ">
+					<label for="disabled">Vagas de</label>
+					<input disable value="Programador" id="disabled" type="text" class="form-control">
+				</div>
+				
+				<div class="form-group col-md-4 ">
+					<label for="disabled">Número de vagas</label>
+					<input disable value="32" id="disabled" type="text" class="form-control">
+				</div>
+			
+			</div>
 					
-						<div class="form-group col-md-6 ">
-							
-							<label for="disabled">Data de Início</label>
-							<input disable value="12/04/2016" id="disabled" type="text" class="form-control">
-							
-						</div>
-						
-						<div class="form-group col-md-6 ">
-						
-							<label for="disabled">Data de Fim</label>
-							<input disable value="21/04/2016" id="disabled" type="text" class="form-control">
-							
-						</div>
+			<div class="row">
+			
+				<div class="form-group col-md-6 ">
 					
-					</div>
+					<label for="disabled">Data de Início</label>
+					<input disable value="12/04/2016" id="disabled" type="text" class="form-control">
 					
-					<div class="row">
-						<div class="form-group col-md-12 ">
-						
-							<label for="disabled">Especificações</label>
-							
-							<ul class="list-group">
-								<li class="list-group-item">Especificação 1</li>
-								<li class="list-group-item">Especificação 2</li>
-								<li class="list-group-item">Especificação 3</li>
-								<li class="list-group-item">Especificação 4</li>
-								<li class="list-group-item">Especificação 5</li>
-								<li class="list-group-item">Especificação 6</li>
-							</ul>
-							
-						</div>
-					</div>
+				</div>
+				
+				<div class="form-group col-md-6 ">
+				
+					<label for="disabled">Data de Fim</label>
+					<input disable value="21/04/2016" id="disabled" type="text" class="form-control">
 					
-					<div class="row">
-						<div class="form-group pull-right col-md-4">
-							<form id="form1" action="" method="post">
-								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
-									Enviar <span class="fa fa-check" aria-hidden="true"></span>
-								</button>
-							</form>
-						</div>
-					</div>
+				</div>
+			
+			</div>
+					
+			<div class="row">
+				<div class="form-group col-md-12 ">
+				
+					<label for="disabled">Especificações</label>
+					
+					<ul class="list-group">
+						<li class="list-group-item">Especificação 1</li>
+						<li class="list-group-item">Especificação 2</li>
+						<li class="list-group-item">Especificação 3</li>
+						<li class="list-group-item">Especificação 4</li>
+						<li class="list-group-item">Especificação 5</li>
+						<li class="list-group-item">Especificação 6</li>
+					</ul>
+					
 				</div>
 			</div>
+			
+			<div class="row">
+			
+				<div class="form-group pull-right col-md-4">
+					<form id="form1" action="" method="post">
+						<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+							Enviar <span class="fa fa-check" aria-hidden="true"></span>
+						</button>
+					</form>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
             
 			<div class="tab-pane" id="EnvCurr">
                 <div class="container">
@@ -302,45 +329,45 @@
 
 						<div class="form-group col-md-4" >
 
-							<!--<select class="form-control">
+							<select class="form-control">
 
 								<option value="" disabled selected>Escolha um estado</option>
 								<option value="1">Minas Gerais</option>
 								<option value="2">Rio de Janeiro</option>
 								<option value="3">SÃ£o Paulo</option>
 
-							</select>-->
+							</select>
 
-								<div id="d1" class="wrapper-dropdown" tabindex="1">
+								<!--<div id="estado" class="wrapper-dropdown estado" tabindex="1">
 									<span>Estado</span>
 									<ul class="select-dropdown">
 										<li><a href="#"><i class="icon-envelope icon-large"></i>Minas Gerais</a></li>
 										<li><a href="#"><i class="icon-truck icon-large"></i>Rio de Janeiro</a></li>
 										<li><a href="#"><i class="icon-plane icon-large"></i>São Paulo</a></li>
 									</ul>
-								</div>
+								</div>-->
 							
 						</div>
 
 						<div class="form-group col-md-4" >
 
-							<!--<select class="form-control">
+							<select class="form-control">
 
 								<option value="" disabled selected>Escolha uma cidade</option>
 								<option value="1">Belo Horizonte</option>
 								<option value="2">SabarÃ¡</option>
 								<option value="3">Contagem</option>
 
-							</select>-->
+							</select>
 
-							<div id="d2" class="wrapper-dropdown" tabindex="1">
+							<!--<div id="cidade" class="wrapper-dropdown estado" tabindex="1">
 								<span>Cidade</span>
 								<ul class="select-dropdown">
 									<li><a href="#"><i class="icon-envelope icon-large"></i>Belo Horizonte</a></li>
 									<li><a href="#"><i class="icon-truck icon-large"></i>Sabará</a></li>
 									<li><a href="#"><i class="icon-plane icon-large"></i>Contagem</a></li>
 								</ul>
-							</div>
+							</div>-->
 						</div>
 
 						<div class="form-group col-md-4" >
