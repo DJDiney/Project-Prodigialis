@@ -27,7 +27,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
             String sql = "INSERT INTO Entrevista (cpf, inss, cod_ent, dat_ent, est_aprov, desc_ent, cod_cargo) " 
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES(?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             
@@ -35,9 +35,8 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             statement.setString(2, String.valueOf(entrevista.getFuncionario().getInss()));
             statement.setLong(3, entrevista.getCod_ent());
             statement.setDate(4, new java.sql.Date(entrevista.getDat_ent().getTime()));
-            statement.setBoolean(5, entrevista.isEst_aprov());
-            statement.setString(6, entrevista.getDesc_ent());
-            statement.setLong(7, entrevista.getVaga().getCod_cargo());
+            statement.setString(5, entrevista.getDesc_ent());
+            statement.setLong(6, entrevista.getVaga().getCod_cargo());
 
             statement.execute();
             

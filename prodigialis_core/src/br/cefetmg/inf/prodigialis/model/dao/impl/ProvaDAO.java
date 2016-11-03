@@ -1,9 +1,12 @@
 
 package br.cefetmg.inf.prodigialis.model.dao.impl;
 
+import br.cefetmg.inf.prodigialis.model.dao.ICandidatoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IEmpresaProvaDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IProvaDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import br.cefetmg.inf.prodigialis.model.domain.EmpresaProva;
+import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.Prova;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
@@ -189,6 +192,55 @@ public class ProvaDAO implements IProvaDAO{
         
         return ProvaList;
         
+    }
+    
+    @Override
+    public List<Participante> listarParticipantes (String cod_prova) throws PersistenciaException {
+        
+        List<Participante> participanteList = new ArrayList<Participante>();
+        
+        try {
+        
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            
+            String sql = "SELECT cpf FROM Participante WHERE cod_prova = " + cod_prova;
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+            
+            IProvaDAO provaDAO = new ProvaDAO();
+            
+            ICandidatoDAO candidatoDAO = new CandidatoDAO();
+            
+            while (resultSet.next()) {
+                
+                Participante p = new Participante ();
+                sql = "SELECT * FROM Participante WHERE cpf = " + resultSet.getString("cpf");
+                PreparedStatement stat = connection.prepareStatement(sql);
+                ResultSet result = stat.executeQuery();
+                
+                Prova prova = provaDAO.consultarPorId(result.getLong("cod_prova"));
+                p.setProva(prova);
+                Candidato candidato = candidatoDAO.consultarPorId(result.getString("cpf").charAt(0));
+                p.setCandidato(candidato);
+                p.setNro_ins(result.getInt("nro_inscricao"));
+                p.setNota(result.getInt("vlr_nota"));
+                p.setColocao(result.getInt("nro_colocao"));
+                p.setEst_aprov(result.getBoolean("est_aprovacao"));
+                
+                participanteList.add(p);
+                
+            }
+            
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+            
+        }
+        
+        return participanteList;
     }
 
     @Override
