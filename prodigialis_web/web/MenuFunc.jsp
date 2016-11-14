@@ -23,15 +23,20 @@
     <script src="x_login-register modal/bootstrap3/js/bootstrap.js" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <script src="assets/js/ct-paper.js"></script>
-    <script>
+    
+	<script>
         $(document).ready(function () {
 			$('#file-7').change(function () {
 				var filename = $('#file-7').val();
 				$('#Filename').html(filename);
 			});
-			
-		
+			$('#Specs').click(function(){
+				$('#Caret').toggleClass('CaretDown CaretRight');
+				
+			});
+		});
     </script>
+	
     <script src="x_login-register modal/login-register.js"></script>
     <style>
 	
@@ -119,6 +124,18 @@
 		input[readonly].default-cursor {
 			cursor: default;
 		}
+		
+		#Caret{
+			transition:  ease-in 0.2s;
+		}
+		
+		.CaretDown{
+			-webkit-transform:rotate(90deg);
+		}
+		
+		.CaretRight{
+			-webkit-transform:rotate(0deg);
+		}
 		 
 
     </style>
@@ -185,16 +202,17 @@
         <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#CriarProc" data-toggle="tab">Criar processo</a></li>
-                    <li><a href="#verProc"  data-toggle="tab">Acompanhar processo</a></li>
-                    <li><a href="#verCurri" data-toggle="tab">Ver curriculos</a></li>
+                    <li class="active"><a href="#CriarProcesso" data-toggle="tab">Criar processo</a></li>
+                    <li><a href="#AcompanharProcesso"  data-toggle="tab">Acompanhar processo</a></li>
+                    <li><a href="#verCurriculo" data-toggle="tab">Ver curriculos</a></li>
                     
                 </ul>
             </div>
         </div>
-        <div id="my-tab-content" class="tab-content text-center">
-            <div class="tab-pane active" id="CriarProc"></div>
-            <div class="tab-pane" id="VerProc">
+        <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane active" id="CriarProcesso"></div>
+            <div class="tab-pane" id="AcompanharProcesso">
+				
 				<div class="container">
 					<h3 class="header">Ver Processo Seletivo</h3>
 					<div class="row">
@@ -231,155 +249,151 @@
 					
 					</div>
 					
+				</div>
+				
+							<hr/>
+				<div class="container">	
+					
+					<div class="row" id="proc" >
+						
+						<div class="form-group col-md-4 ">
+							
+							<label>Nome do Processo</label>
+							<input readonly value="123 - 22"  type="text" class="form-control default-cursor">
+							
+						</div>
+						
+						<div class="form-group col-md-4 ">
+							<label>Vagas de</label>
+							<input readonly value="Programador"  type="text" class="form-control default-cursor">
+						</div>
+						
+						<div class="form-group col-md-4 ">
+							<label>Número de vagas</label>
+							<input readonly value="32"  type="text" class="form-control default-cursor">
+						</div>
+					
 					</div>
+							
+					<div class="row">
 					
-					<hr/>
+						<div class="form-group col-md-6 ">
+							
+							<label>Data de Início</label>
+							<input readonly value="12/04/2016"  type="text" class="form-control default-cursor">
+							
+						</div>
+						
+						<div class="form-group col-md-6 ">
+						
+							<label>Data de Fim</label>
+							<input readonly value="21/04/2016"  type="text" class="form-control default-cursor">
+							
+						</div>
 					
-					<div class="container">	
-						
-						<div class="row" id="proc" >
+					</div>
 							
-							<div class="form-group col-md-4 ">
-								
-								<label>Nome do Processo</label>
-								<input readonly value="123 - 22"  type="text" class="form-control default-cursor">
-								
-							</div>
-							
-							<div class="form-group col-md-4 ">
-								<label>Vagas de</label>
-								<input readonly value="Programador"  type="text" class="form-control default-cursor">
-							</div>
-							
-							<div class="form-group col-md-4 ">
-								<label>Número de vagas</label>
-								<input readonly value="32"  type="text" class="form-control default-cursor">
-							</div>
-						
-						</div>
-								
-						<div class="row">
-						
-							<div class="form-group col-md-6 ">
-								
-								<label>Data de Início</label>
-								<input readonly value="12/04/2016"  type="text" class="form-control default-cursor">
-								
+					<div class="row">
+						<div class="form-group col-md-12 ">
+							<label id="Specs" data-toggle="collapse" data-target="#demo">Especificações  </label><i id="Caret" class="fa fa-caret-right CaretRight" aria-hidden="true"></i>
+							<div id="demo" class="collapse">
+							<ul class="list-group">
+								<li class="list-group-item">Especificação 1</li>
+								<li class="list-group-item">Especificação 2</li>
+								<li class="list-group-item">Especificação 3</li>
+								<li class="list-group-item">Especificação 4</li>
+								<li class="list-group-item">Especificação 5</li>
+								<li class="list-group-item">Especificação 6</li>
+							</ul>
 							</div>
 							
-							<div class="form-group col-md-6 ">
 							
-								<label>Data de Fim</label>
-								<input readonly value="21/04/2016"  type="text" class="form-control default-cursor">
-								
-							</div>
-						
-						</div>
-								
-						<div class="row">
-							<div class="form-group col-md-12 ">
-								<label data-toggle="collapse" data-target="#demo">Especificações</label>
-								<div id="demo" class="collapse">
-								<ul class="list-group">
-									<li class="list-group-item">Especificação 1</li>
-									<li class="list-group-item">Especificação 2</li>
-									<li class="list-group-item">Especificação 3</li>
-									<li class="list-group-item">Especificação 4</li>
-									<li class="list-group-item">Especificação 5</li>
-									<li class="list-group-item">Especificação 6</li>
-								</ul>
-								</div>
-								
-								
-							</div>
 						</div>
 					</div>
-					
-					<hr/>
-					
-					<div class="container">
-									
-						<div class="row">
-							<div class="form-group col-md-12">
-							
-								<label>Curriculos recebidos</label>
-								<select class="form-control">
-										
-									<option value="" disabled selected>Escolha um curriculo</option>
-									<option value="1">Jose</option>
-									<option value="2">Maria</option>
-									<option value="3">Heitor</option>
-									
-								</select>
+				</div>
+				<hr/>
+				<div class="container">
 								
+					<div class="row">
+						<div class="form-group col-md-12">
+						
+							<label>Curriculos recebidos</label>
+							<select class="form-control">
+									
+								<option value="" disabled selected>Escolha um curriculo</option>
+								<option value="1">Jose</option>
+								<option value="2">Maria</option>
+								<option value="3">Heitor</option>
 								
-							</div>
-						</div>
-						<div class="row">
+							</select>
 							
-							<div class="form-group col-md-12">
-								<label>Nome do Candidato</label>
-								<input value="José da Silva Santos" readonly type="text" class="form-control default-cursor">
-							</div>
 							
 						</div>
+					</div>
+					<div class="row">
 						
-						<div class="row">
-						
-							<div class="form-group col-md-8">
-								<label>E-mail</label>
-								<input value="jsilva@hotmail.com" type="text" readonly class="form-control default-cursor">
-							</div>
-							
-							<div class="form-group col-md-4">
-								<label>Telefone</label>
-								<input value="(31)98888-8888" type="text" readonly class="form-control default-cursor">
-							</div>
-							
+						<div class="form-group col-md-12">
+							<label>Nome do Candidato</label>
+							<input value="José da Silva Santos" readonly type="text" class="form-control default-cursor">
 						</div>
 						
-						<div class="row">
-						
-							<div class="col-md-8">
-								<label>Curriculo:</label>
-							</div>
+					</div>
+					
+					<div class="row">
+					
+						<div class="form-group col-md-8">
+							<label>E-mail</label>
+							<input value="jsilva@hotmail.com" type="text" readonly class="form-control default-cursor">
 						</div>
 						
-						<div class="row">
-							
-							<div class="form-group col-md-8">
-								<input value="83217428 " readonly type="text" class="form-control default-cursor">
-							</div>	
-							
-							<div class="form-group pull-right col-md-4">
-								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Download
-									<i class=" fa fa-list-alt"></i>
-								</button>
-							</div>
-							
+						<div class="form-group col-md-4">
+							<label>Telefone</label>
+							<input value="(31)98888-8888" type="text" readonly class="form-control default-cursor">
+						</div>
+						
+					</div>
+					
+					<div class="row">
+					
+						<div class="col-md-8">
+							<label>Curriculo:</label>
+						</div>
+					</div>
+					
+					<div class="row">
+						
+						<div class="form-group col-md-8">
+							<input value="83217428 " readonly type="text" class="form-control default-cursor">
 						</div>	
-
-						<div class="row">
-							<div class="form-group col-md-12">
-								<label>Enviar email para candidato escolhido</label>
-									<textarea placeholder="e-mail..." class="form-control"></textarea>
-							</div>
+						
+						<div class="form-group pull-right col-md-4">
+							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Download
+								<i class=" fa fa-list-alt"></i>
+							</button>
 						</div>
 						
-						<div class="row">
-							<div class="form-group pull-right col-md-4">
-								<form id="form1" action="" method="post">
-									<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
-										Aprovar candidato <span class="fa fa-check" aria-hidden="true"></span>
-									</button>
-								</form>
-							</div>
-						
+					</div>	
+
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label>Enviar email para candidato escolhido</label>
+								<textarea placeholder="e-mail..." class="form-control"></textarea>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="form-group pull-right col-md-4">
+							<form id="form1" action="" method="post">
+								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+									Aprovar candidato <span class="fa fa-check" aria-hidden="true"></span>
+								</button>
+							</form>
+						</div>
+			
 					</div>	
 				</div>
 			</div>
-				
-            <div class="tab-pane" id="verCurri">
+            <div class="tab-pane" id="verCurriculo">
 	
 					<div class="container">
 						<h3 class="header">Ver Currículo</h3>

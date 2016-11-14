@@ -27,6 +27,10 @@
 				var filename = $('#file-7').val();
 				$('#Filename').html(filename);
 			});
+			$('#Specs').click(function(){
+				$('#Caret').toggleClass('CaretDown CaretRight');
+				
+			});
 		});
 		
     </script>
@@ -112,6 +116,18 @@
 		  width: 100%;
 		  /* Set the fixed height of the footer here */
 		  height: 150px;
+		}
+		
+		#Caret{
+			transition:  ease-in 0.2s;
+		}
+		
+		.CaretDown{
+			-webkit-transform:rotate(90deg);
+		}
+		
+		.CaretRight{
+			-webkit-transform:rotate(0deg);
 		}
 		 
     </style>
@@ -265,24 +281,23 @@
 				</div>
 			
 			</div>
-				
+					
 			<div class="row">
-					<div class="form-group col-md-12 ">
-						<label data-toggle="collapse" data-target="#demo">Especificações</label>
-						<div id="demo" class="collapse">
+				<div class="form-group col-md-12 ">
+					<label id="Specs" data-toggle="collapse" data-target="#demo">EspecificaÃ§Ãµes  </label><i id="Caret" class="fa fa-caret-right CaretRight" aria-hidden="true"></i>
+					<div id="demo" class="collapse">
 						<ul class="list-group">
-							<li class="list-group-item">Especificação 1</li>
-							<li class="list-group-item">Especificação 2</li>
-							<li class="list-group-item">Especificação 3</li>
-							<li class="list-group-item">Especificação 4</li>
-							<li class="list-group-item">Especificação 5</li>
-							<li class="list-group-item">Especificação 6</li>
+							<li class="list-group-item">EspecificaÃ§Ã£o 1</li>
+							<li class="list-group-item">EspecificaÃ§Ã£o 2</li>
+							<li class="list-group-item">EspecificaÃ§Ã£o 3</li>
+							<li class="list-group-item">EspecificaÃ§Ã£o 4</li>
+							<li class="list-group-item">EspecificaÃ§Ã£o 5</li>
+							<li class="list-group-item">EspecificaÃ§Ã£o 6</li>
 						</ul>
-						</div>
-						
-						
 					</div>
 				</div>
+			</div>
+
 			
 			<div class="row">
 			
