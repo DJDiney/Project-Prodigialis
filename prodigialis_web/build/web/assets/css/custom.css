@@ -1,84 +1,140 @@
-.tabs-left > .nav-tabs > li,
-				.tabs-right > .nav-tabs > li {
-				  float: none;
-				}
 
-				.tabs-left > .nav-tabs > li > a,
-				.tabs-right > .nav-tabs > li > a {
-				  min-width: 74px;
-				  margin-right: 0;
-				  margin-bottom: 3px;
-				}
+		form-group>.form-control{
+			background-color:#D1D1D1;
+			color:#66615B;
+			}
+			
+		.form-group>.form-control:focus{
+			background-color:white;
+			color:#66615B;
+			}	
+			
+        .form-group>.form-control{
+            background-color:#D1D1D1;
+            color:#66615B;
+        }
 
-				.tabs-left > .nav-tabs {
-				  float: left;
-				  margin-right: 19px;
-				  border-right: 2px solid #d1d1d1;
-				}
+        .form-group>.form-control:focus{
+            background-color:white;
+            color:#66615B;
+        }	
 
-				.tabs-left > .nav-tabs > li > a {
-				  margin-right: -1px;
-				  -webkit-border-radius: 4px 0 0 4px;
-					 -moz-border-radius: 4px 0 0 4px;
-						  border-radius: 4px 0 0 4px;
-				}
+        .form-group>.form-control::-webkit-input-placeholder {
+            color: #66615B;
+        }
 
-				.tabs-left > .nav-tabs > li > a:hover,
-				.tabs-left > .nav-tabs > li > a:focus {
-				  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
-				}
+        .form-group>.form-control:-moz-placeholder { /* Firefox 18- */
+            color: #66615B;  
+        }
 
-				.tabs-left > .nav-tabs .active > a,
-				.tabs-left > .nav-tabs .active > a:hover,
-				.tabs-left > .nav-tabs .active > a:focus {
-				  border-color: #ddd transparent #ddd #ddd;
-				  *border-right-color: #ffffff;
-				}
-				
-				.nav-tabs > li.active :after {
-				  border-bottom: 11px solid #ffffff;
-				  border-left: 11px solid transparent;
-				  border-right: 11px solid transparent;
-				  content: "";
-				  display: inline-block;
-				  position: absolute;
-				   right: -8px;
-				  bottom: 40%;
-				  transform:rotate(-90deg);
-				   -webkit-transform:rotate(-90deg);
-				}
-				.nav-tabs > li.active :before {
-				  border-bottom: 11px solid #d1d1d1;
-				  border-left: 11px solid transparent;
-				  border-right: 11px solid transparent;
-				  content: "";
-				  display: inline-block;
-				  position: absolute;
-				  right: -6px;
-				  bottom: 40%;
-				  transform:rotate(-90deg);
-				   -webkit-transform:rotate(-90deg);
-				}
-								
-				
+        .form-group>.form-control::-moz-placeholder {  /* Firefox 19+ */
+            color: #66615B;  
+        }
+
+        .form-group>.form-control:-ms-input-placeholder {  
+            color: #66615B;  
+        }
+
+        #btnSubmit{
+            border-color:#66615B;
+        }
+
+		#btnInput{
+            border-color:#66615B;
+        }
+		
+		#btnSubmit:hover{
+            border-color:#333;
+        }
 
 
+        #btnInput:hover{
+            border-color:#333;
+        }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
-}
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+		
+		.main{
+			z-index:0;
+		}
+		
+		html {
+		  position: relative;
+		}
+		body {
+		  /* Margin bottom by footer height */
+		  margin-bottom: 150px;
+		}
+		.footer {
+		  position: absolute;
+		  bottom: 0;
+		  width: 100%;
+		  /* Set the fixed height of the footer here */
+		  height: 150px;
+		}
+		 
+		input[readonly].default-cursor {
+			cursor: default;
+		}
+		
+		#Caret{
+			transition:  ease-in 0.2s;
+		}
+		
+		.CaretDown{
+			-webkit-transform:rotate(90deg);
+		}
+		
+		.CaretRight{
+			-webkit-transform:rotate(0deg);
+		}
+		
+		.fa-times:hover{
+			color:#c50000; 
+		}
+		
+		.btn-circle{
+			 position: relative;
+			padding: 0;
+			margin: 0;
+			
+			background: transparent;
+			color: inherit;
+			font-size: 16px;
+			border: none;
+			outline: none;
+			text-align: center;
+			display: inline-block;
+			box-sizing: border-box;
+		}
+		
+		.btn-success{
+			font-size:20px;
+			width:41px;
+			height:41px;
+		}
+		
+		.fa-times{
+			color:#66615b;
+			align:center;
+			vertical-align:center;
+			width: 100%;
+			transition: 0.1s ease-in;
+		}
+		
+		.adicionar:hover{
+			color:#42A084;
+			
+		}
+		
+		.adicionar{
+			vertical-align:center;
+			width: 100%;
+		}
