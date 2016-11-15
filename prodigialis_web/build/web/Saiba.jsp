@@ -17,7 +17,7 @@
 
         <div class="nav-wrapper" style="background-color:#047A78; font-family:Oswald">
 
-            <a href="index.html" class="brand-logo" style="left:17%">Prodigialis RH</a>
+            <a href="index.jsp" class="brand-logo" style="left:17%">Prodigialis RH</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" style="margin-right:1%">
 
@@ -108,7 +108,7 @@
             <div class="container">
 
                 © 2016 Prodigialis, todos os direitos reservados
-                <a class="grey-text text-lighten-4 right" href="index.html">Home</a>
+                <a class="grey-text text-lighten-4 right" href="index.jsp">Home</a>
 
             </div>
 

@@ -2,10 +2,8 @@
 package br.cefetmg.inf.prodigialis.model.dao.impl;
 
 import br.cefetmg.inf.prodigialis.model.dao.ICandidatoDAO;
-import br.cefetmg.inf.prodigialis.model.dao.IEmpresaProvaDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IProvaDAO;
 import br.cefetmg.inf.prodigialis.model.domain.Candidato;
-import br.cefetmg.inf.prodigialis.model.domain.EmpresaProva;
 import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.Prova;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
@@ -28,19 +26,18 @@ public class ProvaDAO implements IProvaDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO Prova (cnpj, dat_prova, "
+            String sql = "INSERT INTO Prova (dat_prova, "
                     + "arq_prova, path_prov, arq_edital, path_edt, desc_prova) " 
                     + "VALUES(?, ?, ?, ?, ?, ?, ?) RETURNING cod_prova";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setString(1, String.valueOf(prova.getEmpresa().getCnpj()));
-            statement.setDate(2, new java.sql.Date(prova.getDat_prova().getTime()));
-            statement.setBytes(3, prova.getArq_prova());
-            statement.setString(4, " ");
-            statement.setBytes(5, prova.getArq_edital());
-            statement.setString(6, " ");
-            statement.setString(7, prova.getDesc_prova());
+            statement.setDate(1, new java.sql.Date(prova.getDat_prova().getTime()));
+            statement.setBytes(2, prova.getArq_prova());
+            statement.setString(3, " ");
+            statement.setBytes(4, prova.getArq_edital());
+            statement.setString(5, " ");
+            statement.setString(6, prova.getDesc_prova());
             
             ResultSet resultSet = statement.executeQuery();
             
@@ -86,7 +83,7 @@ public class ProvaDAO implements IProvaDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
             String sql = "UPDATE Prova " +
-                            " SET cnpj = ?, "
+                            " SET valor = ?, "
                             + "dat_prova = ?, "
                             + "arq_prova = ?, "
                             + "arq_edital = ?, "
@@ -94,8 +91,8 @@ public class ProvaDAO implements IProvaDAO{
                             " WHERE cod_prova = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setString(1, String.valueOf(prova.getEmpresa().getCnpj()));
+            
+            statement.setDouble(1, prova.getValor());
             statement.setDate(2, new java.sql.Date(prova.getDat_prova().getTime()));
             statement.setBytes(3, prova.getArq_prova());
             statement.setBytes(4, prova.getArq_edital());
@@ -162,20 +159,18 @@ public class ProvaDAO implements IProvaDAO{
 
             ResultSet resultSet = statement.executeQuery();
             
-            IEmpresaProvaDAO empresaProvaDAO = new EmpresaProvaDAO();
             
             while(resultSet.next()){
                 
                 Prova prova = new Prova();
                 prova.setCod_prova(resultSet.getInt("cod_prova"));
-                EmpresaProva empresaProva = empresaProvaDAO.consultarPorId(resultSet.getString("cnpj").charAt(0));
-                prova.setEmpresa(empresaProva);
                 prova.setDat_prova(resultSet.getDate("dat_prova"));
                 prova.setArq_prova(resultSet.getBytes("arq_prova"));
                 prova.setPath_prova(resultSet.getString("path_prov"));
                 prova.setArq_edital(resultSet.getBytes("arq_edital"));
                 prova.setPath_edital(resultSet.getString("path_edt"));
                 prova.setDesc_prova(resultSet.getString("desc_prova"));
+                prova.setValor(resultSet.getDouble("valor"));
 
                 ProvaList.add(prova);
                 
@@ -192,55 +187,6 @@ public class ProvaDAO implements IProvaDAO{
         
         return ProvaList;
         
-    }
-    
-    @Override
-    public List<Participante> listarParticipantes (String cod_prova) throws PersistenciaException {
-        
-        List<Participante> participanteList = new ArrayList<Participante>();
-        
-        try {
-        
-            Connection connection = JDBCConnectionManager.getInstance().getConnection();
-            
-            String sql = "SELECT cpf FROM Participante WHERE cod_prova = " + cod_prova;
-            
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            ResultSet resultSet = statement.executeQuery();
-            
-            IProvaDAO provaDAO = new ProvaDAO();
-            
-            ICandidatoDAO candidatoDAO = new CandidatoDAO();
-            
-            while (resultSet.next()) {
-                
-                Participante p = new Participante ();
-                sql = "SELECT * FROM Participante WHERE cpf = " + resultSet.getString("cpf");
-                PreparedStatement stat = connection.prepareStatement(sql);
-                ResultSet result = stat.executeQuery();
-                
-                Prova prova = provaDAO.consultarPorId(result.getLong("cod_prova"));
-                p.setProva(prova);
-                Candidato candidato = candidatoDAO.consultarPorId(result.getString("cpf").charAt(0));
-                p.setCandidato(candidato);
-                p.setNro_ins(result.getInt("nro_inscricao"));
-                p.setNota(result.getInt("vlr_nota"));
-                p.setColocao(result.getInt("nro_colocao"));
-                p.setEst_aprov(result.getBoolean("est_aprovacao"));
-                
-                participanteList.add(p);
-                
-            }
-            
-        } catch (Exception e) {
-            
-            e.printStackTrace();
-            throw new PersistenciaException(e.getMessage(), e);
-            
-        }
-        
-        return participanteList;
     }
 
     @Override
@@ -259,20 +205,18 @@ public class ProvaDAO implements IProvaDAO{
 
             ResultSet resultSet = statement.executeQuery();
 
-            IEmpresaProvaDAO empresaProvaDAO = new EmpresaProvaDAO();
             
             while(resultSet.next()){
                 
                 prova = new Prova();
                 prova.setCod_prova(resultSet.getInt("cod_prova"));
-                EmpresaProva empresaProva = empresaProvaDAO.consultarPorId(resultSet.getString("cnpj").charAt(0));
-                prova.setEmpresa(empresaProva);
                 prova.setDat_prova(resultSet.getDate("dat_prova"));
                 prova.setArq_prova(resultSet.getBytes("arq_prova"));
                 prova.setPath_prova(resultSet.getString("path_prov"));
                 prova.setArq_edital(resultSet.getBytes("arq_edital"));
                 prova.setPath_edital(resultSet.getString("path_edt"));
                 prova.setDesc_prova(resultSet.getString("desc_prova"));
+                prova.setValor(resultSet.getDouble("valor"));
                     
             }
             
@@ -288,5 +232,6 @@ public class ProvaDAO implements IProvaDAO{
         return prova;
         
     }
+
     
 }

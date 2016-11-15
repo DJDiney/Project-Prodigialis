@@ -23,14 +23,16 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO Participante (cod_prova, cpf, nro_inscricao) " 
-                    + "VALUES(?, ?)";
+            String sql = "INSERT INTO Participante (cod_proc, cpf, est_aprov,arq_respostas,nota) " 
+                    + "VALUES(?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, participante.getProva().getCod_prova());
+            statement.setInt(1, participante.getCodProcesso());
             statement.setString(2, String.valueOf(participante.getCandidato().getCpf()));
-            statement.setInt(3, participante.getNro_ins());
+            statement.setBoolean(3, participante.isEst_aprov());
+            statement.setBytes(4, participante.getArqRespostas());
+            statement.setDouble(5,participante.getNota());
             
             statement.execute();
             
@@ -58,40 +60,19 @@ public class ParticipanteDAO implements IParticipanteDAO{
                             " SET cpf = ?, "+ 
                             " est_aprov = ? " +  
                             " vlr_nota = ? " +
-                            " nro_colocacao = ? " +
-                            " WHERE nro_ins = ?";
+                            " arq_repostas = ? " +
+                            " WHERE nro_insc = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, String.valueOf(participante.getCandidato().getCpf()));
             statement.setBoolean(2, participante.isEst_aprov());
-            statement.setInt(3, participante.getNota());
-            statement.setInt(4, participante.getColocao());
-            statement.setLong(5, participante.getNro_ins());
+            statement.setDouble(3, participante.getNota());
+            statement.setBytes(4, participante.getArqRespostas());
+            statement.setLong(5, participante.getNroInscricao());
             
             statement.execute();
             
-            if (participante.isEst_aprov()) {
-                
-                PreparedStatement st3 = connection.prepareStatement("SELECT cod_cargo FROM "
-                        + "ProcessoSeletivo WHERE nro_ins = ?");
-                
-                st3.setLong(1, participante.getNro_ins());
-                ResultSet res = st3.executeQuery();
-                
-                if(res.next()){
-                    
-                    Long cod = res.getLong("cod_cargo");
-                    PreparedStatement statement2 = connection.prepareStatement("UPDATE Candidato "
-                        + "SET cod_cargo = ? WHERE cpf = ?");
-                    
-                    statement2.setLong(1, cod);
-                    statement2.setLong(2, participante.getCandidato().getCpf());
-                    statement2.execute();
-                
-                }
-                
-            }
             
             connection.close();
             
@@ -113,20 +94,13 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM Participante WHERE nro_ins = ?";
+            String sql = "DELETE FROM Participante WHERE nro_insc = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setLong(1, nro_ins);
 
             statement.execute();
-            
-            PreparedStatement statement2 = connection.prepareStatement("DELETE FROM "
-                    + "ProcessoSeletivo WHERE nro_ins = ?");
-            
-            statement2.setLong(1, nro_ins);
-            
-            statement2.execute();
             
             connection.close();
             
@@ -161,9 +135,13 @@ public class ParticipanteDAO implements IParticipanteDAO{
             while(resultSet.next()){
                 
                 Participante participante = new Participante();
-                participante.setNro_ins(resultSet.getInt("nro_ins"));
+                participante.setNroInscricao(resultSet.getInt("nro_ins"));
                 Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
                 participante.setCandidato(candidato);
+                participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
+                participante.setCodProcesso(resultSet.getInt("cod_proc"));
+                participante.setEst_aprov(resultSet.getBoolean("est_aprov"));
+                participante.setNota(resultSet.getDouble("nota"));
 
                 ParticipanteList.add(participante);
                 
@@ -202,10 +180,13 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             while(resultSet.next()){
                 
-                participante = new Participante();
-                participante.setNro_ins(resultSet.getInt("nro_ins"));
+                participante.setNroInscricao(resultSet.getInt("nro_ins"));
                 Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
                 participante.setCandidato(candidato);
+                participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
+                participante.setCodProcesso(resultSet.getInt("cod_proc"));
+                participante.setEst_aprov(resultSet.getBoolean("est_aprov"));
+                participante.setNota(resultSet.getDouble("nota"));
                     
             }
             

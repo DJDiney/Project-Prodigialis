@@ -7,21 +7,22 @@ import java.util.Objects;
 public class Participante {
     
     private Candidato candidato;
-    private Prova prova;
-    private Integer nro_ins;
-    private Integer nota;
-    private Integer colocao;
     private boolean est_aprov;
+    private byte[] arq_respostas;
+    private String path_respostas;
+    private double nota;
+    private int nroInscricao = -1;
+    private int codProcesso;
     
     public Participante () {}
 
-    public Participante(Candidato candidato, Prova prova, Integer nro_ins, Integer nota, Integer colocao, boolean est_aprov) {
+    public Participante(int codProcesso,Candidato candidato, byte[] arq_respostas, int nroInscricao, Integer nota, Integer colocao, boolean est_aprov) {
         this.candidato = candidato;
-        this.prova = prova;
-        this.nro_ins = nro_ins;
+        this.arq_respostas = arq_respostas;
+        this.nroInscricao = nroInscricao;
         this.nota = nota;
-        this.colocao = colocao;
         this.est_aprov = est_aprov;
+        this.codProcesso = codProcesso;
     }
     
     public Candidato getCandidato() {
@@ -36,36 +37,20 @@ public class Participante {
         return candidato.getCpf();
     }
 
-    public Prova getProva() {
-        return prova;
+    public byte[] getArqRespostas() {
+        return arq_respostas;
     }
 
-    public void setProva(Prova prova) {
-        this.prova = prova;
+    public void setProva(byte[] getArqRespostas) {
+        this.arq_respostas = arq_respostas;
     }
 
-    public Integer getNro_ins() {
-        return nro_ins;
-    }
-
-    public void setNro_ins(Integer nro_ins) {
-        this.nro_ins = nro_ins;
-    }
-
-    public Integer getNota() {
+    public Double getNota() {
         return nota;
     }
 
-    public void setNota(Integer nota) {
+    public void setNota(Double nota) {
         this.nota = nota;
-    }
-
-    public Integer getColocao() {
-        return colocao;
-    }
-
-    public void setColocao(Integer colocao) {
-        this.colocao = colocao;
     }
 
     public boolean isEst_aprov() {
@@ -76,16 +61,31 @@ public class Participante {
         this.est_aprov = est_aprov;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.candidato);
-        hash = 79 * hash + Objects.hashCode(this.prova);
-        hash = 79 * hash + Objects.hashCode(this.nro_ins);
-        hash = 79 * hash + (this.est_aprov ? 1 : 0);
-        return hash;
+    public int getNroInscricao() {
+        return nroInscricao;
     }
 
+    public void setNroInscricao(int nroInscricao) {
+        this.nroInscricao = nroInscricao;
+    }
+
+    public int getCodProcesso() {
+        return codProcesso;
+    }
+
+    public void setCodProcesso(int codProcesso) {
+        this.codProcesso = codProcesso;
+    }
+
+    public byte[] getArq_respostas() {
+        return arq_respostas;
+    }
+
+    public void setArq_respostas(byte[] arq_respostas) {
+        this.arq_respostas = arq_respostas;
+    }
+
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -98,10 +98,7 @@ public class Participante {
         if (!Objects.equals(this.candidato, other.candidato)) {
             return false;
         }
-        if (!Objects.equals(this.prova, other.prova)) {
-            return false;
-        }
-        if (!Objects.equals(this.nro_ins, other.nro_ins)) {
+        if (!Objects.equals(this.nroInscricao, other.nroInscricao)) {
             return false;
         }
         if (this.est_aprov != other.est_aprov) {
@@ -110,9 +107,4 @@ public class Participante {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Participante{" + "candidato=" + candidato + ", prova=" + prova + ", nro_ins=" + nro_ins +  ", est_aprov=" + est_aprov + '}';
-    }
-    
 }

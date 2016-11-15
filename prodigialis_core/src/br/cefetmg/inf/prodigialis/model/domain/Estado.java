@@ -31,14 +31,6 @@ public class Estado {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + this.uf;
-        hash = 73 * hash + Objects.hashCode(this.nom_est);
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -51,11 +43,5 @@ public class Estado {
             return false;
         }
         return Objects.equals(this.nom_est, other.nom_est);
-    }
-
-    @Override
-    public String toString() {
-        return "Estado{" + "uf=" + uf + ", nom_est=" + nom_est + '}';
-    }  
-    
+    }    
 }

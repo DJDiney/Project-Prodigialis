@@ -9,19 +9,28 @@ import java.util.Objects;
 public class Prova {
     
     private Integer cod_prova;
-    private EmpresaProva empresa;
     private Date dat_prova;
     private byte[] arq_prova;
     private byte[] arq_edital;
     private String path_prova;
     private String path_edital;
     private String desc_prova;
+    private String path_gabarito;
+    private byte[] arq_gabarito;
+    private double valor;
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
     
     public Prova () {}
 
-    public Prova(Integer cod_prova, EmpresaProva empresa, Date dat_prova, byte[] arq_prova, byte[] arq_edital, String path_prova, String path_edital, String desc_prova) {
+    public Prova(Integer cod_prova, Date dat_prova, byte[] arq_prova, byte[] arq_edital, String path_prova, String path_edital, String desc_prova) {
         this.cod_prova = cod_prova;
-        this.empresa = empresa;
         this.dat_prova = dat_prova;
         this.arq_prova = arq_prova;
         this.arq_edital = arq_edital;
@@ -36,14 +45,6 @@ public class Prova {
 
     public void setCod_prova(Integer cod_prova) {
         this.cod_prova = cod_prova;
-    }
-
-    public EmpresaProva getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(EmpresaProva empresa) {
-        this.empresa = empresa;
     }
 
     public Date getDat_prova() {
@@ -95,20 +96,6 @@ public class Prova {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.cod_prova);
-        hash = 97 * hash + Objects.hashCode(this.empresa);
-        hash = 97 * hash + Objects.hashCode(this.dat_prova);
-        hash = 97 * hash + Arrays.hashCode(this.arq_prova);
-        hash = 97 * hash + Arrays.hashCode(this.arq_edital);
-        hash = 97 * hash + Objects.hashCode(this.path_prova);
-        hash = 97 * hash + Objects.hashCode(this.path_edital);
-        hash = 97 * hash + Objects.hashCode(this.desc_prova);
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -118,9 +105,6 @@ public class Prova {
         }
         final Prova other = (Prova) obj;
         if (!Objects.equals(this.cod_prova, other.cod_prova)) {
-            return false;
-        }
-        if (!Objects.equals(this.empresa, other.empresa)) {
             return false;
         }
         if (!Objects.equals(this.dat_prova, other.dat_prova)) {
@@ -142,11 +126,6 @@ public class Prova {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Prova{" + "cod_prova=" + cod_prova + ", empresa=" + empresa + ", dat_prova=" + dat_prova + ", arq_prova=" + arq_prova + ", arq_edital=" + arq_edital + ", path_prova=" + path_prova + ", path_edital=" + path_edital + ", desc_prova=" + desc_prova + '}';
     }
     
 }

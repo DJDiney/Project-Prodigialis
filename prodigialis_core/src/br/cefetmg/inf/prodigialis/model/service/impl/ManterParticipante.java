@@ -47,7 +47,7 @@ public class ManterParticipante implements IManterParticipante{
             throw new NegocioException("Dados do participante não foram informados.");
         
        
-        if(participante.getNro_ins() == null)
+        if(participante.getNroInscricao() == -1)
             
             throw new NegocioException("Codigo do participante deve ser informado.");
         

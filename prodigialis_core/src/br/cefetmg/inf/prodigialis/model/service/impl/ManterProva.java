@@ -27,11 +27,6 @@ public class ManterProva implements IManterProva{
             
             throw new NegocioException("Dados do prova não foram informados.");
         
-       
-        if(prova.getEmpresa() == null)
-            
-            throw new NegocioException("Empresa deve ser informada.");
-        
         if(prova.getDat_prova() == null)
             
             throw new NegocioException("Data da prova deve ser informada.");
@@ -62,9 +57,6 @@ public class ManterProva implements IManterProva{
             
             throw new NegocioException("Codigo da prova não foi informado.");
         
-        if(prova.getEmpresa() == null)
-            
-            throw new NegocioException("Empresa deve ser informada.");
         
         if(prova.getDat_prova() == null)
             

@@ -3,10 +3,10 @@ package br.cefetmg.inf.prodigialis.model.dao.impl;
 
 import br.cefetmg.inf.prodigialis.model.dao.ICandidatoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.ICurriculoDAO;
-import br.cefetmg.inf.prodigialis.model.dao.IVagaDAO;
+import br.cefetmg.inf.prodigialis.model.dao.ICargoDAO;
 import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import br.cefetmg.inf.prodigialis.model.domain.Curriculo;
-import br.cefetmg.inf.prodigialis.model.domain.Vaga;
+import br.cefetmg.inf.prodigialis.model.domain.Cargo;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import java.sql.Connection;
@@ -40,7 +40,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             statement.setString(7, String.valueOf(candidato.getIdt_perfil()));
             statement.setString(8, String.valueOf(candidato.getTel_fixo()));
             statement.setString(9, String.valueOf(candidato.getTel_movel()));
-            statement.setLong(10, candidato.getVaga().getCod_cargo());
+            statement.setLong(10, candidato.getCod_cargoPretendido());
             
             statement.execute();
             
@@ -86,7 +86,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             statement.setString(6, String.valueOf(candidato.getIdt_perfil()));
             statement.setString(7, String.valueOf(candidato.getTel_fixo()));
             statement.setString(8, String.valueOf(candidato.getTel_movel()));
-            statement.setLong(9, candidato.getVaga().getCod_cargo());
+            statement.setLong(9, candidato.getCod_cargoPretendido());
             statement.setString(10, String.valueOf(candidato.getCpf()));
 
             statement.execute();
@@ -147,7 +147,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             ResultSet resultSet = statement.executeQuery();
             
             ICurriculoDAO curriculoDAO = new CurriculoDAO();
-            IVagaDAO vagaDAO = new VagaDAO();
+            ICargoDAO cargoDAO = new CargoDAO();
             
             while(resultSet.next()){
                 
@@ -160,10 +160,10 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
                 candidato.setIdt_perfil(resultSet.getString("idt_perfil"));
-                Vaga vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cep"));
+                Cargo vaga = cargoDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setVaga(vaga);
+                candidato.setCod_cargoPretendido(vaga.getCod_cargo());
 
                 CandidatoList.add(candidato);
                 
@@ -199,7 +199,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             ResultSet resultSet = statement.executeQuery();
 
             ICurriculoDAO curriculoDAO = new CurriculoDAO();
-            IVagaDAO vagaDAO = new VagaDAO();
+            ICargoDAO vagaDAO = new CargoDAO();
             
             while(resultSet.next()){
                 
@@ -212,10 +212,10 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
                 candidato.setIdt_perfil(resultSet.getString("idt_perfil"));
-                Vaga vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cep"));
+                Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setVaga(vaga);
+                candidato.setCod_cargoPretendido(vaga.getCod_cargo());
                     
             }
             
@@ -249,7 +249,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             ResultSet resultSet = statement.executeQuery();
 
             ICurriculoDAO curriculoDAO = new CurriculoDAO();
-            IVagaDAO vagaDAO = new VagaDAO();
+            ICargoDAO vagaDAO = new CargoDAO();
             
             while(resultSet.next()){
                 
@@ -262,10 +262,10 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
                 candidato.setIdt_perfil(resultSet.getString("idt_perfil"));
-                Vaga vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cep"));
+                Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setVaga(vaga);
+                candidato.setCod_cargoPretendido(vaga.getCod_cargo());
                     
             }
             

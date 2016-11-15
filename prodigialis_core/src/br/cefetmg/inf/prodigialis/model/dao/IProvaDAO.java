@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface IProvaDAO extends GenericDAO<Prova>{
 
-    public List<Participante> listarParticipantes (String cod_prova) throws PersistenciaException;
+
 
 }

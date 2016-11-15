@@ -43,15 +43,6 @@ public class Cidade {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.ibge;
-        hash = 79 * hash + Objects.hashCode(this.estado);
-        hash = 79 * hash + Objects.hashCode(this.nom_cid);
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -67,11 +58,6 @@ public class Cidade {
             return false;
         }
         return Objects.equals(this.nom_cid, other.nom_cid);
-    }
-
-    @Override
-    public String toString() {
-        return "Cidade{" + "ibge=" + ibge + ", estado=" + estado + ", nom_cid=" + nom_cid + '}';
     }
       
 }

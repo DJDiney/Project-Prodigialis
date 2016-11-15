@@ -50,7 +50,7 @@
             <div class="container">
 
                 © 2016 Prodigialis, todos os direitos reservados
-                <a class="grey-text text-lighten-4 right" href="index.html">Home</a>
+                <a class="grey-text text-lighten-4 right" href="index.jsp">Home</a>
 
             </div>
 

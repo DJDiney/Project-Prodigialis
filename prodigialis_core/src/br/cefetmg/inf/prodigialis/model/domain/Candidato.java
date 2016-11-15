@@ -8,7 +8,7 @@ public class Candidato {
     private char cpf;
     private Curriculo curriculo;
     private String cep;
-    private Vaga vaga;
+    private long cod_cargoPretendido;
     private String nom_cand;
     private String email;
     private String password;
@@ -18,11 +18,11 @@ public class Candidato {
     
     public Candidato () {}
 
-    public Candidato(char cpf, Curriculo curriculo, String cep, Vaga vaga, String nom_cand, String email, String password, String idt_perfil, String tel_fixo, String tel_movel) {
+    public Candidato(char cpf, Curriculo curriculo, String cep, long cod_cargoPretendido, String nom_cand, String email, String password, String idt_perfil, String tel_fixo, String tel_movel) {
         this.cpf = cpf;
         this.curriculo = curriculo;
         this.cep = cep;
-        this.vaga = vaga;
+        this.cod_cargoPretendido = cod_cargoPretendido;
         this.nom_cand = nom_cand;
         this.email = email;
         this.password = password;
@@ -79,12 +79,12 @@ public class Candidato {
         this.password = password;
     }
 
-    public Vaga getVaga() {
-        return vaga;
+    public long getCod_cargoPretendido() {
+        return cod_cargoPretendido;
     }
 
-    public void setVaga(Vaga vaga) {
-        this.vaga = vaga;
+    public void setCod_cargoPretendido(long cod_cod_cargoPretendido) {
+        this.cod_cargoPretendido = cod_cargoPretendido;
     }
 
     public String getIdt_perfil() {

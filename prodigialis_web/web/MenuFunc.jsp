@@ -185,7 +185,7 @@
 
 									<li role="presentation" class="divider"></li>
 
-									<li role="presentation"><a href="index.html" tabindex="-1" role="menuitem">Sair</a></li>
+									<li role="presentation"><a href="index.jsp" tabindex="-1" role="menuitem">Sair</a></li>
 
 								  </ul>
 
