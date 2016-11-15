@@ -3,15 +3,15 @@ package br.cefetmg.inf.prodigialis.model.domain;
 
 import java.util.Objects;
 
-public class Vaga {
+public class Cargo {
     
     private Long cod_cargo;
     private String nom_cargo;
     private String desc_cargo;
     
-    public Vaga () {}
+    public Cargo () {}
 
-    public Vaga(Long cod_cargo, String nom_cargo, String desc_cargo) {
+    public Cargo(Long cod_cargo, String nom_cargo, String desc_cargo) {
         this.cod_cargo = cod_cargo;
         this.nom_cargo = nom_cargo;
         this.desc_cargo = desc_cargo;
@@ -58,7 +58,7 @@ public class Vaga {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Vaga other = (Vaga) obj;
+        final Cargo other = (Cargo) obj;
         if (!Objects.equals(this.cod_cargo, other.cod_cargo)) {
             return false;
         }

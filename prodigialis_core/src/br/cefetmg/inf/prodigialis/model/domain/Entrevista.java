@@ -9,22 +9,22 @@ public class Entrevista {
     
     private Candidato candidato;
     private Funcionario funcionario;
-    private Vaga vaga;
-    private Long cod_ent;
-    private Date dat_ent;
-    private boolean est_aprov;
-    private String desc_ent;
+    private long cod_cargoPretendido;
+    private Long codigoEntrevista;
+    private Date data;
+    private boolean aprovacao;
+    private String descricaoEntrevista;
     
     public Entrevista () {}
 
-    public Entrevista(Candidato candidato, Funcionario funcionario, Vaga vaga, Long cod_ent, Date dat_ent, boolean est_aprov, String desc_ent) {
+    public Entrevista(Candidato candidato, Funcionario funcionario, long cod_cargoPretendido, Long codigoEntrevista, Date data, boolean aprovacao, String descricaoEntrevista) {
         this.candidato = candidato;
         this.funcionario = funcionario;
-        this.vaga = vaga;
-        this.cod_ent = cod_ent;
-        this.dat_ent = dat_ent;
-        this.est_aprov = est_aprov;
-        this.desc_ent = desc_ent;
+        this.cod_cargoPretendido = cod_cargoPretendido;
+        this.codigoEntrevista = codigoEntrevista;
+        this.data = data;
+        this.aprovacao = aprovacao;
+        this.descricaoEntrevista = descricaoEntrevista;
     }
 
     public Candidato getCandidato() {
@@ -44,56 +44,43 @@ public class Entrevista {
     }
 
     public Long getCod_ent() {
-        return cod_ent;
+        return codigoEntrevista;
     }
 
-    public void setCod_ent(Long cod_ent) {
-        this.cod_ent = cod_ent;
+    public void setCod_ent(Long codigoEntrevista) {
+        this.codigoEntrevista = codigoEntrevista;
     }
 
     public Date getDat_ent() {
-        return dat_ent;
+        return data;
     }
 
-    public void setDat_ent(Date dat_ent) {
-        this.dat_ent = dat_ent;
+    public void setDat_ent(Date data) {
+        this.data = data;
     }
 
     public boolean isEst_aprov() {
-        return est_aprov;
+        return aprovacao;
     }
 
-    public void setEst_aprov(boolean est_aprov) {
-        this.est_aprov = est_aprov;
+    public void setEst_aprov(boolean aprovacao) {
+        this.aprovacao = aprovacao;
     }
 
     public String getDesc_ent() {
-        return desc_ent;
+        return descricaoEntrevista;
     }
 
-    public void setDesc_ent(String desc_ent) {
-        this.desc_ent = desc_ent;
+    public void setDesc_ent(String descricaoEntrevista) {
+        this.descricaoEntrevista = descricaoEntrevista;
     }
 
-    public Vaga getVaga() {
-        return vaga;
+    public long getCod_cargoPretendido() {
+        return cod_cargoPretendido;
     }
 
-    public void setVaga(Vaga vaga) {
-        this.vaga = vaga;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.candidato);
-        hash = 89 * hash + Objects.hashCode(this.funcionario);
-        hash = 89 * hash + Objects.hashCode(this.vaga);
-        hash = 89 * hash + Objects.hashCode(this.cod_ent);
-        hash = 89 * hash + Objects.hashCode(this.dat_ent);
-        hash = 89 * hash + (this.est_aprov ? 1 : 0);
-        hash = 89 * hash + Objects.hashCode(this.desc_ent);
-        return hash;
+    public void setCod_cargoPretendido(long cod_cargoPretendido) {
+        this.cod_cargoPretendido = cod_cargoPretendido;
     }
 
     @Override
@@ -111,19 +98,19 @@ public class Entrevista {
         if (!Objects.equals(this.funcionario, other.funcionario)) {
             return false;
         }
-        if (!Objects.equals(this.vaga, other.vaga)) {
+        if (!Objects.equals(this.cod_cargoPretendido, other.cod_cargoPretendido)) {
             return false;
         }
-        if (!Objects.equals(this.cod_ent, other.cod_ent)) {
+        if (!Objects.equals(this.codigoEntrevista, other.codigoEntrevista)) {
             return false;
         }
-        if (!Objects.equals(this.dat_ent, other.dat_ent)) {
+        if (!Objects.equals(this.data, other.data)) {
             return false;
         }
-        if (this.est_aprov != other.est_aprov) {
+        if (this.aprovacao != other.aprovacao) {
             return false;
         }
-        if (!Objects.equals(this.desc_ent, other.desc_ent)) {
+        if (!Objects.equals(this.descricaoEntrevista, other.descricaoEntrevista)) {
             return false;
         }
         return true;

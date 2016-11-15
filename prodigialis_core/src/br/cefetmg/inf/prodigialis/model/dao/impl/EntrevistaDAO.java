@@ -4,11 +4,11 @@ package br.cefetmg.inf.prodigialis.model.dao.impl;
 import br.cefetmg.inf.prodigialis.model.dao.ICandidatoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IEntrevistaDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IFuncionarioDAO;
-import br.cefetmg.inf.prodigialis.model.dao.IVagaDAO;
+import br.cefetmg.inf.prodigialis.model.dao.ICargoDAO;
 import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import br.cefetmg.inf.prodigialis.model.domain.Entrevista;
 import br.cefetmg.inf.prodigialis.model.domain.Funcionario;
-import br.cefetmg.inf.prodigialis.model.domain.Vaga;
+import br.cefetmg.inf.prodigialis.model.domain.Cargo;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import java.sql.Connection;
@@ -36,7 +36,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             statement.setLong(3, entrevista.getCod_ent());
             statement.setDate(4, new java.sql.Date(entrevista.getDat_ent().getTime()));
             statement.setString(5, entrevista.getDesc_ent());
-            statement.setLong(6, entrevista.getVaga().getCod_cargo());
+            statement.setLong(6, entrevista.getCod_cargoPretendido());
 
             statement.execute();
             
@@ -44,7 +44,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
                             " SET cod_cargo = ? " +
                             " WHERE cpf = ?");
                 
-            statement2.setLong(1, entrevista.getVaga().getCod_cargo());
+            statement2.setLong(1, entrevista.getCod_cargoPretendido());
             statement2.setString(2, String.valueOf(entrevista.getCandidato().getCpf()));
 
             connection.close();
@@ -83,7 +83,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             statement.setDate(3, new java.sql.Date(entrevista.getDat_ent().getTime()));
             statement.setBoolean(4, entrevista.isEst_aprov());
             statement.setString(5, entrevista.getDesc_ent());
-            statement.setLong(6, entrevista.getVaga().getCod_cargo());
+            statement.setLong(6, entrevista.getCod_cargoPretendido());
             statement.setLong(7, entrevista.getCod_ent());
             
             statement.execute();
@@ -92,7 +92,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
                             " SET cod_cargo = ? " +
                             " WHERE cpf = ?");
                 
-            statement2.setLong(1, entrevista.getVaga().getCod_cargo());
+            statement2.setLong(1,  entrevista.getCod_cargoPretendido());
             statement2.setString(2, String.valueOf(entrevista.getCandidato().getCpf()));
 
             connection.close();
@@ -152,7 +152,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             
             ICandidatoDAO candidatoDAO = new CandidatoDAO();
             IFuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-            IVagaDAO vagaDAO = new VagaDAO();
+            ICargoDAO vagaDAO = new CargoDAO();
 
             while(resultSet.next()){
                 
@@ -165,8 +165,8 @@ public class EntrevistaDAO implements IEntrevistaDAO {
                 entrevista.setDat_ent(resultSet.getDate("dat_ent"));
                 entrevista.setEst_aprov(resultSet.getBoolean("est_aprov"));
                 entrevista.setDesc_ent(resultSet.getString("desc_ent"));
-                Vaga vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
-                entrevista.setVaga(vaga);
+                Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
+                entrevista.setCod_cargoPretendido(vaga.getCod_cargo());
                 
 
                 entrevistaList.add(entrevista);
@@ -204,7 +204,7 @@ public class EntrevistaDAO implements IEntrevistaDAO {
 
             ICandidatoDAO candidatoDAO = new CandidatoDAO();
             IFuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-            IVagaDAO vagaDAO = new VagaDAO();
+            ICargoDAO vagaDAO = new CargoDAO();
 
             while(resultSet.next()){
                 
@@ -217,8 +217,8 @@ public class EntrevistaDAO implements IEntrevistaDAO {
                 entrevista.setDat_ent(resultSet.getDate("dat_ent"));
                 entrevista.setEst_aprov(resultSet.getBoolean("est_aprov"));
                 entrevista.setDesc_ent(resultSet.getString("desc_ent"));
-                Vaga vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
-                entrevista.setVaga(vaga);
+                Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
+                entrevista.setCod_cargoPretendido(vaga.getCod_cargo());
                     
             }
             

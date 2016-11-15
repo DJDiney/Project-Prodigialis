@@ -35,10 +35,6 @@ public class ManterEntrevista implements IManterEntrevista{
             
             throw new NegocioException("Funcionario deve ser informado.");
         
-        if(entrevista.getVaga() == null)
-            
-            throw new NegocioException("Vaga deve ser informada.");
-        
         if(entrevista.getDat_ent() == null)
             
             throw new NegocioException("Data deve ser informada.");
@@ -68,10 +64,6 @@ public class ManterEntrevista implements IManterEntrevista{
         if(entrevista.getFuncionario() == null)
             
             throw new NegocioException("Funcionario deve ser informado.");
-        
-        if(entrevista.getVaga() == null)
-            
-            throw new NegocioException("Vaga deve ser informada.");
         
         if(entrevista.getDat_ent() == null)
             

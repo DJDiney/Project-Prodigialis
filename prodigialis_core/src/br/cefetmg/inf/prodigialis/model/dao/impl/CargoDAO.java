@@ -1,8 +1,8 @@
 
 package br.cefetmg.inf.prodigialis.model.dao.impl;
 
-import br.cefetmg.inf.prodigialis.model.dao.IVagaDAO;
-import br.cefetmg.inf.prodigialis.model.domain.Vaga;
+import br.cefetmg.inf.prodigialis.model.dao.ICargoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Cargo;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import java.sql.Connection;
@@ -11,17 +11,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VagaDAO implements IVagaDAO {
+public class CargoDAO implements ICargoDAO {
     
     
     @Override
-    public boolean inserir(Vaga vaga) throws PersistenciaException {
+    public boolean inserir(Cargo vaga) throws PersistenciaException {
 
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO Vaga (nom_cargo, desc_cargo) " 
+            String sql = "INSERT INTO Cargo (nom_cargo, desc_cargo) " 
                     + "VALUES(?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -45,13 +45,13 @@ public class VagaDAO implements IVagaDAO {
     }
     
     @Override
-    public boolean atualizar(Vaga vaga) throws PersistenciaException {
+    public boolean atualizar(Cargo vaga) throws PersistenciaException {
 
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "UPDATE Vaga SET nom_cargo = ?, desc_cargo = ? WHERE cod_cargo = ? ";
+            String sql = "UPDATE Cargo SET nom_cargo = ?, desc_cargo = ? WHERE cod_cargo = ? ";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -75,15 +75,15 @@ public class VagaDAO implements IVagaDAO {
     }
     
     @Override
-    public List<Vaga> listarTodos() throws PersistenciaException {
+    public List<Cargo> listarTodos() throws PersistenciaException {
 
-        List<Vaga> vagaList = new ArrayList<Vaga>();
+        List<Cargo> vagaList = new ArrayList<Cargo>();
 
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Vaga";
+            String sql = "SELECT * FROM Cargo";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -91,7 +91,7 @@ public class VagaDAO implements IVagaDAO {
 
             while(resultSet.next()){
                 
-                Vaga vaga = new Vaga();
+                Cargo vaga = new Cargo();
                 vaga.setCod_cargo(resultSet.getLong("cod_cargo"));
                 vaga.setNom_cargo(resultSet.getString("nom_cargo"));
                 vaga.setDesc_cargo(resultSet.getString("desc_cargo"));
@@ -114,15 +114,15 @@ public class VagaDAO implements IVagaDAO {
     }
 
     @Override
-    public Vaga consultarPorId(Long cod_cargo) throws PersistenciaException {
+    public Cargo consultarPorId(Long cod_cargo) throws PersistenciaException {
         
-        Vaga vaga = null;
+        Cargo vaga = null;
         
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Vaga WHERE cod_cargo = ?";
+            String sql = "SELECT * FROM Cargo WHERE cod_cargo = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, cod_cargo);
@@ -131,7 +131,7 @@ public class VagaDAO implements IVagaDAO {
 
             if(resultSet.next()){
                 
-                vaga = new Vaga();
+                vaga = new Cargo();
                 vaga.setCod_cargo(resultSet.getLong("cod_cargo"));
                 vaga.setNom_cargo(resultSet.getString("nom_cargo"));
                 vaga.setDesc_cargo(resultSet.getString("desc_cargo"));
@@ -152,15 +152,15 @@ public class VagaDAO implements IVagaDAO {
     }
 
     @Override
-    public Vaga consultarPorNome(String nome) throws PersistenciaException {
+    public Cargo consultarPorNome(String nome) throws PersistenciaException {
         
-        Vaga vaga = null;
+        Cargo vaga = null;
         
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Vaga WHERE nom_cargo = ?";
+            String sql = "SELECT * FROM Cargo WHERE nom_cargo = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, nome);
@@ -169,7 +169,7 @@ public class VagaDAO implements IVagaDAO {
 
             if(resultSet.next()){
                 
-                vaga = new Vaga();
+                vaga = new Cargo();
                 vaga.setCod_cargo(resultSet.getLong("cod_cargo"));
                 vaga.setNom_cargo(resultSet.getString("nom_cargo"));
                 vaga.setDesc_cargo(resultSet.getString("desc_cargo"));
