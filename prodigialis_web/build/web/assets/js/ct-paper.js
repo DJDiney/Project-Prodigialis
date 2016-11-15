@@ -411,4 +411,14 @@ function DropDown(el) {
 				}
 			}
 
+		$(function() {
+
+			var estado = new DropDown( $('#estado') );
+			var cidade = new DropDown( $('#cidade') );
 			
+			$(document).click(function() {
+				// all dropdowns
+				$('.wrapper-dropdown').removeClass('active');
+			});
+
+		});
