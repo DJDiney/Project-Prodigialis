@@ -30,6 +30,7 @@
 		
     </script>
     <script src="x_login-register modal/login-register.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js">   </script>
     <style>
 	
 		form-group>.form-control{
@@ -283,9 +284,9 @@
 							<select class="form-control default-cursor">
 							
 								<option value="" disabled selected>Escolha um processo</option>
-								<option value="1">123 - 22</option>
-								<option value="2">322 - 22</option>
-								<option value="3">434 - 33</option>
+                                                                <% 
+                                                                    
+                                                                %>
 								
 							</select>
 							
