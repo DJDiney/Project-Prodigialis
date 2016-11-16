@@ -23,7 +23,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO Participante (cod_proc, cpf, est_aprov,arq_respostas,nota) " 
+            String sql = "INSERT INTO participante (cod_proc, cpf, est_aprov,arq_respostas,nota) " 
                     + "VALUES(?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "UPDATE Participante " +
+            String sql = "UPDATE participante " +
                             " SET cpf = ?, "+ 
                             " est_aprov = ? " +  
                             " vlr_nota = ? " +
@@ -88,7 +88,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
     }
 
     @Override
-    public boolean excluir(Long nro_ins) throws PersistenciaException {
+    public boolean excluir(int nro_ins) throws PersistenciaException {
 
         try {
             
@@ -98,7 +98,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setLong(1, nro_ins);
+            statement.setInt(1, nro_ins);
 
             statement.execute();
             
@@ -116,15 +116,15 @@ public class ParticipanteDAO implements IParticipanteDAO{
     }
 
     @Override
-    public List<Participante> listarTodos() throws PersistenciaException {
+    public ArrayList<Participante> listarTodos() throws PersistenciaException {
 
-        List<Participante> ParticipanteList = new ArrayList<Participante>();
+        ArrayList<Participante> ParticipanteList = new ArrayList<Participante>();
 
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Participante";
+            String sql = "SELECT * FROM participante";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -135,10 +135,10 @@ public class ParticipanteDAO implements IParticipanteDAO{
             while(resultSet.next()){
                 
                 Participante participante = new Participante();
-                participante.setNroInscricao(resultSet.getInt("nro_ins"));
-                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
+                participante.setNroInscricao(resultSet.getInt("nro_insc"));
+                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
                 participante.setCandidato(candidato);
-                participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
+                //participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
                 participante.setCodProcesso(resultSet.getInt("cod_proc"));
                 participante.setEst_aprov(resultSet.getBoolean("est_aprov"));
                 participante.setNota(resultSet.getDouble("nota"));
@@ -161,7 +161,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
     }
 
     @Override
-    public Participante consultarPorId(Long nro_ins) throws PersistenciaException {
+    public Participante consultarPorId(int nro_ins) throws PersistenciaException {
         
         Participante participante = null;
         
@@ -169,10 +169,10 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Participante WHERE nro_ins = ?";
+            String sql = "SELECT * FROM participante WHERE nro_insc = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, nro_ins);
+            statement.setInt(1, nro_ins);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -180,10 +180,10 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             while(resultSet.next()){
                 
-                participante.setNroInscricao(resultSet.getInt("nro_ins"));
-                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
+                participante.setNroInscricao(resultSet.getInt("nro_insc"));
+                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
                 participante.setCandidato(candidato);
-                participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
+                //participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
                 participante.setCodProcesso(resultSet.getInt("cod_proc"));
                 participante.setEst_aprov(resultSet.getBoolean("est_aprov"));
                 participante.setNota(resultSet.getDouble("nota"));

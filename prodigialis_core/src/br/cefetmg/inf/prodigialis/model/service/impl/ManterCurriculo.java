@@ -84,13 +84,6 @@ public class ManterCurriculo implements IManterCurriculo{
     
     }
 
-    @Override
-    public Curriculo consultarPorId(Long id) throws PersistenciaException{
-    
-        Curriculo result = curriculoDAO.consultarPorId(id);
-        return result; 
-    
-    }
     
     
 }

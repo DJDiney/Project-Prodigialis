@@ -135,7 +135,7 @@ public class ManterCandidato implements IManterCandidato {
     }
 
     @Override
-    public Candidato consultarPorId(char id) throws PersistenciaException{
+    public Candidato consultarPorId(String id) throws PersistenciaException{
     
         Candidato result = candidatoDAO.consultarPorId(id);
         return result; 

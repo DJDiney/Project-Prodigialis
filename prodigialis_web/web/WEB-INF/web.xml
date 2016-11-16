@@ -4,9 +4,17 @@
         <servlet-name>ServletWeb</servlet-name>
         <servlet-class>br.cefetmg.inf.prodigialis.controller.ServletWeb</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxServlet</servlet-name>
+        <servlet-class>br.cefetmg.inf.prodigialis.controller.AjaxServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletWeb</servlet-name>
         <url-pattern>/ServletWeb</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxServlet</servlet-name>
+        <url-pattern>/AjaxServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

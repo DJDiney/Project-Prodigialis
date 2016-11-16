@@ -103,37 +103,5 @@ public class ManterProcessoSeletivo implements IManterProcessoSeletivo {
         
     }
 
-    @Override
-    public boolean excluir(Long id) throws PersistenciaException {
-        
-        boolean result = processoDAO.excluir(id);
-        return result; 
-        
-    }
-
-    @Override
-    public Participante consultarPorId(Long id) throws PersistenciaException {
-        
-        IParticipanteDAO participante = new ParticipanteDAO();
-        Participante obj = participante.consultarPorId(id);
-        return obj;
-        
-    }
-
-    @Override
-    public List<ProcessoSeletivo> listarTodos() throws PersistenciaException {
-        
-        List<ProcessoSeletivo> listProcesso = processoDAO.listarTodos();
-        return listProcesso;
-        
-    }
-
-    @Override
-    public ProcessoSeletivo consultarProcesssoPorId(Long id) throws PersistenciaException {
-        
-        ProcessoSeletivo result = processoDAO.consultarPorId(id);
-        return result; 
-        
-    }
     
 }

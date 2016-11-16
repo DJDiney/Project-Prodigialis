@@ -1,4 +1,7 @@
 <%@page import="br.cefetmg.inf.prodigialis.controller.Login"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
+
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
     if(cod != '1'){
         request.getSession().setAttribute("codUsuario", null);
@@ -36,8 +39,137 @@
 			});
 		});
     </script>
-	
     <script src="x_login-register modal/login-register.js"></script>
+    <script>
+        //<![CDATA[
+        window.onload=function(){
+        /*
+         -------------------------------------------------------
+         syntax 
+         MAIN.createRelatedSelector(
+            from   -> the filtering element           
+            to     -> the element for filtered options
+            obj    -> An object containing the options per
+                      option of the filtering (from) element
+            [sort] -> optional sorting method for sorting
+                      of the complete or filtered options list
+         --------------------------------------------------------
+        */
+        
+        //create the interdepent selectors
+        function initSelectors(){
+         // next 2 statements should generate error message, see console
+         MAIN.createRelatedSelector(); 
+         MAIN.createRelatedSelector(document.querySelector('#processo') );
+
+         //countries
+         MAIN.createRelatedSelector
+             (   document.querySelector('#processo')           // from select element
+                ,document.querySelector('#curriculos')      // to select element
+                ,{                                               // values object 
+                  <% 
+                       ProcessoSeletivoDAO dao = new ProcessoSeletivoDAO();
+                       java.util.ArrayList<ProcessoSeletivo> lista = dao.listarTodos();
+                       for(int i=0;i<lista.size();i++){                                    
+                   %>      
+                     <%=lista.get(i).getNome()%>:[<%for(int j=0;j<lista.get(i).getParticipantes().size();j++){%>'<%=lista.get(i).getParticipantes().get(j).getCandidato().getCurriculo().getCod_cur()%>'<%if(j != lista.get(i).getParticipantes().size()-1){%> ,<%}%><%}%>]<%if(i != lista.size()-1){%> ,<%}%>
+                   <%
+                       }
+                   %> }
+              ,function(a,b){return a>b ? 1 : a<b ? -1 : 0;}   // sort method
+         );
+        }
+
+        //create MAIN namespace
+        (function(ns){ // don't pollute the global namespace
+
+         function create(from, to, obj, srt){
+          if (!from) {
+                 throw CreationError('create: parameter selector [from] missing');
+          }
+          if (!to) {
+                 throw CreationError('create: parameter related selector [to] missing');
+          }
+          if (!obj) {
+                 throw CreationError('create: related filter definition object [obj] missing');
+          }
+
+          //retrieve all options from obj and add it
+          obj.all = (function(o){
+             var a = [];
+             for (var l in o) {
+               a = /array/i.test (o[l].constructor) ? a.concat(o[l]) : a;
+             }
+             return a.sort(srt);
+          }(obj));
+         // initialize and populate to-selector with all
+          populator.call( from
+                          ,null
+                          ,to
+                          ,obj
+                          ,srt
+          );
+
+          // assign handler    
+          from.onchange = populator;
+
+          function initStatics(fn,obj){
+           for (var l in obj) {
+               if (obj.hasOwnProperty(l)){
+                   fn[l] = obj[l];
+               }
+           }
+           fn.initialized = true;
+          }
+
+         function populator(e, relatedto, obj, srt){
+            // set pseudo statics
+            var self = populator;
+            if (!self.initialized) {
+                initStatics(self,{optselects:obj,optselectsall:obj.all,relatedTo:relatedto,sorter:srt || false});
+            }
+
+            if (!self.relatedTo){
+                throw 'not related to a selector';
+            }
+            // populate to-selector from filter/all
+            var optsfilter = this.selectedIndex < 1
+                           ? self.optselectsall 
+                           : self.optselects[this.options[this.selectedIndex].firstChild.nodeValue]
+               ,cselect = self.relatedTo
+               ,opts = cselect.options;
+            if (self.sorter) optsfilter.sort(self.sorter);
+            opts.length = 0;
+            for (var i=0;i<optsfilter.length;i+=1){
+                opts[i] = new Option(optsfilter[i],i);
+            }
+          }
+         }
+
+         // custom Error
+         function CreationError(mssg){
+             return {name:'CreationError',message:mssg};
+         }
+
+         // return the create method with some error handling   
+         window[ns] = { 
+             createRelatedSelector: function(from,to,obj,srt) {
+                  try { 
+                      if (arguments.length<1) {
+                         throw CreationError('no parameters');
+                      } 
+                      create.call(null,from,to,obj,srt); 
+                  } 
+                  catch(e) { console.log('createRelatedSelector ->',e.name,'\n'
+                                           + e.message +
+                                           '\ncheck parameters'); }
+                }
+         };    
+        }('MAIN'));
+        //initialize
+        initSelectors();
+        }//]]> 
+    </script>
     <style>
 	
 		form-group>.form-control{
@@ -139,9 +271,35 @@
 		 
 
     </style>
-
-
-
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        function ajaxUpdate(){
+            var e = document.getElementById("processo");
+            var par = e.options[e.selectedIndex].value;
+            var tag = new XMLHttpRequest();
+            tag.onreadystatechange = function(){
+               if(tag.readyState == 4){
+                    if(tag.status == 200){
+                        obj = JSON.parse(tag.responseText);
+                        document.getElementById("cod").value = obj[0];
+                        document.getElementById("vaga").value = obj[1];
+                        document.getElementById("nvaga").value = obj[2];
+                        document.getElementById("datin").value = obj[3];
+                        document.getElementById("datfim").value = obj[4];
+                        //var resp = array();
+                        //resp.push(item);
+                    }else{
+                        alert("Deu ruim");
+                    }
+                }
+            };
+            
+            tag.open("POST", "AjaxServlet");
+            tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            tag.send("acao=dadosProcesso&id=" + par);
+        }
+    </script>
 </head>
 
 <body>
@@ -219,14 +377,20 @@
 					
 						<div class="form-group col-md-10">
 							
-							<select class="form-control default-cursor">
-							
+							<select class="form-control default-cursor" id="processo">
+                                                                
 								<option value="" disabled selected>Escolha um processo</option>
-								<option value="1">123 - 22</option>
-								<option value="2">322 - 22</option>
-								<option value="3">434 - 33</option>
+								<% 
+                                                                    for(int i=0;i<lista.size();i++){                                    
+                                                                %>
+                                                                <option value="<%= lista.get(i).getCodProcesso()%>"><%= lista.get(i).getNome()%></option>
+                                                                <%
+                                                                    }
+                                                                %>
 								
 							</select>
+                                                                
+                                                                
 							
 							<!--<div id="d1" class="wrapper-dropdown" tabindex="1">
 									<span>Processo...</span>
@@ -240,7 +404,7 @@
 						</div>
 						
 						<div class="form-group col-md-2 ">
-							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Listar Dados
+							<button  class="btn btn-fill" style="width:100%"  onclick="ajaxUpdate()">Listar Dados
 							<i class=" fa fa-list-alt"></i>
 							</button>
 								
@@ -258,19 +422,19 @@
 						
 						<div class="form-group col-md-4 ">
 							
-							<label>Nome do Processo</label>
-							<input readonly value="123 - 22"  type="text" class="form-control default-cursor">
+							<label>C�digo do Processo</label>
+							<input readonly value="123 - 22"  type="text" class="form-control default-cursor" id="cod">
 							
 						</div>
 						
 						<div class="form-group col-md-4 ">
 							<label>Vagas de</label>
-							<input readonly value="Programador"  type="text" class="form-control default-cursor">
+							<input readonly value="Programador"  type="text" class="form-control default-cursor" id="vaga">
 						</div>
 						
 						<div class="form-group col-md-4 ">
 							<label>Número de vagas</label>
-							<input readonly value="32"  type="text" class="form-control default-cursor">
+							<input readonly value="32"  type="text" class="form-control default-cursor" id="nvaga">
 						</div>
 					
 					</div>
@@ -280,14 +444,14 @@
 						<div class="form-group col-md-6 ">
 							
 							<label>Data de Início</label>
-							<input readonly value="12/04/2016"  type="text" class="form-control default-cursor">
+							<input readonly value="12/04/2016"  type="text" class="form-control default-cursor" id="datin">
 							
 						</div>
 						
 						<div class="form-group col-md-6 ">
 						
 							<label>Data de Fim</label>
-							<input readonly value="21/04/2016"  type="text" class="form-control default-cursor">
+							<input readonly value="21/04/2016"  type="text" class="form-control default-cursor" id="datfim">
 							
 						</div>
 					
@@ -316,16 +480,11 @@
 								
 					<div class="row">
 						<div class="form-group col-md-12">
-						
+                                                        
 							<label>Curriculos recebidos</label>
-							<select class="form-control">
-									
-								<option value="" disabled selected>Escolha um curriculo</option>
-								<option value="1">Jose</option>
-								<option value="2">Maria</option>
-								<option value="3">Heitor</option>
-								
-							</select>
+							<select class="form-control" id="curriculos" onchange="ajaxUpdate()">	
+                                                                <option value="" disabled selected>Escolha um curriculo</option>
+                                                        </select>
 							
 							
 						</div>

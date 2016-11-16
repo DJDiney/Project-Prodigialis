@@ -10,8 +10,5 @@ public interface IManterParticipante {
     
     public boolean inserir(Participante obj) throws PersistenciaException, NegocioException;
     public boolean atualizar(Participante obj) throws PersistenciaException, NegocioException;
-    public boolean excluir(Long id) throws PersistenciaException;
-    public Participante consultarPorId(Long id) throws PersistenciaException;
-    public List<Participante> listarTodos() throws PersistenciaException;
     
 }

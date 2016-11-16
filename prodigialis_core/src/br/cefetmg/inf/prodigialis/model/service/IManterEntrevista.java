@@ -11,8 +11,5 @@ public interface IManterEntrevista {
     
     public boolean inserir(Entrevista obj) throws PersistenciaException, NegocioException;
     public boolean atualizar(Entrevista obj) throws PersistenciaException, NegocioException;
-    public boolean excluir(Long id) throws PersistenciaException;
-    public Entrevista consultarPorId(Long id) throws PersistenciaException;
-    public List<Entrevista> listarTodos() throws PersistenciaException;
     
 }

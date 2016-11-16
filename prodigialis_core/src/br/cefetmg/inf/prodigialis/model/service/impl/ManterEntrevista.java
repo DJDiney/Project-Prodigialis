@@ -76,28 +76,5 @@ public class ManterEntrevista implements IManterEntrevista{
     
     }
 
-    @Override
-    public boolean excluir(Long id) throws PersistenciaException{
-    
-        boolean result = entrevistaDAO.excluir(id);
-        return result; 
-        
-    }
-
-    @Override
-    public List<Entrevista> listarTodos() throws PersistenciaException{
-    
-        List<Entrevista> listEntrevista = entrevistaDAO.listarTodos();
-        return listEntrevista;
-    
-    }
-
-    @Override
-    public Entrevista consultarPorId(Long id) throws PersistenciaException{
-    
-        Entrevista result = entrevistaDAO.consultarPorId(id);
-        return result; 
-    
-    }
     
 }

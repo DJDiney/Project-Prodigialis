@@ -118,7 +118,7 @@ public class ProvaDAO implements IProvaDAO{
     }
 
     @Override
-    public boolean excluir(Long cod_prova) throws PersistenciaException {
+    public boolean excluir(int cod_prova) throws PersistenciaException {
 
         try {
             
@@ -190,7 +190,7 @@ public class ProvaDAO implements IProvaDAO{
     }
 
     @Override
-    public Prova consultarPorId(Long cod_prova) throws PersistenciaException {
+    public Prova consultarPorId(int cod_prova) throws PersistenciaException {
         
         Prova prova = null;
         
@@ -201,7 +201,7 @@ public class ProvaDAO implements IProvaDAO{
             String sql = "SELECT * FROM Prova WHERE cod_prova = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, cod_prova);
+            statement.setInt(1, cod_prova);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -232,6 +232,7 @@ public class ProvaDAO implements IProvaDAO{
         return prova;
         
     }
+
 
     
 }

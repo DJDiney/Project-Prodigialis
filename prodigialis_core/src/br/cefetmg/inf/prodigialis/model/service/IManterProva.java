@@ -11,8 +11,5 @@ public interface IManterProva {
     
     public boolean inserir(Prova obj) throws PersistenciaException, NegocioException;
     public boolean atualizar(Prova obj) throws PersistenciaException, NegocioException;
-    public boolean excluir(Long id) throws PersistenciaException;
-    public Prova consultarPorId(Long id) throws PersistenciaException;
-    public List<Prova> listarTodos() throws PersistenciaException;
     
 }

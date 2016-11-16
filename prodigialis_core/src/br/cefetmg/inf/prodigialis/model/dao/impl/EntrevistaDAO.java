@@ -157,9 +157,9 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             while(resultSet.next()){
                 
                 Entrevista entrevista = new Entrevista();
-                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
+                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
                 entrevista.setCandidato(candidato);
-                Funcionario funcionario = funcionarioDAO.consultarPorId(resultSet.getString("inss").charAt(0));
+                Funcionario funcionario = funcionarioDAO.consultarPorId(resultSet.getString("inss"));
                 entrevista.setFuncionario(funcionario);
                 entrevista.setCod_ent(resultSet.getLong("cod_ent"));
                 entrevista.setDat_ent(resultSet.getDate("dat_ent"));
@@ -209,9 +209,9 @@ public class EntrevistaDAO implements IEntrevistaDAO {
             while(resultSet.next()){
                 
                 entrevista = new Entrevista();
-                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf").charAt(0));
+                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
                 entrevista.setCandidato(candidato);
-                Funcionario funcionario = funcionarioDAO.consultarPorId(resultSet.getString("inss").charAt(0));
+                Funcionario funcionario = funcionarioDAO.consultarPorId(resultSet.getString("inss"));
                 entrevista.setFuncionario(funcionario);
                 entrevista.setCod_ent(resultSet.getLong("cod_ent"));
                 entrevista.setDat_ent(resultSet.getDate("dat_ent"));

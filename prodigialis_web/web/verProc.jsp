@@ -1,5 +1,6 @@
 <head>
-
+    <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
+    <%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/ct-paper.css" rel="stylesheet"/>
@@ -29,6 +30,7 @@
 		});
 		
     </script>
+    
     <script src="x_login-register modal/login-register.js"></script>
     <script src="http://code.jquery.com/jquery-latest.js">   </script>
     <style>
@@ -281,11 +283,17 @@
 					
 						<div class="form-group col-md-10">
 							
-							<select class="form-control default-cursor">
+							<select onchange="updateAjax(this.selectedIndex)" class="form-control default-cursor" id="processo">
 							
 								<option value="" disabled selected>Escolha um processo</option>
                                                                 <% 
-                                                                    
+                                                                    ProcessoSeletivoDAO dao = new ProcessoSeletivoDAO();
+                                                                    ArayList<ProcessoSeletivo> lista = dao.listarTodos();
+                                                                    for(int i=0;i<lista.size();i++){                                    
+                                                                %>
+                                                                <option" value="<%= lista.get(i).getCodProcesso()%>"><%= lista.get(i).getNome()%></option>
+                                                                <%
+                                                                    }
                                                                 %>
 								
 							</select>
@@ -380,13 +388,8 @@
 				<div class="form-group col-md-12">
 				
 					<label>Curriculos recebidos</label>
-					<select class="form-control">
-							
+					<select class="form-control" id="curriculos">	
 						<option value="" disabled selected>Escolha um curriculo</option>
-						<option value="1">Jose</option>
-						<option value="2">Maria</option>
-						<option value="3">Heitor</option>
-						
 					</select>
 					
 					

@@ -63,28 +63,5 @@ public class ManterParticipante implements IManterParticipante{
     
     }
 
-    @Override
-    public boolean excluir(Long id) throws PersistenciaException{
-    
-        boolean result = participanteDAO.excluir(id);
-        return result; 
-        
-    }
-
-    @Override
-    public List<Participante> listarTodos() throws PersistenciaException{
-    
-        List<Participante> listParticipante = participanteDAO.listarTodos();
-        return listParticipante;
-    
-    }
-
-    @Override
-    public Participante consultarPorId(Long id) throws PersistenciaException{
-    
-        Participante result = participanteDAO.consultarPorId(id);
-        return result; 
-    
-    }
     
 }

@@ -2,8 +2,10 @@ package br.cefetmg.inf.prodigialis.model.dao.impl;
 
 import br.cefetmg.inf.prodigialis.model.dao.ICargoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IProcessoSeletivoDAO;
+import br.cefetmg.inf.prodigialis.model.dao.IParticipanteDAO;
 import br.cefetmg.inf.prodigialis.model.dao.IProvaDAO;
 import br.cefetmg.inf.prodigialis.model.domain.Cargo;
+import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
 import br.cefetmg.inf.prodigialis.model.domain.Prova;
 import br.cefetmg.inf.prodigialis.util.db.JDBCConnectionManager;
@@ -27,25 +29,28 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO processoseletivo (cod_proc, cod_prova, dat_ini,"
+            String sql = "INSERT INTO processoseletivo (cod_prova, dat_ini,"
                     + "dat_fim, nom_proc, desc_proc, nro_vagas, em_andamento, cod_cargo) " 
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, obj.getCodProcesso());
-            statement.setInt(2,obj.getProva().getCod_prova() );
-            statement.setDate(3, (Date) obj.getDataInicio());
-            statement.setDate(4, (Date) obj.getDataFinal());
-            statement.setString(5, obj.getNome());
-            statement.setString(6, obj.getDescricao());
-            statement.setInt(7, obj.getNroVagas());
-            statement.setBoolean(8, obj.isEm_andamento());
-            statement.setInt(9, Integer.parseInt(obj.getCargoOferecido().getCod_cargo().toString()));
+            statement.setInt(1,obj.getProva().getCod_prova() );
+            statement.setDate(2, (Date) obj.getDataInicio());
+            statement.setDate(3, (Date) obj.getDataFinal());
+            statement.setString(4, obj.getNome());
+            statement.setString(5, obj.getDescricao());
+            statement.setInt(6, obj.getNroVagas());
+            statement.setBoolean(7, obj.isEm_andamento());
+            statement.setInt(8, Integer.parseInt(obj.getCargoOferecido().getCod_cargo().toString()));
             
             statement.execute();
             
             connection.close();
+            ParticipanteDAO dao = new ParticipanteDAO();
+            for(int i=0;i<obj.getParticipantes().size();i++){
+                dao.inserir(obj.getParticipantes().get(i));
+            }
             
             return true;
             
@@ -90,6 +95,10 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
             statement.execute();
 
             connection.close();
+            ParticipanteDAO dao = new ParticipanteDAO();
+            for(int i=0;i<obj.getParticipantes().size();i++){
+                dao.atualizar(obj.getParticipantes().get(i));
+            }
             
             return true;
         
@@ -129,7 +138,7 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
     }
 
     @Override
-    public ProcessoSeletivo consultarPorId(Long id) throws PersistenciaException {
+    public ProcessoSeletivo consultarPorId(int id) throws PersistenciaException {
         
         ProcessoSeletivo processo = null;
         
@@ -137,21 +146,27 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM processoseletivo WHERE id = ?";
+            String sql = "SELECT * FROM processoseletivo WHERE cod_proc = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
+            statement.setInt(1, id);
 
             ResultSet resultSet = statement.executeQuery();
             
             IProvaDAO provaDAO = new ProvaDAO();
             ICargoDAO cargoDAO = new CargoDAO();
-            
+            ParticipanteDAO partDAO = new ParticipanteDAO();
             while (resultSet.next()) {
                 
                 processo = new ProcessoSeletivo();
+                ArrayList<Participante> parts = partDAO.listarTodos();
+                System.out.println("AIÓ:" +parts.size());
+                ArrayList<Participante> aux = new ArrayList<Participante>();
+                for(int i=0;i<parts.size();i++){
+                    if(parts.get(i).getCodProcesso()==resultSet.getInt("cod_proc")) aux.add(parts.get(i));
+                }
                 processo.setCodProcesso(resultSet.getInt("cod_proc"));
-                Prova prova = provaDAO.consultarPorId(resultSet.getLong("cod_prova"));
+                Prova prova = provaDAO.consultarPorId(resultSet.getInt("cod_prova"));
                 processo.setProva(prova);
                 processo.setDataInicio(resultSet.getDate("dat_ini"));
                 processo.setDataFinal(resultSet.getDate("dat_fim"));
@@ -178,9 +193,9 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
     }
 
     @Override
-    public List<ProcessoSeletivo> listarTodos() throws PersistenciaException {
+    public java.util.ArrayList<ProcessoSeletivo> listarTodos() throws PersistenciaException {
         
-        List<ProcessoSeletivo> ProcessoList = new ArrayList<ProcessoSeletivo>();
+        java.util.ArrayList<ProcessoSeletivo> ProcessoList = new ArrayList<ProcessoSeletivo>();
         
         try {
         
@@ -194,12 +209,21 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
             
             IProvaDAO provaDAO = new ProvaDAO();
             ICargoDAO cargoDAO = new CargoDAO();
+            ParticipanteDAO partDAO = new ParticipanteDAO();
             
             while (resultSet.next()) {
                 
+                
                 ProcessoSeletivo processo = new ProcessoSeletivo();
+                ArrayList<Participante> parts = partDAO.listarTodos();
+                System.out.println("AIÓ:" +parts.size());
+                ArrayList<Participante> aux = new ArrayList<Participante>();
+                for(int i=0;i<parts.size();i++){
+                    if(parts.get(i).getCodProcesso()==resultSet.getInt("cod_proc")) aux.add(parts.get(i));
+                }
+                processo.setParticipantes(aux);
                 processo.setCodProcesso(resultSet.getInt("cod_proc"));
-                Prova prova = provaDAO.consultarPorId(resultSet.getLong("cod_prova"));
+                Prova prova = provaDAO.consultarPorId(resultSet.getInt("cod_prova"));
                 processo.setProva(prova);
                 processo.setDataInicio(resultSet.getDate("dat_ini"));
                 processo.setDataFinal(resultSet.getDate("dat_fim"));
@@ -223,6 +247,16 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
         
         return ProcessoList;
         
+    }
+
+    @Override
+    public boolean excluir(int id) throws PersistenciaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ProcessoSeletivo consultarPorId(Long id) throws PersistenciaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

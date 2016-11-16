@@ -12,7 +12,6 @@ public interface IManterCurriculo {
     public boolean inserir(Curriculo obj) throws PersistenciaException, NegocioException;
     public boolean atualizar(Curriculo obj) throws PersistenciaException, NegocioException;
     public boolean excluir(Long id) throws PersistenciaException;
-    public Curriculo consultarPorId(Long id) throws PersistenciaException;
     public List<Curriculo> listarTodos() throws PersistenciaException;
     
 }

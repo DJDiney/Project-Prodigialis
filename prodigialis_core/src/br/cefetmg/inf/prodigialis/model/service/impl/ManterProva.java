@@ -86,28 +86,5 @@ public class ManterProva implements IManterProva{
     
     }
 
-    @Override
-    public boolean excluir(Long id) throws PersistenciaException{
-    
-        boolean result = provaDAO.excluir(id);
-        return result; 
-        
-    }
-
-    @Override
-    public List<Prova> listarTodos() throws PersistenciaException{
-    
-        List<Prova> listProva = provaDAO.listarTodos();
-        return listProva;
-    
-    }
-
-    @Override
-    public Prova consultarPorId(Long id) throws PersistenciaException{
-    
-        Prova result = provaDAO.consultarPorId(id);
-        return result; 
-    
-    }
     
 }

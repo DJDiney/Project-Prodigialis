@@ -166,7 +166,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
     }
 
     @Override
-    public Funcionario consultarPorId(char inss) throws PersistenciaException {
+    public Funcionario consultarPorId(String inss) throws PersistenciaException {
         
         Funcionario funcionario = null;
         
@@ -177,7 +177,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             String sql = "SELECT * FROM Funcionario WHERE inss = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, inss);
+            statement.setString(1, inss);
 
             ResultSet resultSet = statement.executeQuery();
 

@@ -136,7 +136,7 @@ public class ManterFuncionario implements IManterFuncionario {
     }
 
     @Override
-    public Funcionario consultarPorId(char id) throws PersistenciaException{
+    public Funcionario consultarPorId(String id) throws PersistenciaException{
     
         Funcionario result = funcionarioDAO.consultarPorId(id);
         return result; 

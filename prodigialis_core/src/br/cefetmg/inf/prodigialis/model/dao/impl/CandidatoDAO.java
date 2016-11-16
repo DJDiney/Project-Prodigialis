@@ -25,7 +25,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO Candidato (cpf, cod_cur, cod_cep, nom_cand, "
+            String sql = "INSERT INTO candidato (cpf, cod_cur, cod_cep, nom_cand, "
                     + "email, password, idt_perfil, tel_fixo, tel_movel, cod_cargo) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -64,7 +64,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "UPDATE Candidato " +
+            String sql = "UPDATE candidato " +
                             " SET cod_cur = ?, "
                             + "cod_cep = ?, "
                             + "nom_cand = ?, "
@@ -111,7 +111,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM Candidato WHERE cpf = ?";
+            String sql = "DELETE FROM candidato WHERE cpf = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -140,7 +140,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Candidato";
+            String sql = "SELECT * FROM candidato";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -155,7 +155,7 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setCpf(resultSet.getString("cpf").charAt(0));
                 Curriculo curriculo = curriculoDAO.consultarPorId(resultSet.getLong("cod_cur"));
                 candidato.setCurriculo(curriculo);
-                candidato.setCep(resultSet.getString("cod_cep"));
+                candidato.setCep(resultSet.getString("ibge"));
                 candidato.setNom_cand(resultSet.getString("nom_cand"));
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
@@ -183,7 +183,7 @@ public class CandidatoDAO implements ICandidatoDAO{
     }
 
     @Override
-    public Candidato consultarPorId(char cpf) throws PersistenciaException {
+    public Candidato consultarPorId(String cpf) throws PersistenciaException {
         
         Candidato candidato = null;
         
@@ -191,10 +191,10 @@ public class CandidatoDAO implements ICandidatoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Candidato WHERE cpf = ?";
+            String sql = "SELECT * FROM candidato WHERE cpf = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, cpf);
+            statement.setString(1, cpf);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -207,7 +207,7 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setCpf(resultSet.getString("cpf").charAt(0));
                 Curriculo curriculo = curriculoDAO.consultarPorId(resultSet.getLong("cod_cur"));
                 candidato.setCurriculo(curriculo);
-                candidato.setCep(resultSet.getString("cod_cep"));
+                candidato.setCep(resultSet.getString("ibge"));
                 candidato.setNom_cand(resultSet.getString("nom_cand"));
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
@@ -241,7 +241,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Candidato WHERE nom_cand = ?";
+            String sql = "SELECT * FROM candidato WHERE nom_cand = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, nom_cand);
@@ -257,7 +257,7 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setCpf(resultSet.getString("cpf").charAt(0));
                 Curriculo curriculo = curriculoDAO.consultarPorId(resultSet.getLong("cod_cur"));
                 candidato.setCurriculo(curriculo);
-                candidato.setCep(resultSet.getString("cod_cep"));
+                candidato.setCep(resultSet.getString("ibge"));
                 candidato.setNom_cand(resultSet.getString("nom_cand"));
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
@@ -281,5 +281,6 @@ public class CandidatoDAO implements ICandidatoDAO{
         return candidato;
         
     }
+
     
 }

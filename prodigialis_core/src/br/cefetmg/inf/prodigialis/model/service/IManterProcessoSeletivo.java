@@ -13,8 +13,4 @@ import java.util.List;
 public interface IManterProcessoSeletivo {
     public boolean inserir(ProcessoSeletivo obj) throws PersistenciaException, NegocioException;
     public boolean atualizar(ProcessoSeletivo obj) throws PersistenciaException, NegocioException;
-    public boolean excluir(Long id) throws PersistenciaException;
-    public Participante consultarPorId(Long id) throws PersistenciaException;
-    public ProcessoSeletivo consultarProcesssoPorId(Long id) throws PersistenciaException;
-    public List<ProcessoSeletivo> listarTodos() throws PersistenciaException;
 }
