@@ -18,12 +18,13 @@ public class ProcessoSeletivo {
     private Date dataFinal;
     private String nome;
     private String descricao;
-    private int codProcesso;
+    private Integer codProcesso;
     private Prova prova;
-    private int nroVagas;
+    private Integer nroVagas;
+    private boolean em_andamento;
     private Cargo cargoOferecido;
 
-    public ProcessoSeletivo(Date dataInicio, Date dataFinal, String nome, String descricao, int codProcesso, Prova prova, int nroVagas, Cargo cargoOferecido) {
+    public ProcessoSeletivo(Date dataInicio, Date dataFinal, String nome, String descricao, int codProcesso, Prova prova, int nroVagas, boolean em_andamento, Cargo cargoOferecido) {
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
         this.nome = nome;
@@ -31,8 +32,11 @@ public class ProcessoSeletivo {
         this.codProcesso = codProcesso;
         this.prova = prova;
         this.nroVagas = nroVagas;
+        this.em_andamento = em_andamento;
         this.cargoOferecido = cargoOferecido;
     }
+
+    public ProcessoSeletivo() {}
 
     public ArrayList<Participante> getParticipantes() {
         return participantes;
@@ -74,7 +78,7 @@ public class ProcessoSeletivo {
         this.descricao = descricao;
     }
 
-    public int getCodProcesso() {
+    public Integer getCodProcesso() {
         return codProcesso;
     }
 
@@ -90,12 +94,20 @@ public class ProcessoSeletivo {
         this.prova = prova;
     }
 
-    public int getNroVagas() {
+    public Integer getNroVagas() {
         return nroVagas;
     }
 
     public void setNroVagas(int nroVagas) {
         this.nroVagas = nroVagas;
+    }
+
+    public boolean isEm_andamento() {
+        return em_andamento;
+    }
+
+    public void setEm_andamento(boolean em_andamento) {
+        this.em_andamento = em_andamento;
     }
 
     public Cargo getCargoOferecido() {
