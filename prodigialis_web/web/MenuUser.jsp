@@ -34,108 +34,14 @@
 				$('#Caret').toggleClass('CaretDown CaretRight');
 				
 			});
+			$('#ListarDados').click(function(){
+				$('#InformacoesProcesso').removeClass('hide');
+			});
 		});
 		
     </script>
     <script src="x_login-register modal/login-register.js"></script>
-    <style>
-	
-		form-group>.form-control{
-			background-color:#D1D1D1;
-			color:#66615B;
-			}
-			
-		.form-group>.form-control:focus{
-			background-color:white;
-			color:#66615B;
-			}	
-			
-        .form-group>.form-control{
-            background-color:#D1D1D1;
-            color:#66615B;
-        }
-
-        .form-group>.form-control:focus{
-            background-color:white;
-            color:#66615B;
-        }	
-
-        .form-group>.form-control::-webkit-input-placeholder {
-            color: #66615B;
-        }
-
-        .form-group>.form-control:-moz-placeholder { /* Firefox 18- */
-            color: #66615B;  
-        }
-
-        .form-group>.form-control::-moz-placeholder {  /* Firefox 19+ */
-            color: #66615B;  
-        }
-
-        .form-group>.form-control:-ms-input-placeholder {  
-            color: #66615B;  
-        }
-
-        #btnSubmit{
-            border-color:#66615B;
-        }
-
-		#btnInput{
-            border-color:#66615B;
-        }
-		
-		#btnSubmit:hover{
-            border-color:#333;
-        }
-
-
-        #btnInput:hover{
-            border-color:#333;
-        }
-
-        .inputfile {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
-		
-		.main{
-			z-index:0;
-		}
-		
-		html {
-		  position: relative;
-		}
-		body {
-		  /* Margin bottom by footer height */
-		  margin-bottom: 150px;
-		}
-		.footer {
-		  position: absolute;
-		  bottom: 0;
-		  width: 100%;
-		  /* Set the fixed height of the footer here */
-		  height: 150px;
-		}
-		
-		#Caret{
-			transition:  ease-in 0.2s;
-		}
-		
-		.CaretDown{
-			-webkit-transform:rotate(90deg);
-		}
-		
-		.CaretRight{
-			-webkit-transform:rotate(0deg);
-		}
-		 
-    </style>
-
-
+    <link href="assets/css/custom.css" rel="stylesheet"/>
 
 </head>
 
@@ -165,11 +71,11 @@
                             </li>
                             <li>
 								
-								<div class="dropdown"><%CandidatoDAO daofunc = new CandidatoDAO();  %>
+								<div class="dropdown">
 
 								  <button class="btn btn-simple dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 									
-									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span><%=daofunc.consultarPorEmail((String)request.getSession().getAttribute("email")).getNom_cand()%></span>
+									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span>Nome Usu√°rio</span>
 
 									<span class="caret"></span>
 
@@ -181,7 +87,7 @@
 
 									<li role="presentation" class="divider"></li>
 
-									<li role="presentation"><a href="index.jsp" tabindex="-1" role="menuitem">Sair</a></li>
+									<li role="presentation"><a href="index.html" tabindex="-1" role="menuitem">Sair</a></li>
 
 								  </ul>
 
@@ -210,44 +116,13 @@
 					<div class="row">
 					
 						<div class="form-group col-md-10">
-							<script>
-                                                            function ajaxUpdate(){
-                                                                var e = document.getElementById("processo");
-                                                                var par = e.options[e.selectedIndex].value;
-                                                                var tag = new XMLHttpRequest();
-                                                                tag.onreadystatechange = function(){
-                                                                   if(tag.readyState == 4){
-                                                                        if(tag.status == 200){
-                                                                            obj = JSON.parse(tag.responseText);
-                                                                            document.getElementById("cod").value = obj[0];
-                                                                            document.getElementById("vaga").value = obj[1];
-                                                                            document.getElementById("nvaga").value = obj[2];
-                                                                            document.getElementById("datin").value = obj[3];
-                                                                            document.getElementById("datfim").value = obj[4];
-                                                                            //var resp = array();
-                                                                            //resp.push(item);
-                                                                        }else{
-                                                                        }
-                                                                    }
-                                                                };
-
-                                                                tag.open("POST", "AjaxServlet");
-                                                                tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                                                tag.send("acao=dadosProcesso&id=" + par);
-                                                            }
-                                                        </script>
-							<select class="form-control" id="processo" onchange="ajaxUpdate()">
+							
+							<select class="form-control">
 							
 								<option value="" disabled selected>Escolha um processo</option>
-								<% 
-                                                                    ProcessoSeletivoDAO dao = new ProcessoSeletivoDAO();
-                                                                    java.util.ArrayList<ProcessoSeletivo> lista = dao.listarTodos();
-                                                                    for(int i=0;i<lista.size();i++){                                    
-                                                                %>
-                                                                <option value="<%= lista.get(i).getCodProcesso()%>"><%= lista.get(i).getNome()%></option>
-                                                                <%
-                                                                    }
-                                                                %>
+								<option value="1">123 - 22</option>
+								<option value="2">322 - 22</option>
+								<option value="3">434 - 33</option>
 								
 							</select>
 							
@@ -263,7 +138,7 @@
 						</div>
 						
 						<div class="form-group col-md-2 ">
-							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Listar Dados
+							<button id="ListarDados"  class="btn btn-fill" style="width:100%">Listar Dados
 							<i class=" fa fa-list-alt"></i>
 							</button>
 								
@@ -275,28 +150,25 @@
 		</div>
 		
 					<hr/>
-                <form id="form1" action="ServletWeb?" method="post">
-                    <input type="hidden" name="acao" id="acao" value="enviaCur"/>
-                    <input type="hidden" name="email" id="email" value="<%=request.getSession().getAttribute("email")%>"/>
-                    <div class="container">	
+		<div class="container hide" id="InformacoesProcesso">	
 			
 			<div class="row" id="proc" >
 				
 				<div class="form-group col-md-4 ">
 					
-					<label for="disabled">CÛdigo do Processo</label>
-					<input  value="Nome" name="cod" id="cod" type="text" class="form-control">
+					<label for="disabled">Nome do Processo</label>
+					<input disable value="434 - 33" id="disabled" type="text" class="form-control">
 					
 				</div>
 				
 				<div class="form-group col-md-4 ">
 					<label for="disabled">Vagas de</label>
-					<input disable value="Cargo" name="vaga" id="vaga" type="text" class="form-control">
+					<input disable value="Programador" id="disabled" type="text" class="form-control">
 				</div>
 				
 				<div class="form-group col-md-4 ">
-					<label for="disabled">N˙mero de vagas</label>
-					<input disable value="N∫ de Vagas" name="nvaga" id="nvaga" type="text" class="form-control">
+					<label for="disabled">N√∫mero de vagas</label>
+					<input disable value="32" id="disabled" type="text" class="form-control">
 				</div>
 			
 			</div>
@@ -305,15 +177,15 @@
 			
 				<div class="form-group col-md-6 ">
 					
-					<label for="disabled">Data de InÌcio</label>
-					<input disable value="InÌcio" name="datin" id="datin" type="text" class="form-control">
+					<label for="disabled">Data de In√≠cio</label>
+					<input disable value="12/04/2016" id="disabled" type="text" class="form-control">
 					
 				</div>
 				
 				<div class="form-group col-md-6 ">
 				
 					<label for="disabled">Data de Fim</label>
-					<input disable value="Final" name="datfim" id="datfim" type="text" class="form-control">
+					<input disable value="21/04/2016" id="disabled" type="text" class="form-control">
 					
 				</div>
 			
@@ -339,19 +211,17 @@
 			<div class="row">
 			
 				<div class="form-group pull-right col-md-4">
-					
-						<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+						<button  style="width:100%"  id="btnSubmit" data-toggle="modal" data-target="#ModalVerProcessoSeletivo"  class=" btn btn-fill">
 							Enviar <span class="fa fa-check" aria-hidden="true"></span>
 						</button>
-					
 				</div>
 				
 			</div>
 			
-                    </div>
-                </form>
+			
 		
 	</div>
+</div>
             
 			<div class="tab-pane" id="EnvCurr">
                 <div class="container">
@@ -365,7 +235,7 @@
 					<div class="row">
 
 						<div class="form-group col-md-8 ">
-							<input type="text" value=""  placeholder="EndereÁo" class="form-control" />
+							<input type="text" value=""  placeholder="Endere√ßo" class="form-control" />
 						</div>
 
 						<div class="form-group col-md-2" >
@@ -458,7 +328,7 @@
 					<div class="row">
 						<div class="form-group pull-right col-md-4">
 							<form id="form1" action="" method="post">
-								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+								<button type="submit" style="width:100%" data-toggle="modal" data-target="#ModalEnviarCurriculo"  id="btnSubmit"  class=" btn btn-fill">
 									Enviar <span class="fa fa-paper-plane" aria-hidden="true"></span>
 								</button>
 							</form>
@@ -473,15 +343,51 @@
 
     </div>
 
-
+	<div class="modal fade" id="ModalEnviarCurriculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel"> Sucesso </h4>
+		  </div>
+		  <div class="modal-body">
+				Informa√ß√µes da sua conta foram atualizadas!
+		  </div>
+		  <div class="modal-footer">
+			<div class="center" style="vertical-align:center;padding-bottom:20px;">
+				<button type="button" data-dismiss="modal" class="btn btn-success btn-simple">Ok!</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="ModalVerProcessoSeletivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title" id="myModalLabel">Curr√≠culo enviado </h4>
+		  </div>
+		  <div class="modal-body">
+				Seu curr√≠culo foi enviado para a equipe encarregada deste processo seletivo e sua aprova√ß√£o est√° pendente pela staff de Prodigialis
+		  </div>
+		  <div class="modal-footer">
+			<div class="center" style="vertical-align:center;padding-bottom:20px;">
+				<button type="button" data-dismiss="modal" class="btn btn-success btn-simple">Ok!</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
 
 
     <footer class="footer" style="background-color:#36312B;color:#d1d1d1;text-align:center;padding-top:30px;padding-bottom:30px;">
         <div class="container">
-            <div>Prodigialis RH<span>  ∑  </span>Trabalho de conclus„o de curso</div>
-            <div>Centro Federal de EducaÁ„o TecnolÛgica de Minas Gerais</div>
-            <div>J· nos conhece? ConheÁa a <a href="" style="color:#777;">staff</a></div>
-            <div>Publicado sob a licenÁa de <a href="http://www.creative-tim.com/license" style="color:#777;">Creative Tim</a></div>
+            <div>Prodigialis RH<span>  *  </span>Trabalho de conclus√£o de curso</div>
+            <div>Centro Federal de Educa√ß√£o Tecnol√≥gica de Minas Gerais</div>
+            <div>J√° nos conhece? Conhe√ßa a <a href="" style="color:#777;">staff</a></div>
+            <div>Publicado sob a licen√ßa de <a href="http://www.creative-tim.com/license" style="color:#777;">Creative Tim</a></div>
         </div>
     </footer>
 </body>
