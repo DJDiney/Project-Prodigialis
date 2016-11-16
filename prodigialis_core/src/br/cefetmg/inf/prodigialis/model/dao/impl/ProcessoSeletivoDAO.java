@@ -191,6 +191,13 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
         return processo;
         
     }
+    
+    /*public boolean subtraiVaga(int id) throws PersistenciaException{
+        ProcessoSeletivo aux = this.consultarPorId(id);
+        aux.setNroVagas(aux.getNroVagas()-1);
+        if(this.atualizar(aux)) return true;
+        else return false;
+    }*/
 
     @Override
     public java.util.ArrayList<ProcessoSeletivo> listarTodos() throws PersistenciaException {
