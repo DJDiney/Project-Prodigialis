@@ -57,10 +57,10 @@ function loginAjax(){
 
 /*   Simulate error message from the server   */
 	if(document.getElementById("email").value=="admin"){
-		window.location.href = "MenuFunc(Video).html"
+		window.location.href = "MenuFunc.html"
 	}
-	else if(document.getElementById("email").value=="user"){
-		window.location.href = "MenuUser(Video).html"
+	if(document.getElementById("email").value=="user"){
+		window.location.href = "MenuUser.html"
 	}
 	else{
      shakeModal();

@@ -45,18 +45,6 @@
             }
         });
     </script>
-	<script>
-		function formatar(mascara, documento){
-		  var i = documento.value.length;
-		  var saida = mascara.substring(0,1);
-		  var texto = mascara.substring(i)
-		  
-		  if (texto.substring(0,1) != saida){
-					documento.value += texto.substring(0,1);
-		  }
-		  
-		}
-	</script>
 </head>
 
 <body>
@@ -119,7 +107,7 @@
                                         <form name="frmLogin" method="post" accept-charset="UTF-8">
                                             <input id="email" class="form-control" type="text" placeholder="Email" name="email">
                                             <input id="password" class="form-control" type="password" placeholder="Senha" name="password">
-                                            <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
+                                            <input class="btn btn-default btn-login" type="button" value="Login" onclick="validarCamposLogin()">
                                         </form>
                                     </div>
                                 </div>
@@ -129,7 +117,6 @@
                                     <div class="form">
                                         <form method="post" html="{:multipart=>true}" data-remote="true" action="/register" accept-charset="UTF-8">
                                             <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-											<input id="CPF" class="form-control" type="text" placeholder="CPF" name="CPF" OnKeyPress="formatar('###.###.###-##', this)">
                                             <input id="password" class="form-control" type="password" placeholder="Senha" name="password">
                                             <input id="password_confirmation" class="form-control" type="password" placeholder="Repita a senha" name="password_confirmation">
                                             <input class="btn btn-default btn-register" type="submit" value="Criar conta" name="commit">
@@ -164,13 +151,16 @@
 <div class="main">
     <div class="container" style="max-width:800px; padding-top:10px">
         <h1 class="text-center" style="color:black">Prodigialis RH<br><small class="subtitle" style="font-family:Grand Hotel">Diga-lÃ¡!</small></h1> 
-		<p>
-			A empresa Prodigialis RH tem como objetivo a criação de um simples e barato sistema de gerenciamento de recrutamentos e seleções de funcionários. Este sistema seria oferecido para outras empresas que estariam em busca de um sistema para facilitar este gerenciamento.
-Nosso sistema seria então acoplado a esta empresa e poderia ser acessado pelos seus gerentes e funcionários para gerenciar as contratações da empresa. Nossa empresa então ofereceria suporte técnico e realizaria manutenções e outros serviços para garantir a funcionalidade total de nosso sistema nesta empresa.
-Os sistemas de RH e gestão de pessoas já existem e são populares nas grandes empresas, tendo em vista o modo como estes sistemas facilitam o gerenciamento destas empresas. Estes sistemas começaram a ser desenvolvidos com o objetivo de serem vendidos para outras empresas, e é um negócio que recentemente aumentou em tamanho devido à crescente concorrência. Assim, os sistemas mais complexos e completos, que oferecem um maior número de funções, são os que mais chamam a atenção e acabam saindo por cima na competição.
-Nosso sistema teria menos funções do que grande parte dos concorrentes, mas seria mais simples e mais barato, procurando providenciar às pequenas empresas um sistema competente e funcional por um baixo preço.
-		</p>
-	
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>   
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
         <!--     end extras -->        
     </div>
     <footer class="footer" style="background-color:#36312B;color:#d1d1d1;text-align:center;padding-top:30px;padding-bottom:30px;">
