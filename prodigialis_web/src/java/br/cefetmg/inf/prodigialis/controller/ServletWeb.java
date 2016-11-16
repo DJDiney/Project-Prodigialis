@@ -64,7 +64,9 @@ public class ServletWeb extends HttpServlet {
                     par.setCodProcesso(Integer.parseInt(request.getParameter("cod")));
                     par.setCandidato(cand.consultarPorEmail((String)request.getParameter("email")));
                     par.setEst_aprov(false);
-                    dao.inserir(par);
+                    if(dao.inserir(par)){
+                        
+                    }
                     jsp = "/MenuUser.jsp";
                 }
             } catch (PersistenciaException ex) {
