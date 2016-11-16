@@ -8,8 +8,8 @@ public class Participante {
     
     private Candidato candidato;
     private boolean est_aprov;
-    private byte[] arq_respostas;
-    private String path_respostas;
+    private byte[] arq_respostas={' '};
+    private String path_respostas="";
     private double nota;
     private int nroInscricao = -1;
     private int codProcesso;
@@ -33,7 +33,7 @@ public class Participante {
         this.candidato = candidato;
     }
     
-    public char getCpf () {
+    public String getCpf () {
         return candidato.getCpf();
     }
 

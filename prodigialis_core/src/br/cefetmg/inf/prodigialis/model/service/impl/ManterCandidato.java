@@ -31,7 +31,7 @@ public class ManterCandidato implements IManterCandidato {
             throw new NegocioException("Nome do candidato deve ser informado.");
         
 
-        if(candidato.getCpf() == ' ')
+        if(candidato.getCpf() == " ")
             
             throw new NegocioException("Cpf deve ser informado.");
         
@@ -41,7 +41,7 @@ public class ManterCandidato implements IManterCandidato {
             throw new NegocioException("Endereço do candidato deve ser informado.");
         
         
-        if((candidato.getIdt_perfil() == null) || candidato.getIdt_perfil().isEmpty())
+        if((candidato.getIdt_perfil() == ' '))
             
             throw new NegocioException("Idt do perfil do candidato deve ser informado.");
         
@@ -81,7 +81,7 @@ public class ManterCandidato implements IManterCandidato {
             throw new NegocioException("Nome do candidato deve ser informado.");
         
 
-        if(candidato.getCpf() == ' ')
+        if(candidato.getCpf() == " ")
             
             throw new NegocioException("Cpf deve ser informado.");
         
@@ -91,7 +91,7 @@ public class ManterCandidato implements IManterCandidato {
             throw new NegocioException("Endereço do candidato deve ser informado.");
         
         
-        if((candidato.getIdt_perfil() == null) || candidato.getIdt_perfil().isEmpty())
+        if(candidato.getIdt_perfil()== ' ')
             
             throw new NegocioException("Idt do perfil do candidato deve ser informado.");
         

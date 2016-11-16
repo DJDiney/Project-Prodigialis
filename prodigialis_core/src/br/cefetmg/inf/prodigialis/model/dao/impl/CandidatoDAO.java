@@ -152,14 +152,14 @@ public class CandidatoDAO implements ICandidatoDAO{
             while(resultSet.next()){
                 
                 Candidato candidato = new Candidato();
-                candidato.setCpf(resultSet.getString("cpf").charAt(0));
+                candidato.setCpf(resultSet.getString("cpf"));
                 Curriculo curriculo = curriculoDAO.consultarPorId(resultSet.getLong("cod_cur"));
                 candidato.setCurriculo(curriculo);
                 candidato.setCep(resultSet.getString("ibge"));
                 candidato.setNom_cand(resultSet.getString("nom_cand"));
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
-                candidato.setIdt_perfil(resultSet.getString("idt_perfil"));
+                candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
                 Cargo vaga = cargoDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
@@ -204,14 +204,14 @@ public class CandidatoDAO implements ICandidatoDAO{
             while(resultSet.next()){
                 
                 candidato = new Candidato();
-                candidato.setCpf(resultSet.getString("cpf").charAt(0));
+                candidato.setCpf(resultSet.getString("cpf"));
                 Curriculo curriculo = curriculoDAO.consultarPorId(resultSet.getLong("cod_cur"));
                 candidato.setCurriculo(curriculo);
                 candidato.setCep(resultSet.getString("ibge"));
                 candidato.setNom_cand(resultSet.getString("nom_cand"));
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
-                candidato.setIdt_perfil(resultSet.getString("idt_perfil"));
+                candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
                 Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
@@ -254,20 +254,110 @@ public class CandidatoDAO implements ICandidatoDAO{
             while(resultSet.next()){
                 
                 candidato = new Candidato();
-                candidato.setCpf(resultSet.getString("cpf").charAt(0));
+                candidato.setCpf(resultSet.getString("cpf"));
                 Curriculo curriculo = curriculoDAO.consultarPorId(resultSet.getLong("cod_cur"));
                 candidato.setCurriculo(curriculo);
                 candidato.setCep(resultSet.getString("ibge"));
                 candidato.setNom_cand(resultSet.getString("nom_cand"));
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
-                candidato.setIdt_perfil(resultSet.getString("idt_perfil"));
+                candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
                 Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
                 candidato.setCod_cargoPretendido(vaga.getCod_cargo());
                     
             }
+            
+            connection.close();
+
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+                
+        }
+        
+        return candidato;
+        
+    }
+    public Candidato consultarPorUsuarioSenha(String email, String senha) throws PersistenciaException {
+        Candidato candidato = null;
+        try {
+            
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            
+            System.out.println(connection);
+
+            String sql = "SELECT * FROM candidato WHERE password = ? AND email = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, senha);
+            statement.setString(2, email);
+            
+
+            ResultSet resultSet = statement.executeQuery();
+
+            
+            if(resultSet.next()){
+                
+                candidato = new Candidato();
+                candidato.setCpf(resultSet.getString("cpf"));
+                candidato.setCep(resultSet.getString("ibge"));
+                candidato.setNom_cand(resultSet.getString("nom_cand"));
+                candidato.setEmail(resultSet.getString("email"));
+                candidato.setPassword(resultSet.getString("password"));
+                candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
+                candidato.setTel_fixo(resultSet.getString("tel_fixo"));
+                candidato.setTel_movel(resultSet.getString("tel_movel"));
+                    
+            }
+            //else System.out.println("Achou n");
+            
+            connection.close();
+
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+                
+        }
+        
+        return candidato;
+        
+    }
+    
+    public Candidato consultarPorEmail(String email) throws PersistenciaException {
+        Candidato candidato = null;
+        try {
+            
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            
+            System.out.println(connection);
+
+            String sql = "SELECT * FROM candidato WHERE  email = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            
+
+            ResultSet resultSet = statement.executeQuery();
+
+            
+            if(resultSet.next()){
+                
+                candidato = new Candidato();
+                candidato.setCpf(resultSet.getString("cpf"));
+                candidato.setCep(resultSet.getString("ibge"));
+                candidato.setNom_cand(resultSet.getString("nom_cand"));
+                candidato.setEmail(resultSet.getString("email"));
+                candidato.setPassword(resultSet.getString("password"));
+                candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
+                candidato.setTel_fixo(resultSet.getString("tel_fixo"));
+                candidato.setTel_movel(resultSet.getString("tel_movel"));
+                    
+            }
+            //else System.out.println("Achou n");
             
             connection.close();
 

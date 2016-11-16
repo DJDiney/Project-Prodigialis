@@ -5,20 +5,20 @@ import java.util.Objects;
 
 public class Candidato {
     
-    private char cpf;
+    private String cpf;
     private Curriculo curriculo;
     private String cep;
     private long cod_cargoPretendido;
     private String nom_cand;
     private String email;
     private String password;
-    private String idt_perfil;
+    private char idt_perfil;
     private String tel_fixo;
     private String tel_movel;
     
     public Candidato () {}
 
-    public Candidato(char cpf, Curriculo curriculo, String cep, long cod_cargoPretendido, String nom_cand, String email, String password, String idt_perfil, String tel_fixo, String tel_movel) {
+    public Candidato(String cpf, Curriculo curriculo, String cep, long cod_cargoPretendido, String nom_cand, String email, String password, char idt_perfil, String tel_fixo, String tel_movel) {
         this.cpf = cpf;
         this.curriculo = curriculo;
         this.cep = cep;
@@ -31,11 +31,11 @@ public class Candidato {
         this.tel_movel = tel_movel;
     }
 
-    public char getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(char cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -87,11 +87,11 @@ public class Candidato {
         this.cod_cargoPretendido = cod_cargoPretendido;
     }
 
-    public String getIdt_perfil() {
+    public char getIdt_perfil() {
         return idt_perfil;
     }
 
-    public void setIdt_perfil(String idt_perfil) {
+    public void setIdt_perfil(char idt_perfil) {
         this.idt_perfil = idt_perfil;
     }
 

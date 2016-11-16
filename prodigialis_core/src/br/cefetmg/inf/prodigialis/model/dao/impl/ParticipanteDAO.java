@@ -201,6 +201,47 @@ public class ParticipanteDAO implements IParticipanteDAO{
         return participante;
         
     }
+    public Participante consultarPorProc(String cpf,int cod_proc) throws PersistenciaException {
+        
+        Participante participante = null;
+        
+        try {
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM participante WHERE cpf = ? AND cod_proc=?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, cpf);
+            statement.setInt(2, cod_proc);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            CandidatoDAO candidatoDAO = new CandidatoDAO();
+            
+            while(resultSet.next()){
+                participante = new Participante();
+                participante.setNroInscricao(resultSet.getInt("nro_insc"));
+                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
+                participante.setCandidato(candidato);
+                //participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
+                participante.setCodProcesso(resultSet.getInt("cod_proc"));
+                participante.setEst_aprov(resultSet.getBoolean("est_aprov"));
+                participante.setNota(resultSet.getDouble("nota"));
+                    
+            }
+            
+            connection.close();
+
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+                
+        }
+        
+        return participante;
+        
+    }
     
     
 }

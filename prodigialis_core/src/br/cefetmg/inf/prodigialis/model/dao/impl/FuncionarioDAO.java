@@ -214,7 +214,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             
-            System.out.println(connection);
+            System.out.println("Consulta usrsenha"+connection);
 
             String sql = "SELECT * FROM funcionario WHERE password = ? AND email = ?";
 
@@ -260,7 +260,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
             
-            System.out.println(connection);
+            System.out.println("Consulta usremail"+connection);
 
             String sql = "SELECT * FROM funcionario WHERE email = ?";
 
