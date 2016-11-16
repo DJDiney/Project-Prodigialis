@@ -1,6 +1,6 @@
 <%@page import="br.cefetmg.inf.prodigialis.controller.Login"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
-<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.FuncionarioDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
     if(cod != '0'){
@@ -165,11 +165,11 @@
                             </li>
                             <li>
 								
-								<div class="dropdown">
+								<div class="dropdown"><%CandidatoDAO daofunc = new CandidatoDAO();  %>
 
 								  <button class="btn btn-simple dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 									
-									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span>Nome Usuário</span>
+									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span><%=daofunc.consultarPorEmail((String)request.getSession().getAttribute("email")).getNom_cand()%></span>
 
 									<span class="caret"></span>
 
@@ -275,25 +275,28 @@
 		</div>
 		
 					<hr/>
-		<div class="container">	
+                <form id="form1" action="ServletWeb?" method="post">
+                    <input type="hidden" name="acao" id="acao" value="enviaCur"/>
+                    <input type="hidden" name="email" id="email" value="<%=request.getSession().getAttribute("email")%>"/>
+                    <div class="container">	
 			
 			<div class="row" id="proc" >
 				
 				<div class="form-group col-md-4 ">
 					
-					<label for="disabled">Nome do Processo</label>
-					<input  value="Nome" id="cod" type="text" class="form-control">
+					<label for="disabled">Código do Processo</label>
+					<input  value="Nome" name="cod" id="cod" type="text" class="form-control">
 					
 				</div>
 				
 				<div class="form-group col-md-4 ">
 					<label for="disabled">Vagas de</label>
-					<input disable value="Cargo" id="vaga" type="text" class="form-control">
+					<input disable value="Cargo" name="vaga" id="vaga" type="text" class="form-control">
 				</div>
 				
 				<div class="form-group col-md-4 ">
 					<label for="disabled">Número de vagas</label>
-					<input disable value="Nº de Vagas" id="nvaga" type="text" class="form-control">
+					<input disable value="Nº de Vagas" name="nvaga" id="nvaga" type="text" class="form-control">
 				</div>
 			
 			</div>
@@ -303,14 +306,14 @@
 				<div class="form-group col-md-6 ">
 					
 					<label for="disabled">Data de Início</label>
-					<input disable value="Início" id="datin" type="text" class="form-control">
+					<input disable value="Início" name="datin" id="datin" type="text" class="form-control">
 					
 				</div>
 				
 				<div class="form-group col-md-6 ">
 				
 					<label for="disabled">Data de Fim</label>
-					<input disable value="Final" id="datfim" type="text" class="form-control">
+					<input disable value="Final" name="datfim" id="datfim" type="text" class="form-control">
 					
 				</div>
 			
@@ -336,16 +339,17 @@
 			<div class="row">
 			
 				<div class="form-group pull-right col-md-4">
-					<form id="form1" action="" method="post">
+					
 						<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
 							Enviar <span class="fa fa-check" aria-hidden="true"></span>
 						</button>
-					</form>
+					
 				</div>
 				
 			</div>
 			
-		</div>
+                    </div>
+                </form>
 		
 	</div>
             

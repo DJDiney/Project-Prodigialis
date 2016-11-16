@@ -6,6 +6,8 @@
 package br.cefetmg.inf.prodigialis.controller;
 
 
+import br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,23 +31,34 @@ public class Login {
             
             System.out.println(nome);
             System.out.println(senha);
+            
+            CandidatoDAO dao = new CandidatoDAO();
+            Candidato cand = dao.consultarPorUsuarioSenha(nome, senha);
 
-            ManterFuncionario manterFuncionario = new ManterFuncionario();
-            Funcionario usr = manterFuncionario.getFuncLogin(nome, senha);
-
-            if (usr == null) {
-                System.out.println("Usuario nao encontrado");
-                String erro = "Usuario nao encontrado!";
-                request.setAttribute("erro", erro);
-                jsp = "/erro.jsp";
+            if (cand == null) {
+                ManterFuncionario manterFuncionario = new ManterFuncionario();
+                Funcionario usr = manterFuncionario.getFuncLogin(nome, senha);
+                
+                if(usr!= null){
+                    request.getSession().setAttribute("codUsuario", usr.getIdt_perfil());
+                    request.getSession().setAttribute("email", request.getParameter("email"));
+                    if(usr.getIdt_perfil() == '1')jsp = "/MenuFunc.jsp";
+                    else if(usr.getIdt_perfil() == '0')jsp = "/MenuUser.jsp";
+                }else{
+                    System.out.println("Usuario nao encontrado");
+                    String erro = "Usuario nao encontrado!";
+                    request.setAttribute("erro", erro);
+                    jsp = "/erro.jsp";
+                }
             } else {
-                request.getSession().setAttribute("codUsuario", usr.getIdt_perfil());
+                System.out.println(cand.getNom_cand());
+                request.getSession().setAttribute("codUsuario", cand.getIdt_perfil());
                 request.getSession().setAttribute("email", request.getParameter("email"));
-                if(usr.getIdt_perfil() == '1')jsp = "/MenuFunc.jsp";
-                else if(usr.getIdt_perfil() == '0')jsp = "/MenuUser.jsp";
+                jsp = "/MenuUser.jsp";
             }
 
         } catch (Exception e) {
+            
             e.printStackTrace();
             jsp = "";
         }

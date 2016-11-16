@@ -5,7 +5,10 @@
  */
 package br.cefetmg.inf.prodigialis.controller;
 
+import br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO;
+import br.cefetmg.inf.prodigialis.model.dao.impl.ParticipanteDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import java.io.IOException;
@@ -31,9 +34,9 @@ public class ServletWeb extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("acao");
         
-        if(acao.equals("Logar"))
+        if(acao.equals("Logar")){
             jsp = Login.execute(request);
-        else if (acao.equals("Deslogar"))
+        }else if (acao.equals("Deslogar"))
             jsp = Login.terminaSessao(request,response);
         else if(acao.equals("dadosProcesso")){
             int  id = Integer.parseInt(request.getParameter("id"));
@@ -52,9 +55,26 @@ public class ServletWeb extends HttpServlet {
                     ex.printStackTrace();
                 }
             }
+        }else if (acao.equals("enviaCur")){
+            ParticipanteDAO dao = new ParticipanteDAO();
+            CandidatoDAO  cand= new CandidatoDAO();
+            try {
+                if(dao.consultarPorProc(cand.consultarPorEmail((String)request.getParameter("email")).getCpf(),Integer.parseInt(request.getParameter("cod"))) == null){
+                    Participante par = new Participante();
+                    par.setCodProcesso(Integer.parseInt(request.getParameter("cod")));
+                    par.setCandidato(cand.consultarPorEmail((String)request.getParameter("email")));
+                    par.setEst_aprov(false);
+                    dao.inserir(par);
+                    jsp = "/MenuUser.jsp";
+                }
+            } catch (PersistenciaException ex) {
+                Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+            
 
         //Redirecionando pagina
+        //RequestDispatcher rd = getServletContext().getRequestDispatcher(jsp);
         RequestDispatcher rd = request.getRequestDispatcher(jsp);
         rd.forward(request, response);
     }
