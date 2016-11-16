@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/service/impl/ManterProcessoSeletivo.java</file>
+            <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/domain/Candidato.java</file>
             <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/dao/impl/ParticipanteDAO.java</file>
             <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/domain/ProcessoSeletivo.java</file>
             <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/dao/impl/ProcessoSeletivoDAO.java</file>
             <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/domain/Participante.java</file>
-            <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/service/impl/ManterCargo.java</file>
+            <file>file:/C:/Users/Cliente/Documents/Project-Prodigialis/prodigialis_core/src/br/cefetmg/inf/prodigialis/model/dao/impl/CandidatoDAO.java</file>
         </group>
     </open-files>
 </project-private>

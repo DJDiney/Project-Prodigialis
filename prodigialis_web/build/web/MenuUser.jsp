@@ -1,4 +1,7 @@
 <%@page import="br.cefetmg.inf.prodigialis.controller.Login"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.FuncionarioDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
     if(cod != '0'){
         request.getSession().setAttribute("codUsuario", null);
@@ -207,13 +210,44 @@
 					<div class="row">
 					
 						<div class="form-group col-md-10">
-							
-							<select class="form-control">
+							<script>
+                                                            function ajaxUpdate(){
+                                                                var e = document.getElementById("processo");
+                                                                var par = e.options[e.selectedIndex].value;
+                                                                var tag = new XMLHttpRequest();
+                                                                tag.onreadystatechange = function(){
+                                                                   if(tag.readyState == 4){
+                                                                        if(tag.status == 200){
+                                                                            obj = JSON.parse(tag.responseText);
+                                                                            document.getElementById("cod").value = obj[0];
+                                                                            document.getElementById("vaga").value = obj[1];
+                                                                            document.getElementById("nvaga").value = obj[2];
+                                                                            document.getElementById("datin").value = obj[3];
+                                                                            document.getElementById("datfim").value = obj[4];
+                                                                            //var resp = array();
+                                                                            //resp.push(item);
+                                                                        }else{
+                                                                        }
+                                                                    }
+                                                                };
+
+                                                                tag.open("POST", "AjaxServlet");
+                                                                tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                                                tag.send("acao=dadosProcesso&id=" + par);
+                                                            }
+                                                        </script>
+							<select class="form-control" id="processo" onchange="ajaxUpdate()">
 							
 								<option value="" disabled selected>Escolha um processo</option>
-								<option value="1">123 - 22</option>
-								<option value="2">322 - 22</option>
-								<option value="3">434 - 33</option>
+								<% 
+                                                                    ProcessoSeletivoDAO dao = new ProcessoSeletivoDAO();
+                                                                    java.util.ArrayList<ProcessoSeletivo> lista = dao.listarTodos();
+                                                                    for(int i=0;i<lista.size();i++){                                    
+                                                                %>
+                                                                <option value="<%= lista.get(i).getCodProcesso()%>"><%= lista.get(i).getNome()%></option>
+                                                                <%
+                                                                    }
+                                                                %>
 								
 							</select>
 							
@@ -248,18 +282,18 @@
 				<div class="form-group col-md-4 ">
 					
 					<label for="disabled">Nome do Processo</label>
-					<input disable value="123 - 22" id="disabled" type="text" class="form-control">
+					<input  value="Nome" id="cod" type="text" class="form-control">
 					
 				</div>
 				
 				<div class="form-group col-md-4 ">
 					<label for="disabled">Vagas de</label>
-					<input disable value="Programador" id="disabled" type="text" class="form-control">
+					<input disable value="Cargo" id="vaga" type="text" class="form-control">
 				</div>
 				
 				<div class="form-group col-md-4 ">
 					<label for="disabled">Número de vagas</label>
-					<input disable value="32" id="disabled" type="text" class="form-control">
+					<input disable value="Nº de Vagas" id="nvaga" type="text" class="form-control">
 				</div>
 			
 			</div>
@@ -269,14 +303,14 @@
 				<div class="form-group col-md-6 ">
 					
 					<label for="disabled">Data de Início</label>
-					<input disable value="12/04/2016" id="disabled" type="text" class="form-control">
+					<input disable value="Início" id="datin" type="text" class="form-control">
 					
 				</div>
 				
 				<div class="form-group col-md-6 ">
 				
 					<label for="disabled">Data de Fim</label>
-					<input disable value="21/04/2016" id="disabled" type="text" class="form-control">
+					<input disable value="Final" id="datfim" type="text" class="form-control">
 					
 				</div>
 			
