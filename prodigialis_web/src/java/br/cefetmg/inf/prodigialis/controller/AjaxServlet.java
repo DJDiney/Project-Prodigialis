@@ -5,7 +5,11 @@
  */
 package br.cefetmg.inf.prodigialis.controller;
 
+import br.cefetmg.inf.prodigialis.model.dao.impl.CurriculoDAO;
+import br.cefetmg.inf.prodigialis.model.dao.impl.ParticipanteDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Curriculo;
+import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import com.google.gson.Gson;
@@ -36,6 +40,7 @@ public class AjaxServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("acao");
+        System.out.println(acao);
         
         if(acao.equals("dadosProcesso")){
             int  id = Integer.parseInt(request.getParameter("id"));
@@ -49,6 +54,29 @@ public class AjaxServlet extends HttpServlet {
                     lista.add(proc.getNroVagas().toString());
                     lista.add(proc.getDataInicio().toString());
                     lista.add(proc.getDataFinal().toString());
+                    String json = new Gson().toJson(lista);
+                    
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(json);
+                    
+                    
+                } catch (PersistenciaException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }else if(acao.equals("dadosCurriculo")){
+            int  id = Integer.parseInt(request.getParameter("id"));
+            if(id != 0){
+                CurriculoDAO cur = new CurriculoDAO();
+                ParticipanteDAO par = new ParticipanteDAO();
+                try {
+                    Participante part = par.consultarPorId(id);
+                    ArrayList<String> lista = new ArrayList<String>();
+                    lista.add(part.getCandidato().getNom_cand());
+                    lista.add(part.getCandidato().getEmail());
+                    lista.add(part.getCandidato().getTel_movel());
+                    lista.add(part.getCandidato().getCurriculo().getCod_cur().toString());
                     String json = new Gson().toJson(lista);
                     
                     response.setContentType("application/json");

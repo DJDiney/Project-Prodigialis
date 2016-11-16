@@ -166,7 +166,7 @@ public class FuncionarioDAO implements IFuncionarioDAO {
     }
 
     @Override
-    public Funcionario consultarPorId(String inss) throws PersistenciaException {
+    public Funcionario consultarPorId(String cod) throws PersistenciaException {
         
         Funcionario funcionario = null;
         
@@ -174,10 +174,10 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Funcionario WHERE inss = ?";
+            String sql = "SELECT * FROM Funcionario WHERE cod_func = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, inss);
+            statement.setString(1, cod);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -221,6 +221,51 @@ public class FuncionarioDAO implements IFuncionarioDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, senha);
             statement.setString(2, email);
+            
+
+            ResultSet resultSet = statement.executeQuery();
+
+            
+            if(resultSet.next()){
+                
+                funcionario = new Funcionario();
+                funcionario.setInss(resultSet.getString("inss"));
+                funcionario.setIbge(resultSet.getString("ibge"));
+                funcionario.setNom_fun(resultSet.getString("nom_fun"));
+                funcionario.setEmail(resultSet.getString("email"));
+                funcionario.setPassword(resultSet.getString("password"));
+                funcionario.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
+                funcionario.setTel_fixo(resultSet.getString("tel_fixo"));
+                funcionario.setTel_movel(resultSet.getString("tel_movel"));
+                    
+            }
+            //else System.out.println("Achou n");
+            
+            connection.close();
+
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+                
+        }
+        
+        return funcionario;
+        
+    }
+    
+    public Funcionario consultarPorEmail(String email) throws PersistenciaException {
+        Funcionario funcionario = null;
+        try {
+            
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+            
+            System.out.println(connection);
+
+            String sql = "SELECT * FROM funcionario WHERE email = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
             
 
             ResultSet resultSet = statement.executeQuery();

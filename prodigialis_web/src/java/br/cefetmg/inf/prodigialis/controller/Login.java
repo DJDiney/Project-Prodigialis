@@ -40,6 +40,7 @@ public class Login {
                 jsp = "/erro.jsp";
             } else {
                 request.getSession().setAttribute("codUsuario", usr.getIdt_perfil());
+                request.getSession().setAttribute("email", request.getParameter("email"));
                 if(usr.getIdt_perfil() == '1')jsp = "/MenuFunc.jsp";
                 else if(usr.getIdt_perfil() == '0')jsp = "/MenuUser.jsp";
             }

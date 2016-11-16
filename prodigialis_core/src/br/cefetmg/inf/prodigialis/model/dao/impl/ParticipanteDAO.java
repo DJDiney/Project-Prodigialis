@@ -161,22 +161,21 @@ public class ParticipanteDAO implements IParticipanteDAO{
     }
 
     @Override
-    public Participante consultarPorId(int nro_ins) throws PersistenciaException {
+    public Participante consultarPorId(int id) throws PersistenciaException {
         
-        Participante participante = null;
+        Participante participante = new Participante();
         
         try {
-            
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
             String sql = "SELECT * FROM participante WHERE nro_insc = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, nro_ins);
+            statement.setInt(1, id);
 
             ResultSet resultSet = statement.executeQuery();
 
-            ICandidatoDAO candidatoDAO = new CandidatoDAO();
+            CandidatoDAO candidatoDAO = new CandidatoDAO();
             
             while(resultSet.next()){
                 

@@ -1,5 +1,6 @@
 <%@page import="br.cefetmg.inf.prodigialis.controller.Login"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.FuncionarioDAO"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
 
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
@@ -72,7 +73,7 @@
                        java.util.ArrayList<ProcessoSeletivo> lista = dao.listarTodos();
                        for(int i=0;i<lista.size();i++){                                    
                    %>      
-                     <%=lista.get(i).getNome()%>:[<%for(int j=0;j<lista.get(i).getParticipantes().size();j++){%>'<%=lista.get(i).getParticipantes().get(j).getCandidato().getCurriculo().getCod_cur()%>'<%if(j != lista.get(i).getParticipantes().size()-1){%> ,<%}%><%}%>]<%if(i != lista.size()-1){%> ,<%}%>
+                     <%=lista.get(i).getNome()%>:[<%for(int j=0;j<lista.get(i).getParticipantes().size();j++){%>'<%=lista.get(i).getParticipantes().get(j).getNroInscricao()%>'<%if(j != lista.get(i).getParticipantes().size()-1){%> ,<%}%><%}%>]<%if(i != lista.size()-1){%> ,<%}%>
                    <%
                        }
                    %> }
@@ -123,7 +124,7 @@
           }
 
          function populator(e, relatedto, obj, srt){
-            // set pseudo statics
+            ajaxUpdate();
             var self = populator;
             if (!self.initialized) {
                 initStatics(self,{optselects:obj,optselectsall:obj.all,relatedTo:relatedto,sorter:srt || false});
@@ -287,10 +288,14 @@
                         document.getElementById("nvaga").value = obj[2];
                         document.getElementById("datin").value = obj[3];
                         document.getElementById("datfim").value = obj[4];
+                        document.getElementById("curriculos").value = 0;
+                        document.getElementById("nomcand").value = '';
+                        document.getElementById("email").value = '';
+                        document.getElementById("tel").value = '';
+                        document.getElementById("curcode").value = '';
                         //var resp = array();
                         //resp.push(item);
                     }else{
-                        alert("Deu ruim");
                     }
                 }
             };
@@ -298,6 +303,32 @@
             tag.open("POST", "AjaxServlet");
             tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             tag.send("acao=dadosProcesso&id=" + par);
+        }
+    </script>
+    <script>
+        function curUpdate(){
+            var e = document.getElementById("curriculos");
+            var par = e.options[e.selectedIndex].text;
+            var tag = new XMLHttpRequest();
+            tag.onreadystatechange = function(){
+               if(tag.readyState == 4){
+                    if(tag.status == 200){
+                        obj = JSON.parse(tag.responseText);
+                        document.getElementById("nomcand").value = obj[0];
+                        document.getElementById("email").value = obj[1];
+                        document.getElementById("tel").value = obj[2];
+                        document.getElementById("curcode").value = obj[3];
+                        //var resp = array();
+                        //resp.push(item);
+                    }else{
+                        alert("ruim");
+                    }
+                }
+            };
+            
+            tag.open("POST", "AjaxServlet");
+            tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            tag.send("acao=dadosCurriculo&id=" + document.getElementById("curriculos").options[e.selectedIndex].text);
         }
     </script>
 </head>
@@ -327,11 +358,11 @@
                                 <a href="Saiba.jsp" class="btn btn-simple">Sobre a empresa</a>
                             </li>
                             <li>
-                                <div class="dropdown">
+                                <div class="dropdown"><%FuncionarioDAO daofunc = new FuncionarioDAO();  %>
 
 								  <button class="btn btn-simple dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 									
-									<i class="fa fa-user-circle fa-1x" aria-hidden="true"></i><span>Nome UsuÃ¡rio</span>
+									<i class="fa fa-user-circle fa-1x" aria-hidden="true" id="nomeuser"></i><span><%=daofunc.consultarPorEmail((String)request.getSession().getAttribute("email")).getNom_fun()%></span>
 
 									<span class="caret"></span>
 
@@ -339,7 +370,7 @@
 
 								  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">InformaÃ§ÃµeÖ¥s da conta</a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Informações da conta</a></li>
 
 									<li role="presentation" class="divider"></li>
 
@@ -379,7 +410,7 @@
 							
 							<select class="form-control default-cursor" id="processo">
                                                                 
-								<option value="" disabled selected>Escolha um processo</option>
+								<option value="0" disabled selected>Escolha um processo</option>
 								<% 
                                                                     for(int i=0;i<lista.size();i++){                                    
                                                                 %>
@@ -423,18 +454,18 @@
 						<div class="form-group col-md-4 ">
 							
 							<label>Código do Processo</label>
-							<input readonly value="123 - 22"  type="text" class="form-control default-cursor" id="cod">
+							<input readonly value="Código do Processo"  type="text" class="form-control default-cursor" id="cod">
 							
 						</div>
 						
 						<div class="form-group col-md-4 ">
 							<label>Vagas de</label>
-							<input readonly value="Programador"  type="text" class="form-control default-cursor" id="vaga">
+							<input readonly value="Cargo oferecido"  type="text" class="form-control default-cursor" id="vaga">
 						</div>
 						
 						<div class="form-group col-md-4 ">
-							<label>NÃºmero de vagas</label>
-							<input readonly value="32"  type="text" class="form-control default-cursor" id="nvaga">
+							<label>Número de vagas</label>
+							<input readonly value="Nº de vagas"  type="text" class="form-control default-cursor" id="nvaga">
 						</div>
 					
 					</div>
@@ -443,15 +474,15 @@
 					
 						<div class="form-group col-md-6 ">
 							
-							<label>Data de InÃ­cio</label>
-							<input readonly value="12/04/2016"  type="text" class="form-control default-cursor" id="datin">
+							<label>Data de Início</label>
+							<input readonly value="Início"  type="text" class="form-control default-cursor" id="datin">
 							
 						</div>
 						
 						<div class="form-group col-md-6 ">
 						
 							<label>Data de Fim</label>
-							<input readonly value="21/04/2016"  type="text" class="form-control default-cursor" id="datfim">
+							<input readonly value="Fim"  type="text" class="form-control default-cursor" id="datfim">
 							
 						</div>
 					
@@ -459,15 +490,15 @@
 							
 					<div class="row">
 						<div class="form-group col-md-12 ">
-							<label id="Specs" data-toggle="collapse" data-target="#demo">EspecificaÃ§Ãµes  </label><i id="Caret" class="fa fa-caret-right CaretRight" aria-hidden="true"></i>
+							<label id="Specs" data-toggle="collapse" data-target="#demo">Especificações  </label><i id="Caret" class="fa fa-caret-right CaretRight" aria-hidden="true"></i>
 							<div id="demo" class="collapse">
 							<ul class="list-group">
-								<li class="list-group-item">EspecificaÃ§Ã£o 1</li>
-								<li class="list-group-item">EspecificaÃ§Ã£o 2</li>
-								<li class="list-group-item">EspecificaÃ§Ã£o 3</li>
-								<li class="list-group-item">EspecificaÃ§Ã£o 4</li>
-								<li class="list-group-item">EspecificaÃ§Ã£o 5</li>
-								<li class="list-group-item">EspecificaÃ§Ã£o 6</li>
+								<li class="list-group-item">Especificação 1</li>
+								<li class="list-group-item">Especificação 2</li>
+								<li class="list-group-item">Especificação 3</li>
+								<li class="list-group-item">Especificação 4</li>
+								<li class="list-group-item">Especificação 5</li>
+								<li class="list-group-item">Especificação 6</li>
 							</ul>
 							</div>
 							
@@ -481,9 +512,8 @@
 					<div class="row">
 						<div class="form-group col-md-12">
                                                         
-							<label>Curriculos recebidos</label>
-							<select class="form-control" id="curriculos" onchange="ajaxUpdate()">	
-                                                                <option value="" disabled selected>Escolha um curriculo</option>
+							<label>Número de Inscrição</label>
+							<select class="form-control" id="curriculos" onmouseover="curUpdate()">	
                                                         </select>
 							
 							
@@ -493,7 +523,7 @@
 						
 						<div class="form-group col-md-12">
 							<label>Nome do Candidato</label>
-							<input value="JosÃ© da Silva Santos" readonly type="text" class="form-control default-cursor">
+							<input value="" readonly type="text" class="form-control default-cursor" id="nomcand">
 						</div>
 						
 					</div>
@@ -502,12 +532,12 @@
 					
 						<div class="form-group col-md-8">
 							<label>E-mail</label>
-							<input value="jsilva@hotmail.com" type="text" readonly class="form-control default-cursor">
+							<input value="" type="text" readonly class="form-control default-cursor" id="email">
 						</div>
 						
 						<div class="form-group col-md-4">
 							<label>Telefone</label>
-							<input value="(31)98888-8888" type="text" readonly class="form-control default-cursor">
+							<input value="" type="text" readonly class="form-control default-cursor"id="tel">
 						</div>
 						
 					</div>
@@ -522,7 +552,7 @@
 					<div class="row">
 						
 						<div class="form-group col-md-8">
-							<input value="83217428 " readonly type="text" class="form-control default-cursor">
+							<input value=" " readonly type="text" class="form-control default-cursor" id="curcode">
 						</div>	
 						
 						<div class="form-group pull-right col-md-4">
