@@ -399,7 +399,137 @@
             </div>
         </div>
         <div id="my-tab-content" class="tab-content">
-            <div class="tab-pane active" id="CriarProcesso"></div>
+            <div class="tab-pane active" id="CriarProcesso">
+				    <div class="container">
+
+						<div class="row">
+
+							<h3 class="header">Criar Novo Processo Seletivo</h3>
+							
+						</div>
+                                                <form id="form1" action="ServletWeb?" method="post">
+                                                <input type="hidden" name="acao" id="acao" value="criaProcesso"/>
+						<div class="row">
+
+							<div class="form-group col-md-6">
+								
+								<label>Nome do Processo</label>
+								<input id="nome_proc" type="text" class="form-control default-cursor">
+								
+
+							</div>
+							
+							<div class="form-group col-md-6">
+								
+								<label>Número de vagas</label>
+								<input id="n_vagas" type="text" class="form-control default-cursor">
+								
+
+							</div>
+
+						</div>
+							
+						<div class="row">
+							
+							<div class="form-group col-md-6">
+								<label>Data de início</label>
+								<input type="text" id="data_ini" class="form-control default-cursor">
+							</div>
+
+							<div class="form-group col-md-6">
+
+								<label>Data de fim</label>
+								<input type="text" id="data_fim" class="form-control default-cursor">
+
+							</div>
+						
+						</div>
+
+						<div class="row">
+
+							<div class="form-group col-md-12">
+								
+								<label>Descrição</label>
+								<textarea id="desc" class="form-control" style="height:150px"></textarea>
+								
+							</div>
+
+						</div>
+							
+						<div class="row">
+							<label>Especificações</label>
+						</div>
+						<div class="row">
+							<div class="form-group  col-sm-11" style="padding-right:0px">
+								<input id="NewSpec" type="text" class="form-control">
+							</div>
+                                                        <script>
+                                                                function addSpec(){
+                                                                    var txt = document.getElementById("NewSpec").value;
+                                                                    if(txt != ""){
+                                                                        var li = document.createElement("li");
+                                                                        li.setAttribute("class","list-group-item");
+                                                                        li.innerHTML = txt;
+                                                                        document.getElementById("SpecsList").appendChild(li);
+                                                                        document.getElementById("NewSpec").value = "";
+                                                                    }
+                                                                    
+                                                                }
+                                                        </script>
+							<div class="form-group col-sm-1" style="padding-left:0px;text-align:left">
+								<button type="button" onclick="addSpec()"  id="AddSpecs" class="btn btn-success btn-circle btn-simple pull-right" style="text-align:left"><i class="fa fa-plus adicionar" style="vertical-align:center;text-align:left"></i></button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<ul class="list-group" id="SpecsList">
+								  <!--<li class="list-group-item">Cras justo odio	<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-times" style="vertical-align:center"></i></button></li>
+								  -->
+								</ul>
+							</div>
+						</div>
+						
+						<div class="row">
+							<label>Prova</label>
+							<div class="form-group col-md-12" >
+								<input type="file" name="file-7[]" id="ArquivoProva" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
+								<label for="ArquivoProva" class="width" >
+									<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Prova</a> 
+									<span id="DirArquivoProva"></span>
+								</label>
+
+							</div>
+
+						</div>
+						
+						<div class="row">
+							<div class="form-group col-md-12" >
+								<input type="file" name="file-7[]" id="ArquivoGabarito" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
+								<label for="ArquivoGabarito" class="width" >
+									<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Gabarito</a> 
+									<span id="DirArquivoGabarito"></span>
+								</label>
+
+							</div>
+
+						</div>
+						
+						
+
+						<div class="row">
+
+							<div id="submit" class="form-group col-md-4 pull-right ">
+									<button style="width:100%"  type="submit" name="action" class="btn btn-fill ">Criar Processo
+									  <i class="fa fa-plus" ></i> 
+									</button>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
             <div class="tab-pane" id="AcompanharProcesso">
 				
 				<div class="container">

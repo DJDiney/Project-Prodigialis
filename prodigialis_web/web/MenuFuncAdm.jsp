@@ -4,7 +4,7 @@
 <%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
 
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
-    if(cod != '1'){
+    if(cod != '0'){
         request.getSession().setAttribute("codUsuario", null);
     }
     Login.validarSessao(request,response);%>
@@ -394,11 +394,28 @@
                     <li class="active"><a href="#CriarProcesso" data-toggle="tab">Criar processo</a></li>
                     <li><a href="#AcompanharProcesso"  data-toggle="tab">Acompanhar processo</a></li>
                     <li><a href="#verCurriculo" data-toggle="tab">Ver curriculos</a></li>
-                    
+                     <li><a href="#AprovadosPendentes"  data-toggle="tab">Aprovações Pendentes</a></li>
                 </ul>
             </div>
         </div>
         <div id="my-tab-content" class="tab-content">
+            <div class="tab-pane" id="AprovadosPendentes">
+                <div class="container">
+                    <div class="row">
+
+                            <h3 class="header">Aprovações de Contratação Pendentes</h3>
+
+                    </div>
+                    <div class="row">
+                            <div class="form-group col-md-12">
+                                    <ul class="list-group" id="SpecsList">
+                                      <li class="list-group-item">Cras justo odio<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-times" style="vertical-align:center"></i></button></li>
+                                    </ul>
+                            </div>
+                    </div>
+                </div>
+                    
+            </div>
             <div class="tab-pane active" id="CriarProcesso">
 				    <div class="container">
 
