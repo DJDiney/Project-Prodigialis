@@ -34,7 +34,7 @@ public class CurriculoDAO implements ICurriculoDAO{
             
             Long id = null;
             
-            if(resultSet.next()){
+            /*if(resultSet.next()){
                 
                 id = resultSet.getLong("cod_cur");
                 PreparedStatement statement2 = connection.prepareStatement("UPDATE Curriculo " +
@@ -47,7 +47,7 @@ public class CurriculoDAO implements ICurriculoDAO{
                 
                 Files.write(curriculo.getArq_cur(), new File("./curriculos/cur_" + id + ".pdf"));
                 
-            }
+            }*/
 
             connection.close();
             

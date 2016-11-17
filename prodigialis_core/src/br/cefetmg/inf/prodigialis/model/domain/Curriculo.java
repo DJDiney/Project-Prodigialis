@@ -12,7 +12,7 @@ public class Curriculo {
     
     public Curriculo () {}
 
-    public Curriculo(Long cod_cur, byte[] arq_cur, String path_cur) {
+    public Curriculo(byte[] arq_cur, String path_cur) {
         this.cod_cur = cod_cur;
         this.arq_cur = arq_cur;
         this.path_cur = path_cur;

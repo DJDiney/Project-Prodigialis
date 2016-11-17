@@ -342,7 +342,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             
 
             ResultSet resultSet = statement.executeQuery();
-
+            CurriculoDAO aux = new CurriculoDAO();
             
             if(resultSet.next()){
                 
@@ -355,6 +355,7 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
+                candidato.setCurriculo(null);
                     
             }
             //else System.out.println("Achou n");
