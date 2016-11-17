@@ -721,7 +721,7 @@
 						<div class="form-group pull-right col-md-4">
 							<form id="form1" action="" method="post">
 								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
-									Aprovar candidato <span class="fa fa-check" aria-hidden="true"></span>
+									Solicitar Contratação <span class="fa fa-check" aria-hidden="true"></span>
 								</button>
 							</form>
 						</div>
@@ -730,16 +730,39 @@
 				</div>
 			</div>
             <div class="tab-pane" id="verCurriculo">
-	
+                <script>
+                        function updateDados(){
+                            var tag = new XMLHttpRequest();
+                            tag.onreadystatechange = function(){
+                               if(tag.readyState == 4){
+                                    if(tag.status == 200){
+                                        obj = JSON.parse(tag.responseText);
+                                        document.getElementById("nomcand").value = obj[0];
+                                        document.getElementById("email").value = obj[1];
+                                        document.getElementById("tel").value = obj[2];
+                                        //document.getElementById("curcode").value = obj[3];
+                                        //var resp = array();
+                                        //resp.push(item);
+                                    }else{
+                                        alert("ruim");
+                                    }
+                                }
+                            };
+            
+                            tag.open("POST", "AjaxServlet");
+                            tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                            tag.send("acao=dadosCurriculoEmail&id=" + document.getElementById("emailcand").value);
+                        }
+                </script>
 					<div class="container">
-						<h3 class="header">Ver CurrÃ­culo</h3>
+						<h3 class="header">Ver Currículo</h3>
 						<div class="row">
 							<div class="form-group col-md-8">
-								<input placeholder="Codigo do candidato" id="disabled" type="text" class="form-control">
+								<input placeholder="E-mail do candidato" id="emailcand" type="text" class="form-control">
 							</div>
 							<div class="form-group pull-right col-md-4">
 								<form id="form1" action="" method="post">
-									<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Pesquisar</button>
+									<button  class="btn btn-fill" style="width:100%" type="button" onclick="updateDados()">Pesquisar</button>
 								</form>
 							</div>
 						</div>			
@@ -753,7 +776,7 @@
 							
 							<div class="form-group col-md-12">
 								<label>Nome do Candidato</label>
-								<input value="JosÃ© da Silva Santos" readonly type="text" class="form-control default-cursor">
+								<input id="nomcand" value="" readonly type="text" class="form-control default-cursor">
 							</div>
 							
 						</div>
@@ -762,12 +785,12 @@
 						
 							<div class="form-group col-md-8">
 								<label>E-mail</label>
-								<input value="jsilva@hotmail.com" type="text" readonly class="form-control default-cursor">
+								<input  id="email" value="" type="text" readonly class="form-control default-cursor">
 							</div>
 							
 							<div class="form-group col-md-4">
 								<label>Telefone</label>
-								<input value="(31)98888-8888" type="text" readonly class="form-control default-cursor">
+								<input id="tel" value="" type="text" readonly class="form-control default-cursor">
 							</div>
 							
 						</div>
@@ -782,11 +805,11 @@
 						<div class="row">
 							
 							<div class="form-group col-md-8">
-								<input value="83217428 " readonly type="text" class="form-control default-cursor">
+								<input id="curcode" value="" readonly type="text" class="form-control default-cursor">
 							</div>	
 							
 							<div class="form-group pull-right col-md-4">
-								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Download
+								<button  class="btn btn-fill" style="width:100%" type="button" onclick="pesquisar()">Download
 									<i class=" fa fa-download"></i>
 								</button>
 							</div>
@@ -797,7 +820,7 @@
 						<div class="row" style="padding-top:30px">
 								
 							<div class="form-group col-md-12">
-								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Solicitar ContrataÃ§Ã£o
+								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Solicitar Contratação
 									<span class="fa fa-check" aria-hidden="true"></span>
 								</button>
 							</div>	

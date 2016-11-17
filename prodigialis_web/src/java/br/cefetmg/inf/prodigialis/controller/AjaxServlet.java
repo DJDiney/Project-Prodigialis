@@ -5,9 +5,11 @@
  */
 package br.cefetmg.inf.prodigialis.controller;
 
+import br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.CurriculoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ParticipanteDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import br.cefetmg.inf.prodigialis.model.domain.Curriculo;
 import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
@@ -88,6 +90,29 @@ public class AjaxServlet extends HttpServlet {
                     ex.printStackTrace();
                 }
             }
+        }else if(acao.equals("dadosCurriculoEmail")){
+            String  mail = (request.getParameter("id"));
+                CandidatoDAO par = new CandidatoDAO();
+                try {
+                    Candidato part = par.consultarPorEmail(mail);
+                    if(part!= null){
+                        ArrayList<String> lista = new ArrayList<String>();
+                        lista.add(part.getNom_cand());
+                        lista.add(part.getEmail());
+                        lista.add(part.getTel_movel());
+                        if(part.getCurriculo()!=null)lista.add(part.getCurriculo().getCod_cur().toString());
+                        else lista.add("");
+                        String json = new Gson().toJson(lista);
+
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write(json);
+                    }else System.out.println("CU");
+                    
+                    
+                } catch (PersistenciaException ex) {
+                    ex.printStackTrace();
+                }
         }
     }
 
