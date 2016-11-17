@@ -1,6 +1,10 @@
 <%@page import="br.cefetmg.inf.prodigialis.controller.Login"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.EstadoDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.CidadeDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.domain.Estado"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.domain.Cidade"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
     if(cod != '0'){
@@ -37,7 +41,149 @@
 		});
 		
     </script>
+    <script>
+        function formatar(mascara, documento){
+          var i = documento.value.length;
+          var saida = mascara.substring(0,1);
+          var texto = mascara.substring(i)
+
+          if (texto.substring(0,1) != saida){
+                    documento.value += texto.substring(0,1);
+          }
+
+        }
+        </script>
     <script src="x_login-register modal/login-register.js"></script>
+        <script>
+        //<![CDATA[
+        window.onload=function(){
+        /*
+         -------------------------------------------------------
+         syntax 
+         MAIN.createRelatedSelector(
+            from   -> the filtering element           
+            to     -> the element for filtered options
+            obj    -> An object containing the options per
+                      option of the filtering (from) element
+            [sort] -> optional sorting method for sorting
+                      of the complete or filtered options list
+         --------------------------------------------------------
+        */
+        
+        //create the interdepent selectors
+        function initSelectors(){
+         // next 2 statements should generate error message, see console
+         MAIN.createRelatedSelector(); 
+         MAIN.createRelatedSelector(document.querySelector('#estado') );
+
+         //countries
+         MAIN.createRelatedSelector
+             (   document.querySelector('#estado')           // from select element
+                ,document.querySelector('#cidade')      // to select element
+                ,{                                               // values object 
+                  <% 
+                       EstadoDAO est = new EstadoDAO();
+                       java.util.ArrayList<Estado> estados = est.listarTodos();
+                       for(int i=0;i<estados.size();i++){                                    
+                   %>      
+                     <%=estados.get(i).getUf()%>:[<%for(int j=0;j<estados.get(i).getCidades().size();j++){%>'<%=estados.get(i).getCidades().get(j).getNom_cid()%>'<%if(j != estados.get(i).getCidades().size()-1){%> ,<%}%><%}%>]<%if(i != estados.size()-1){%> ,<%}%>
+                   <%
+                       }
+                   %> }
+              ,function(a,b){return a>b ? 1 : a<b ? -1 : 0;}   // sort method
+         );
+        }
+
+        //create MAIN namespace
+        (function(ns){ // don't pollute the global namespace
+
+         function create(from, to, obj, srt){
+          if (!from) {
+                 throw CreationError('create: parameter selector [from] missing');
+          }
+          if (!to) {
+                 throw CreationError('create: parameter related selector [to] missing');
+          }
+          if (!obj) {
+                 throw CreationError('create: related filter definition object [obj] missing');
+          }
+
+          //retrieve all options from obj and add it
+          obj.all = (function(o){
+             var a = [];
+             for (var l in o) {
+               a = /array/i.test (o[l].constructor) ? a.concat(o[l]) : a;
+             }
+             return a.sort(srt);
+          }(obj));
+         // initialize and populate to-selector with all
+          populator.call( from
+                          ,null
+                          ,to
+                          ,obj
+                          ,srt
+          );
+
+          // assign handler    
+          from.onchange = populator;
+
+          function initStatics(fn,obj){
+           for (var l in obj) {
+               if (obj.hasOwnProperty(l)){
+                   fn[l] = obj[l];
+               }
+           }
+           fn.initialized = true;
+          }
+          
+         function populator(e, relatedto, obj, srt){
+            ajaxUpdate();
+            var self = populator;
+            if (!self.initialized) {
+                initStatics(self,{optselects:obj,optselectsall:obj.all,relatedTo:relatedto,sorter:srt || false});
+            }
+
+            if (!self.relatedTo){
+                throw 'not related to a selector';
+            }
+            // populate to-selector from filter/all
+            var optsfilter = this.selectedIndex < 1
+                           ? self.optselectsall 
+                           : self.optselects[this.options[this.selectedIndex].firstChild.nodeValue]
+               ,cselect = self.relatedTo
+               ,opts = cselect.options;
+            if (self.sorter) optsfilter.sort(self.sorter);
+            opts.length = 0;
+            for (var i=0;i<optsfilter.length;i+=1){
+                opts[i] = new Option(optsfilter[i],i);
+            }
+          }
+         }
+
+         // custom Error
+         function CreationError(mssg){
+             return {name:'CreationError',message:mssg};
+         }
+
+         // return the create method with some error handling   
+         window[ns] = { 
+             createRelatedSelector: function(from,to,obj,srt) {
+                  try { 
+                      if (arguments.length<1) {
+                         throw CreationError('no parameters');
+                      } 
+                      create.call(null,from,to,obj,srt); 
+                  } 
+                  catch(e) { console.log('createRelatedSelector ->',e.name,'\n'
+                                           + e.message +
+                                           '\ncheck parameters'); }
+                }
+         };    
+        }('MAIN'));
+        //initialize
+        initSelectors();
+        }//]]> 
+    </script>
     <style>
 	
 		form-group>.form-control{
@@ -369,12 +515,12 @@
 						</div>
 
 						<div class="form-group col-md-2" >
-							<input type="text" value=""  placeholder="Numero" class="form-control" />
+							<input type="text" value=""  placeholder="CPF" OnKeyPress="formatar('###.###.###-##', this)" class="form-control" />
 						</div> 
 
 
 						<div class="form-group col-md-2" >
-							<input type="text" value=""  placeholder="Complemento" class="form-control" />
+							<input type="text" value=""  placeholder="RG" OnKeyPress="formatar('##-###.###.###', this)" class="form-control" />
 						</div> 
 
 					</div>
@@ -383,12 +529,18 @@
 
 						<div class="form-group col-md-4" >
 
-							<select class="form-control">
+							<select class="form-control" id="estado">
 
 								<option value="" disabled selected>Escolha um estado</option>
-								<option value="1">Minas Gerais</option>
-								<option value="2">Rio de Janeiro</option>
-								<option value="3">São Paulo</option>
+								<%  
+                                                                    EstadoDAO daos = new EstadoDAO();
+                                                                    java.util.ArrayList<Estado> listas = daos.listarTodos();
+                                                                    for(int i=0;i<listas.size();i++){                                    
+                                                                %>
+                                                                <option value="<%= listas.get(i).getUf()%>"><%= listas.get(i).getUf()%></option>
+                                                                <%
+                                                                    }
+                                                                %>
 
 							</select>
 
@@ -405,12 +557,7 @@
 
 						<div class="form-group col-md-4" >
 
-							<select class="form-control">
-
-								<option value="" disabled selected>Escolha uma cidade</option>
-								<option value="1">Belo Horizonte</option>
-								<option value="2">Sabará</option>
-								<option value="3">Contagem</option>
+							<select class="form-control" id="cidade">
 
 							</select>
 
@@ -425,7 +572,7 @@
 						</div>
 
 						<div class="form-group col-md-4" >
-							<input type="text" value=""  placeholder="CEP" class="form-control" />
+							<input type="text" value=""  placeholder="Celular" OnKeyPress="formatar('##-#####-####', this)" class="form-control" />
 						</div> 
 
 					</div>
@@ -433,11 +580,11 @@
 					<div class="row">
 
 						<div class="form-group col-md-8 col-xs-12" >
-							<input type="email" value=""  placeholder="Email" class="form-control" />
+							<input type="email" value="<%=request.getSession().getAttribute("email")%>"  placeholder="Email" class="form-control" />
 						</div> 
 
 						<div class="form-group col-md-4" >
-							<input type="text" value=""  placeholder="Telefone" class="form-control" />
+							<input type="text" value=""  placeholder="Telefone Fixo" OnKeyPress="formatar('##-####-####', this)" class="form-control" />
 						</div> 
 
 					</div>
