@@ -15,26 +15,27 @@ import java.util.List;
 public class EstadoDAO implements IEstadoDAO{
     
     @Override
-    public List<Estado> listarTodos() throws PersistenciaException {
+    public ArrayList<Estado> listarTodos() throws PersistenciaException {
 
-        List<Estado> estadoList = new ArrayList<Estado>();
+        ArrayList<Estado> estadoList = new ArrayList<Estado>();
 
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Estado";
+            String sql = "SELECT * FROM estado ORDER BY uf";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet resultSet = statement.executeQuery();
-
+            CidadeDAO cid = new CidadeDAO();
             while(resultSet.next()){
                 
                 Estado estado = new Estado();
-                estado.setUf((resultSet.getString("uf").charAt(0)));
+                estado.setUf((resultSet.getString("uf")));
                 estado.setNom_est(resultSet.getString("nom_est"));
-
+                estado.setCidades(cid.listarPorUf(resultSet.getString("uf")));
+                
                 estadoList.add(estado);
                 
             }
@@ -61,18 +62,21 @@ public class EstadoDAO implements IEstadoDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM Estado WHERE uf = ?";
+            String sql = "SELECT * FROM estado WHERE uf = ? ORDER BY uf";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, uf);
 
             ResultSet resultSet = statement.executeQuery();
+            
+            CidadeDAO cid = new CidadeDAO();
 
             if(resultSet.next()){
                 
                 estado = new Estado();
-                estado.setUf((resultSet.getString("uf").charAt(0)));
+                estado.setUf((resultSet.getString("uf")));
                 estado.setNom_est(resultSet.getString("nom_est"));
+                estado.setCidades(cid.listarPorUf(resultSet.getString("uf")));
                     
             }
             
@@ -108,7 +112,7 @@ public class EstadoDAO implements IEstadoDAO{
             if(resultSet.next()){
                 
                 estado = new Estado();
-                estado.setUf((resultSet.getString("uf").charAt(0)));
+                estado.setUf((resultSet.getString("uf")));
                 estado.setNom_est(resultSet.getString("nom_est"));
                     
             }

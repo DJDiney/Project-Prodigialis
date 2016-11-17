@@ -5,33 +5,33 @@ import java.util.Objects;
 
 public class Cidade {
     
-    private char ibge;
-    private Estado estado;
+    private String ibge;
+    private String uf;
     private String nom_cid;
     
     
     public Cidade () {}
 
-    public Cidade(char ibge, Estado estado, String nom_cid) {
+    public Cidade(String ibge, String uf, String nom_cid) {
         this.ibge = ibge;
-        this.estado = estado;
+        this.uf = uf;
         this.nom_cid = nom_cid;
     }
 
-    public char getIbge() {
+    public String getIbge() {
         return ibge;
     }
 
-    public void setIbge(char ibge) {
+    public void setIbge(String ibge) {
         this.ibge = ibge;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public String getUf() {
+        return uf;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 
     public String getNom_cid() {
@@ -54,7 +54,7 @@ public class Cidade {
         if (this.ibge != other.ibge) {
             return false;
         }
-        if (this.estado != other.estado) {
+        if (this.uf != other.uf) {
             return false;
         }
         return Objects.equals(this.nom_cid, other.nom_cid);

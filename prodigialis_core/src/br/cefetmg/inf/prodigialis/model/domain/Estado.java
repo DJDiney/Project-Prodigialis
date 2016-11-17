@@ -1,24 +1,35 @@
 package br.cefetmg.inf.prodigialis.model.domain;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Estado {
     
-    private char uf;
+    private String uf;
     private String nom_est;
+    private ArrayList<Cidade> cidades;
 
     public Estado () {}
 
-    public Estado (char uf, String nom_est) {
+    public Estado (String uf, String nom_est, ArrayList<Cidade> cidades) {
         this.uf = uf;
         this.nom_est = nom_est;
+        this.cidades = cidades;
+    }
+
+    public ArrayList<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(ArrayList<Cidade> cidades) {
+        this.cidades = cidades;
     }
     
-    public char getUf() {
+    public String getUf() {
         return uf;
     }
 
-    public void setUf(char uf) {
+    public void setUf(String uf) {
         this.uf = uf;
     }
 
