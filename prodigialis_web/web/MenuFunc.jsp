@@ -529,7 +529,7 @@
 
 					</div>
 
-				</div>
+            </div>
             <div class="tab-pane" id="AcompanharProcesso">
 				
 				<div class="container">
