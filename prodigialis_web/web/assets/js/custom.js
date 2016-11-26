@@ -10,10 +10,13 @@ $(document).ready(function () {
 	});
 	
 	$('#AddSpecs').click(function(){
+                var count = $('#counter').val();
 		var spec = $('#NewSpec').val();
 		if(spec == '' || spec == null || spec == ' '){}
 		else{
-			$("#SpecsList").append('<li class="list-group-item">'+spec+'<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-times" style="vertical-align:center"></i></button></li>');
+			$("#SpecsList").append('<li name=spec"'+count+'" class="list-group-item">'+spec+'<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-times" style="vertical-align:center"></i></button></li>');
+                        $('#NewSpec').val("");
+                        $('#counter').val(parseInt(count) + 1);
 		}
 	});
 	

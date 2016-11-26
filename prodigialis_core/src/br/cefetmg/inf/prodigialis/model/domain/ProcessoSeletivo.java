@@ -37,6 +37,18 @@ public class ProcessoSeletivo {
         this.cargoOferecido = cargoOferecido;
         this.specs = specs;
     }
+    
+    public ProcessoSeletivo(ArrayList<String> specs,Date dataInicio, Date dataFinal, String nome, String descricao, Prova prova, int nroVagas, boolean em_andamento, Cargo cargoOferecido) {
+        this.dataInicio = dataInicio;
+        this.dataFinal = dataFinal;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.prova = prova;
+        this.nroVagas = nroVagas;
+        this.em_andamento = em_andamento;
+        this.cargoOferecido = cargoOferecido;
+        this.specs = specs;
+    }
 
     public ArrayList<String> getSpecs() {
         return specs;

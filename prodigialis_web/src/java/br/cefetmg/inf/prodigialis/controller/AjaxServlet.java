@@ -57,7 +57,6 @@ public class AjaxServlet extends HttpServlet {
                     lista.add(proc.getDataInicio().toString());
                     lista.add(proc.getDataFinal().toString());
                     String json = new Gson().toJson(lista);
-                    
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(json);
@@ -94,6 +93,7 @@ public class AjaxServlet extends HttpServlet {
             String  mail = (request.getParameter("id"));
                 CandidatoDAO par = new CandidatoDAO();
                 try {
+                    System.out.println(mail);
                     Candidato part = par.consultarPorEmail(mail);
                     if(part!= null){
                         ArrayList<String> lista = new ArrayList<String>();
@@ -101,13 +101,16 @@ public class AjaxServlet extends HttpServlet {
                         lista.add(part.getEmail());
                         lista.add(part.getTel_movel());
                         if(part.getCurriculo()!=null)lista.add(part.getCurriculo().getCod_cur().toString());
-                        else lista.add("");
+                        else{
+                            System.out.println("Deu ruim no curiculo email");
+                            lista.add("");
+                        }
                         String json = new Gson().toJson(lista);
 
                         response.setContentType("application/json");
                         response.setCharacterEncoding("UTF-8");
                         response.getWriter().write(json);
-                    }else System.out.println("CU");
+                    }else System.out.println("Deu Ruim");
                     
                     
                 } catch (PersistenciaException ex) {

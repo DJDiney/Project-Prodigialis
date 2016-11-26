@@ -22,27 +22,16 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
-    <script src="assets/js/custom.js"></script> 
+    
     <script src="assets/js/jquery-1.10.2.js"></script>
+	
     <script src="x_login-register modal/bootstrap3/js/bootstrap.js" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <script src="assets/js/ct-paper.js"></script>
     
-	<script>
-        $(document).ready(function () {
-			$('#file-7').change(function () {
-				var filename = $('#file-7').val();
-				$('#Filename').html(filename);
-			});
-			$('#Specs').click(function(){
-				$('#Caret').toggleClass('CaretDown CaretRight');
-				
-			});
-		});
-    </script>
+	
     <script src="x_login-register modal/login-register.js"></script>
     <script>
-        //<![CDATA[
         window.onload=function(){
         /*
          -------------------------------------------------------
@@ -171,108 +160,6 @@
         initSelectors();
         }//]]> 
     </script>
-    <style>
-	
-		form-group>.form-control{
-			background-color:#D1D1D1;
-			color:#66615B;
-			}
-			
-		.form-group>.form-control:focus{
-			background-color:white;
-			color:#66615B;
-			}	
-			
-        .form-group>.form-control{
-            background-color:#D1D1D1;
-            color:#66615B;
-        }
-
-        .form-group>.form-control:focus{
-            background-color:white;
-            color:#66615B;
-        }	
-
-        .form-group>.form-control::-webkit-input-placeholder {
-            color: #66615B;
-        }
-
-        .form-group>.form-control:-moz-placeholder { /* Firefox 18- */
-            color: #66615B;  
-        }
-
-        .form-group>.form-control::-moz-placeholder {  /* Firefox 19+ */
-            color: #66615B;  
-        }
-
-        .form-group>.form-control:-ms-input-placeholder {  
-            color: #66615B;  
-        }
-
-        #btnSubmit{
-            border-color:#66615B;
-        }
-
-		#btnInput{
-            border-color:#66615B;
-        }
-		
-		#btnSubmit:hover{
-            border-color:#333;
-        }
-
-
-        #btnInput:hover{
-            border-color:#333;
-        }
-
-        .inputfile {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -12;
-        }
-		
-		.main{
-			z-index:0;
-		}
-		
-		html {
-		  position: relative;
-		}
-		body {
-		  /* Margin bottom by footer height */
-		  margin-bottom: 150px;
-		}
-		.footer {
-		  position: absolute;
-		  bottom: 0;
-		  width: 100%;
-		  /* Set the fixed height of the footer here */
-		  height: 150px;
-		}
-		
-		input[readonly].default-cursor {
-			cursor: default;
-		}
-		
-		#Caret{
-			transition:  ease-in 0.2s;
-		}
-		
-		.CaretDown{
-			-webkit-transform:rotate(90deg);
-		}
-		
-		.CaretRight{
-			-webkit-transform:rotate(0deg);
-		}
-		 
-
-    </style>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         function ajaxUpdate(){
@@ -331,6 +218,9 @@
             tag.send("acao=dadosCurriculo&id=" + document.getElementById("curriculos").options[e.selectedIndex].text);
         }
     </script>
+	
+	<link href="assets/css/custom.css" rel="stylesheet"/>
+	<script src="assets/js/custom.js"></script> 
 </head>
 
 <body>
@@ -463,21 +353,9 @@
 							<div class="form-group  col-sm-11" style="padding-right:0px">
 								<input id="NewSpec" type="text" class="form-control">
 							</div>
-                                                        <script>
-                                                                function addSpec(){
-                                                                    var txt = document.getElementById("NewSpec").value;
-                                                                    if(txt != ""){
-                                                                        var li = document.createElement("li");
-                                                                        li.setAttribute("class","list-group-item");
-                                                                        li.innerHTML = txt;
-                                                                        document.getElementById("SpecsList").appendChild(li);
-                                                                        document.getElementById("NewSpec").value = "";
-                                                                    }
-                                                                    
-                                                                }
-                                                        </script>
+                                                        
 							<div class="form-group col-sm-1" style="padding-left:0px;text-align:left">
-								<button type="button" onclick="addSpec()"  id="AddSpecs" class="btn btn-success btn-circle btn-simple pull-right" style="text-align:left"><i class="fa fa-plus adicionar" style="vertical-align:center;text-align:left"></i></button>
+								<button type="button"  id="AddSpecs" class="btn btn-success btn-circle btn-simple pull-right" style="text-align:left"><i class="fa fa-plus adicionar" style="vertical-align:center;text-align:left"></i></button>
 							</div>
 						</div>
 						<div class="row">
@@ -652,7 +530,7 @@
 					<div class="row">
 						
 						<div class="form-group col-md-12">
-							<label>Nome do Candidato</label>
+							<label>Nome do Participante</label>
 							<input value="" readonly type="text" class="form-control default-cursor" id="nomcand">
 						</div>
 						
@@ -695,7 +573,7 @@
 
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label>Enviar email para candidato escolhido</label>
+							<label>Enviar email para participante escolhido</label>
 								<textarea placeholder="e-mail..." class="form-control"></textarea>
 						</div>
 					</div>
@@ -704,7 +582,7 @@
 						<div class="form-group pull-right col-md-4">
 							<form id="form1" action="" method="post">
 								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
-									Aprovar candidato <span class="fa fa-check" aria-hidden="true"></span>
+									Aprovar participante <span class="fa fa-check" aria-hidden="true"></span>
 								</button>
 							</form>
 						</div>
@@ -713,16 +591,39 @@
 				</div>
 			</div>
             <div class="tab-pane" id="verCurriculo">
-	
+                <script>
+                        function updateDados(){
+                            var tag = new XMLHttpRequest();
+                            tag.onreadystatechange = function(){
+                               if(tag.readyState == 4){
+                                    if(tag.status == 200){
+                                        obj = JSON.parse(tag.responseText);
+                                        document.getElementById("nomcand2").value = obj[0];
+                                        document.getElementById("email2").value = obj[1];
+                                        document.getElementById("tel2").value = obj[2];
+                                        document.getElementById("curcode2").value = obj[3];
+                                        //var resp = array();
+                                        //resp.push(item);
+                                    }else{
+                                        alert("ruim");
+                                    }
+                                }
+                            };
+            
+                            tag.open("POST", "AjaxServlet");
+                            tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                            tag.send("acao=dadosCurriculoEmail&id=" + document.getElementById("emailcand").value);
+                        }
+                </script>
 					<div class="container">
-						<h3 class="header">Ver CurrÃ­culo</h3>
+						<h3 class="header">Ver Currículo</h3>
 						<div class="row">
 							<div class="form-group col-md-8">
-								<input placeholder="Codigo do candidato" id="disabled" type="text" class="form-control">
+								<input placeholder="E-mail do candidato" id="emailcand" type="text" class="form-control">
 							</div>
 							<div class="form-group pull-right col-md-4">
 								<form id="form1" action="" method="post">
-									<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Pesquisar</button>
+									<button  class="btn btn-fill" style="width:100%" type="button" onclick="updateDados()">Pesquisar</button>
 								</form>
 							</div>
 						</div>			
@@ -736,7 +637,7 @@
 							
 							<div class="form-group col-md-12">
 								<label>Nome do Candidato</label>
-								<input value="JosÃ© da Silva Santos" readonly type="text" class="form-control default-cursor">
+								<input id="nomcand2" value="" readonly type="text" class="form-control default-cursor">
 							</div>
 							
 						</div>
@@ -745,12 +646,12 @@
 						
 							<div class="form-group col-md-8">
 								<label>E-mail</label>
-								<input value="jsilva@hotmail.com" type="text" readonly class="form-control default-cursor">
+								<input  id="email2" value="" type="text" readonly class="form-control default-cursor">
 							</div>
 							
 							<div class="form-group col-md-4">
 								<label>Telefone</label>
-								<input value="(31)98888-8888" type="text" readonly class="form-control default-cursor">
+								<input id="tel2" value="" type="text" readonly class="form-control default-cursor">
 							</div>
 							
 						</div>
@@ -765,11 +666,11 @@
 						<div class="row">
 							
 							<div class="form-group col-md-8">
-								<input value="83217428 " readonly type="text" class="form-control default-cursor">
+								<input id="curcode2" value="" readonly type="text" class="form-control default-cursor">
 							</div>	
 							
 							<div class="form-group pull-right col-md-4">
-								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Download
+								<button  class="btn btn-fill" style="width:100%" type="button" onclick="pesquisar()">Download
 									<i class=" fa fa-download"></i>
 								</button>
 							</div>
@@ -780,7 +681,7 @@
 						<div class="row" style="padding-top:30px">
 								
 							<div class="form-group col-md-12">
-								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Solicitar ContrataÃ§Ã£o
+								<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Solicitar Contratação
 									<span class="fa fa-check" aria-hidden="true"></span>
 								</button>
 							</div>	

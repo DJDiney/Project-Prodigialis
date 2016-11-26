@@ -355,7 +355,7 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setCurriculo(null);
+                candidato.setCurriculo(aux.consultarPorId(Long.parseLong(resultSet.getString("cod_cur"))));
                     
             }
             //else System.out.println("Achou n");
