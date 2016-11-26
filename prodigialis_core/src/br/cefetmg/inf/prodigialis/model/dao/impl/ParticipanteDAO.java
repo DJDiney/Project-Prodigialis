@@ -86,6 +86,34 @@ public class ParticipanteDAO implements IParticipanteDAO{
         }
         
     }
+    
+    public boolean aprovar(int nro) throws PersistenciaException {
+
+        try {
+            
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+
+            String sql = "UPDATE participante SET est_aprov = 'true' WHERE nro_insc = ? ";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1,nro);
+            
+            statement.execute();
+            
+            
+            connection.close();
+            
+            return true;
+            
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+            
+        }
+        
+    }
 
     @Override
     public boolean excluir(int nro_ins) throws PersistenciaException {
@@ -124,7 +152,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM participante";
+            String sql = "SELECT * FROM participante WHERE est_aprov = false";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -163,7 +191,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
     @Override
     public Participante consultarPorId(int id) throws PersistenciaException {
         
-        Participante participante = new Participante();
+        Participante participante = null;
         
         try {
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
@@ -178,7 +206,7 @@ public class ParticipanteDAO implements IParticipanteDAO{
             CandidatoDAO candidatoDAO = new CandidatoDAO();
             
             while(resultSet.next()){
-                
+                participante = new Participante();
                 participante.setNroInscricao(resultSet.getInt("nro_insc"));
                 Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
                 participante.setCandidato(candidato);

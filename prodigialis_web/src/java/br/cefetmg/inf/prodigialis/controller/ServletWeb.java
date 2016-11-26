@@ -6,8 +6,10 @@
 package br.cefetmg.inf.prodigialis.controller;
 
 import br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO;
+import br.cefetmg.inf.prodigialis.model.dao.impl.CargoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ParticipanteDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Cargo;
 import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
@@ -81,28 +83,53 @@ public class ServletWeb extends HttpServlet {
         }else if (acao.equals("criaProcesso")){
             ProcessoSeletivoDAO proc = new ProcessoSeletivoDAO();
             ArrayList<String> specs = new ArrayList<String>();       
-            DateFormat df = new SimpleDateFormat("dd/MMM/yyyy", Locale.ENGLISH);
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             Date data = new Date();   
             ProcessoSeletivo processo;
+            CargoDAO cargoDAO = new CargoDAO();
+            Cargo cargo;
+            String codUsuario = "";
+            codUsuario += (char)request.getSession().getAttribute("codUsuario");
             try {
                 Date data_ini = df.parse(request.getParameter("data_ini")); 
-                if(request.getSession().getAttribute("codUsuario").equals("1")){
+                if(Integer.parseInt(codUsuario) == 1){
                     int aux=0;
-                    while(request.getParameter("spec"+aux)!=null){
-                        specs.add(request.getParameter("spec"+aux));
-                        aux++;
-                    }
-                    if(data_ini.after(data) || data_ini.equals(data)){
-                         processo = new ProcessoSeletivo(specs,df.parse(request.getParameter("data_ini")),df.parse(request.getParameter("data_fim")),request.getParameter("nome_proc"),request.getParameter("desc"),null,request.getParameter("n_vagas"),true, );
+                    if(data_ini.after(data) || data_ini.equals(data)){ 
+                        if(cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"))== null){
+                            cargo = new Cargo(request.getParameter("tipo_vaga"),request.getParameter("desc_cargo"));
+                            long cod = cargoDAO.inserirComRetorno(cargo);
+                        }
+                        cargo =cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"));   
+                        processo = new ProcessoSeletivo(df.parse(request.getParameter("data_ini")),df.parse(request.getParameter("data_fim")),request.getParameter("nome_proc"),request.getParameter("desc"),null,Integer.parseInt(request.getParameter("n_vagas")),true,cargo);
+                    }else{ 
+                        if(cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"))== null){
+                            cargo = new Cargo(request.getParameter("tipo_vaga"),request.getParameter("desc_cargo"));
+                            long cod = cargoDAO.inserirComRetorno(cargo);
+                        }
+                        cargo =cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"));   
+                        processo = new ProcessoSeletivo(df.parse(request.getParameter("data_ini")),df.parse(request.getParameter("data_fim")),request.getParameter("nome_proc"),request.getParameter("desc"),null,Integer.parseInt(request.getParameter("n_vagas")),false,cargo);
                     }
                     jsp = "/MenuFunc.jsp";
-                }else if(request.getSession().getAttribute("codUsuario").equals("0")){
+                }else if(Integer.parseInt(codUsuario) == 0){
                     int aux=0;
-                    while(request.getParameter("spec"+aux)!=null){
-                        specs.add(request.getParameter("spec"+aux));
-                        aux++;
+                    if(data_ini.after(data) || data_ini.equals(data)){ 
+                        if(cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"))== null){
+                            cargo = new Cargo(request.getParameter("tipo_vaga"),request.getParameter("desc_cargo"));
+                            long cod = cargoDAO.inserirComRetorno(cargo);
+                        }
+                        cargo =cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"));   
+                        processo = new ProcessoSeletivo(df.parse(request.getParameter("data_ini")),df.parse(request.getParameter("data_fim")),request.getParameter("nome_proc"),request.getParameter("desc"),null,Integer.parseInt(request.getParameter("n_vagas")),true,cargo);
+                    }else{ 
+                        if(cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"))== null){
+                            cargo = new Cargo(request.getParameter("tipo_vaga"),request.getParameter("desc_cargo"));
+                            long cod = cargoDAO.inserirComRetorno(cargo);
+                        }
+                        cargo =cargoDAO.consultarPorNome(request.getParameter("tipo_vaga"));   
+                        processo = new ProcessoSeletivo(df.parse(request.getParameter("data_ini")),df.parse(request.getParameter("data_fim")),request.getParameter("nome_proc"),request.getParameter("desc"),null,Integer.parseInt(request.getParameter("n_vagas")),false,cargo);
+                        proc.inserir(processo);
                     }
                     jsp = "/MenuFuncAdm.jsp";
+                }else{
                 }
             } catch (PersistenciaException ex) {
                 Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);

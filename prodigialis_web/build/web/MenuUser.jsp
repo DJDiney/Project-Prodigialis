@@ -382,13 +382,13 @@
                                                                 tag.send("acao=dadosProcesso&id=" + par);
                                                             }
                                                         </script>
-							<select class="form-control" id="processo" onchange="ajaxUpdate()">
+							<select class="form-control" id="processo">
 							
 								<option value="" disabled selected>Escolha um processo</option>
 								<% 
                                                                     ProcessoSeletivoDAO dao = new ProcessoSeletivoDAO();
                                                                     java.util.ArrayList<ProcessoSeletivo> lista = dao.listarTodos();
-                                                                    for(int i=0;i<lista.size();i++){                                    
+                                                                    for(int i=0;i<lista.size();i++){  
                                                                 %>
                                                                 <option value="<%= lista.get(i).getCodProcesso()%>"><%= lista.get(i).getNome()%></option>
                                                                 <%
@@ -409,7 +409,7 @@
 						</div>
 						
 						<div class="form-group col-md-2 ">
-							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Listar Dados
+							<button  class="btn btn-fill" style="width:100%" type="button" onclick="ajaxUpdate()">Listar Dados
 							<i class=" fa fa-list-alt"></i>
 							</button>
 								
@@ -464,24 +464,7 @@
 				</div>
 			
 			</div>
-					
-			<div class="row">
-				<div class="form-group col-md-12 ">
-					<label id="Specs" data-toggle="collapse" data-target="#demo">Especificações  </label><i id="Caret" class="fa fa-caret-right CaretRight" aria-hidden="true"></i>
-					<div id="demo" class="collapse">
-						<ul class="list-group">
-							<li class="list-group-item">Especificação 1</li>
-							<li class="list-group-item">Especificação 2</li>
-							<li class="list-group-item">Especificação 3</li>
-							<li class="list-group-item">Especificação 4</li>
-							<li class="list-group-item">Especificação 5</li>
-							<li class="list-group-item">Especificação 6</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			
+								
 			<div class="row">
 			
 				<div class="form-group pull-right col-md-4">

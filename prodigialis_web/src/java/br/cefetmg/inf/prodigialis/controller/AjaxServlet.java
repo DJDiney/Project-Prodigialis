@@ -116,6 +116,21 @@ public class AjaxServlet extends HttpServlet {
                 } catch (PersistenciaException ex) {
                     ex.printStackTrace();
                 }
+        }else if(acao.equals("sugereContr")){
+            String nro = (request.getParameter("id"));
+                ParticipanteDAO par = new ParticipanteDAO();
+                try {
+                    System.out.println(nro);
+                    Participante part = par.consultarPorId(Integer.parseInt(nro));
+                    if(part!= null){
+                        par.aprovar(part.getNroInscricao());
+                        response.getWriter().write("Sucesso");
+                    }else response.getWriter().write("ERRO");
+                    
+                    
+                } catch (PersistenciaException ex) {
+                    ex.printStackTrace();
+                }
         }
     }
 

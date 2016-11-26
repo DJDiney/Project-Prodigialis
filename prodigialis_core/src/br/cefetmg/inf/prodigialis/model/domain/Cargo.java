@@ -16,6 +16,12 @@ public class Cargo {
         this.nom_cargo = nom_cargo;
         this.desc_cargo = desc_cargo;
     }
+    
+    public Cargo(String nom_cargo, String desc_cargo) {
+        this.cod_cargo = cod_cargo;
+        this.nom_cargo = nom_cargo;
+        this.desc_cargo = desc_cargo;
+    }
 
     public Long getCod_cargo() {
         return cod_cargo;

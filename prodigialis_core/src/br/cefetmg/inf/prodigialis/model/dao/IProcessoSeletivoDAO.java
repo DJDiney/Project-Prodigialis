@@ -14,10 +14,10 @@ import java.util.List;
  *
  * @author Cliente
  */
-public interface IProcessoSeletivoDAO extends GenericDAO<ProcessoSeletivo>{
+public interface IProcessoSeletivoDAO{
     public boolean inserir(ProcessoSeletivo obj) throws PersistenciaException;
     public boolean atualizar(ProcessoSeletivo obj) throws PersistenciaException;
-    public boolean excluir(int id) throws PersistenciaException;
-    public ProcessoSeletivo consultarPorId(int cod_prova) throws PersistenciaException;
+    public boolean excluir(long id) throws PersistenciaException;
+    public ProcessoSeletivo consultarPorId(long id) throws PersistenciaException;
     public List<ProcessoSeletivo> listarTodos() throws PersistenciaException;
 }

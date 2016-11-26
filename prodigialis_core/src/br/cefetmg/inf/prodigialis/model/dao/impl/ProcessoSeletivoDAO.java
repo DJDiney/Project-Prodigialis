@@ -31,18 +31,19 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
 
             String sql = "INSERT INTO processoseletivo (cod_prova, dat_ini,"
                     + "dat_fim, nom_proc, desc_proc, nro_vagas, em_andamento, cod_cargo) " 
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-
-            statement.setInt(1,obj.getProva().getCod_prova() );
-            statement.setDate(2, (Date) obj.getDataInicio());
-            statement.setDate(3, (Date) obj.getDataFinal());
-            statement.setString(4, obj.getNome());
-            statement.setString(5, obj.getDescricao());
-            statement.setInt(6, obj.getNroVagas());
-            statement.setBoolean(7, obj.isEm_andamento());
-            statement.setInt(8, Integer.parseInt(obj.getCargoOferecido().getCod_cargo().toString()));
+            java.sql.Date datin = new java.sql.Date(obj.getDataInicio().getTime());
+            java.sql.Date datfim = new java.sql.Date(obj.getDataFinal().getTime());
+            //statement.setInt(1,obj.getProva().getCod_prova() );
+            statement.setDate(1, datin);
+            statement.setDate(2, datfim);
+            statement.setString(3, obj.getNome());
+            statement.setString(4, obj.getDescricao());
+            statement.setInt(5, obj.getNroVagas());
+            statement.setBoolean(6, obj.isEm_andamento());
+            statement.setInt(7, Integer.parseInt(obj.getCargoOferecido().getCod_cargo().toString()));
             
             statement.execute();
             
@@ -51,6 +52,7 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
             for(int i=0;i<obj.getParticipantes().size();i++){
                 dao.inserir(obj.getParticipantes().get(i));
             }
+            
             
             return true;
             
@@ -111,7 +113,7 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
     }
 
     @Override
-    public boolean excluir(Long id) throws PersistenciaException {
+    public boolean excluir(long id) throws PersistenciaException {
         
         try {
             
@@ -138,18 +140,17 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
     }
 
     @Override
-    public ProcessoSeletivo consultarPorId(int id) throws PersistenciaException {
+    public ProcessoSeletivo consultarPorId(long id) throws PersistenciaException {
         
         ProcessoSeletivo processo = null;
         
         try {
             
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
-
             String sql = "SELECT * FROM processoseletivo WHERE cod_proc = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setLong(1, id);
 
             ResultSet resultSet = statement.executeQuery();
             
@@ -160,7 +161,6 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
                 
                 processo = new ProcessoSeletivo();
                 ArrayList<Participante> parts = partDAO.listarTodos();
-                System.out.println("AIÓ:" +parts.size());
                 ArrayList<Participante> aux = new ArrayList<Participante>();
                 for(int i=0;i<parts.size();i++){
                     if(parts.get(i).getCodProcesso()==resultSet.getInt("cod_proc")) aux.add(parts.get(i));
@@ -256,14 +256,6 @@ public class ProcessoSeletivoDAO implements IProcessoSeletivoDAO{
         
     }
 
-    @Override
-    public boolean excluir(int id) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public ProcessoSeletivo consultarPorId(Long id) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+
 }

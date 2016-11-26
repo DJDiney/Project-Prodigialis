@@ -172,10 +172,6 @@
                         document.getElementById("datin").value = obj[3];
                         document.getElementById("datfim").value = obj[4];
                         document.getElementById("curriculos").value = 0;
-                        document.getElementById("nomcand").value = '';
-                        document.getElementById("email").value = '';
-                        document.getElementById("tel").value = '';
-                        document.getElementById("curcode").value = '';
                         //var resp = array();
                         //resp.push(item);
                     }else{
@@ -342,14 +338,37 @@
 							</div>
 
 						</div>
-							
+                                                
+                                                <div class="row">
+
+							<div class="form-group col-md-12">
+								
+								<label>Cargo oferecido</label>
+								<input placeholder="Cargo oferecido" name="tipo_vaga" type="text" class="form-control default-cursor">
+								
+
+							</div>
+
+						</div>
+						
 						<div class="row">
-							<label>Especificações</label>
+
+							<div class="form-group col-md-12">
+								
+								<label>Descrição do cargo oferecido</label>
+								<textarea placeholder="Descrição do cargo oferecido" name="desc_cargo" class="form-control" style="height:150px"></textarea>
+								
+							</div>
+
+						</div>
+							
+						<!--<div class="row">
+							<label>Especificações do Processo</label>
 						</div>
 						<div class="row">
                                                         <input type="hidden" value="0" id="counter">
 							<div class="form-group  col-sm-11" style="padding-right:0px">
-								<input id="NewSpec" type="text" class="form-control">
+								<input placeholder="Escreva um especificação e adicione à lista" id="NewSpec" type="text" class="form-control">
 							</div>
                                                         
 							<div class="form-group col-sm-1" style="padding-left:0px;text-align:left">
@@ -360,10 +379,12 @@
 							<div class="form-group col-md-12">
 								<ul class="list-group" id="SpecsList">
 								  <!--<li class="list-group-item">Cras justo odio	<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-times" style="vertical-align:center"></i></button></li>
-								  -->
+								  
 								</ul>
 							</div>
-						</div>
+						</div>-->
+                                                
+                                 
 						
 						<div class="row">
 							<label>Prova</label>
@@ -493,24 +514,7 @@
 						</div>
 					
 					</div>
-							
-					<div class="row">
-						<div class="form-group col-md-12 ">
-							<label id="Specs" data-toggle="collapse" data-target="#demo">Especificações  </label><i id="Caret" class="fa fa-caret-right CaretRight" aria-hidden="true"></i>
-							<div id="demo" class="collapse">
-							<ul class="list-group">
-								<li class="list-group-item">Especificação 1</li>
-								<li class="list-group-item">Especificação 2</li>
-								<li class="list-group-item">Especificação 3</li>
-								<li class="list-group-item">Especificação 4</li>
-								<li class="list-group-item">Especificação 5</li>
-								<li class="list-group-item">Especificação 6</li>
-							</ul>
-							</div>
-							
-							
-						</div>
-					</div>
+						
 				</div>
 				<hr/>
 				<div class="container">
@@ -569,17 +573,30 @@
 						
 					</div>	
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label>Enviar email para participante escolhido</label>
-								<textarea placeholder="e-mail..." class="form-control"></textarea>
-						</div>
-					</div>
-					
+					<script>
+                                                function sugerirCont(){
+                                                    var e = document.getElementById("curriculos");
+                                                    var par = e.options[e.selectedIndex].text;
+                                                    var tag = new XMLHttpRequest();
+                                                    tag.onreadystatechange = function(){
+                                                       if(tag.readyState === 4){
+                                                            if(tag.status === 200){
+                                                                alert(responseText);
+                                                            }else{
+                                                                alert(responseText);
+                                                            }
+                                                        }
+                                                    };
+                                                    tag.open("POST", "AjaxServlet");
+                                                    tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                                    
+                                                    tag.send("acao=sugereContr&id=" + par);
+                                                }
+                                        </script>
 					<div class="row">
 						<div class="form-group pull-right col-md-4">
-							<form id="form1" action="" method="post">
-								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
+							<form id="form1" action=# method="post">
+								<button type="submit" style="width:100%" onclick="sugerirCont()" id="btnSubmit"  class=" btn btn-fill">
 									Solicitar Contratação <span class="fa fa-check" aria-hidden="true"></span>
 								</button>
 							</form>
@@ -698,7 +715,7 @@
                     <div class="row">
                             <div class="form-group col-md-12">
                                     <ul class="list-group" id="SpecsList">
-                                      <li class="list-group-item">Cras justo odio<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-times" style="vertical-align:center"></i></button></li>
+                                      <li class="list-group-item">Cras justo odio<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-check" onclick="alert('hehe')"></i><i class="fa fa-times" style="vertical-align:center"></i></button></li>
                                     </ul>
                             </div>
                     </div>
@@ -710,10 +727,9 @@
 	</div>
     <footer class="footer" style="background-color:#36312B;color:#d1d1d1;text-align:center;padding-top:30px;padding-bottom:30px;">
         <div class="container">
-            <div>Prodigialis RH<span>  Â·  </span>Trabalho de conclusÃ£o de curso</div>
-            <div>Centro Federal de EducaÃ§Ã£o TecnolÃ³gica de Minas Gerais</div>
-            <div>JÃ¡ nos conhece? ConheÃ§a a <a href="" style="color:#777;">staff</a></div>
-            <div>Publicado sob a licenÃ§a de <a href="http://www.creative-tim.com/license" style="color:#777;">Creative Tim</a></div>
+            <div>Prodigialis RH<span></span>Trabalho de conclusão de curso</div>
+            <div>Centro Federal de Educação Tecnológica de Minas Gerais</div>
+            <div>Publicado sob a licença de <a href="http://www.creative-tim.com/license" style="color:#777;">Creative Tim</a></div>
         </div>
     </footer>
 </body>

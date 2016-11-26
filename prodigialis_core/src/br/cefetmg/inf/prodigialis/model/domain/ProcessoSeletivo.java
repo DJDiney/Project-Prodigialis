@@ -14,7 +14,6 @@ import java.util.Date;
  */
 public class ProcessoSeletivo {
     private ArrayList<Participante> participantes =  new ArrayList();
-    private ArrayList<String> specs = new ArrayList<String>();
     private Date dataInicio;
     private Date dataFinal;
     private String nome;
@@ -25,7 +24,7 @@ public class ProcessoSeletivo {
     private boolean em_andamento;
     private Cargo cargoOferecido;
 
-    public ProcessoSeletivo(ArrayList<String> specs,Date dataInicio, Date dataFinal, String nome, String descricao, int codProcesso, Prova prova, int nroVagas, boolean em_andamento, Cargo cargoOferecido) {
+    public ProcessoSeletivo(Date dataInicio, Date dataFinal, String nome, String descricao, int codProcesso, Prova prova, int nroVagas, boolean em_andamento, Cargo cargoOferecido) {
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
         this.nome = nome;
@@ -35,10 +34,9 @@ public class ProcessoSeletivo {
         this.nroVagas = nroVagas;
         this.em_andamento = em_andamento;
         this.cargoOferecido = cargoOferecido;
-        this.specs = specs;
     }
     
-    public ProcessoSeletivo(ArrayList<String> specs,Date dataInicio, Date dataFinal, String nome, String descricao, Prova prova, int nroVagas, boolean em_andamento, Cargo cargoOferecido) {
+    public ProcessoSeletivo(Date dataInicio, Date dataFinal, String nome, String descricao, Prova prova, int nroVagas, boolean em_andamento, Cargo cargoOferecido) {
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
         this.nome = nome;
@@ -47,15 +45,6 @@ public class ProcessoSeletivo {
         this.nroVagas = nroVagas;
         this.em_andamento = em_andamento;
         this.cargoOferecido = cargoOferecido;
-        this.specs = specs;
-    }
-
-    public ArrayList<String> getSpecs() {
-        return specs;
-    }
-
-    public void setSpecs(ArrayList<String> specs) {
-        this.specs = specs;
     }
     
     public ProcessoSeletivo() {}

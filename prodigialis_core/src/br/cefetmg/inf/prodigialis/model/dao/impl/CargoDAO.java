@@ -44,6 +44,37 @@ public class CargoDAO implements ICargoDAO {
         
     }
     
+    public long inserirComRetorno(Cargo vaga) throws PersistenciaException {
+
+        try {
+            
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+
+            String sql = "INSERT INTO Cargo (nom_cargo, desc_cargo) " 
+                    + "VALUES(?, ?) RETURNING cod_cargo";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, vaga.getNom_cargo());
+            statement.setString(2, vaga.getDesc_cargo());
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            connection.close();
+            
+            if(resultSet.next()) return resultSet.getLong("cod_cargo");
+            else return (long) -1;
+            
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+            
+        }
+        
+    }
+    
+    
     @Override
     public boolean atualizar(Cargo vaga) throws PersistenciaException {
 
