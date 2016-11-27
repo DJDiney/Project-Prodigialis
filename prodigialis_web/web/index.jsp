@@ -20,6 +20,26 @@
     <script src="assets/js/ct-paper.js"></script> 
     <script type="text/javascript" language="JavaScript" src="js/webvalida.js"></script>
     <script >
+        function validarCamposLogin() {
+            var frm = document.frmLogin;
+            var nome = frm.email.value;
+            var senha = frm.password.value;
+
+            if (nome == "") {
+                alert("Por Favor, preencha o campo de email!");
+                frm.nome.focus();
+                return false;
+            } else if (senha == "") {
+                alert("Favor, preencha o campo senha!");
+                frm.senha.focus();
+                return false;
+            } else {
+                caminhourl = "/ServletWeb?acao=Logar";
+                document.frmLogin.action = caminhourl;
+                window.document.frmLogin.submit();
+                return true;
+            }
+        }
         $(window).scroll(function () {
             if ($(window).scrollTop() >= 300) {
                 $('.navbar').css('padding-top', '0px');

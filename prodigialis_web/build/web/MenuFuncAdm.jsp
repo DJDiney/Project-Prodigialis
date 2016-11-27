@@ -1,7 +1,9 @@
 <%@page import="br.cefetmg.inf.prodigialis.controller.Login"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.FuncionarioDAO"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.dao.impl.ParticipanteDAO"%>
 <%@page import="br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo"%>
+<%@page import="br.cefetmg.inf.prodigialis.model.domain.Participante"%>
 
 <%  Character cod = (Character)request.getSession().getAttribute("codUsuario");
     if(cod != '0'){
@@ -276,7 +278,7 @@
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                     <li class="active"><a href="#CriarProcesso" data-toggle="tab">Criar processo</a></li>
                     <li><a href="#AcompanharProcesso"  data-toggle="tab">Acompanhar processo</a></li>
-                    <li><a href="#verCurriculo" data-toggle="tab">Ver curriculos</a></li>
+                    <li><a href="#verCurriculo" data-toggle="tab">Ver detalhes</a></li>
                      <li><a href="#AprovadosPendentes"  data-toggle="tab">Aprovações Pendentes</a></li>
                 </ul>
             </div>
@@ -387,12 +389,11 @@
                                  
 						
 						<div class="row">
-							<label>Prova</label>
 							<div class="form-group col-md-12" >
-								<input type="file" name="file-7[]" id="ArquivoProva" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
-								<label for="ArquivoProva" class="width" >
+								<button type="button" onclick="alert('Esta função não foi implementada por dificuldades no tratamento de arquivos :(, o sistema só suporta os dados de processo seletivo, o arquivo da prova deve ser manuseado de maneira externa ao sistema')" />
+								<label for="ArquivoGabarito" class="width" >
 									<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Prova</a> 
-									<span id="DirArquivoProva"></span>
+									<span id="DirArquivoGabarito"></span>
 								</label>
 
 							</div>
@@ -401,7 +402,7 @@
 						
 						<div class="row">
 							<div class="form-group col-md-12" >
-								<input type="file" name="file-7[]" id="ArquivoGabarito" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
+								<button type="button" onclick="alert('Esta função não foi implementada por dificuldades no tratamento de arquivos :(, o sistema só suporta os dados de processo seletivo, o arquivo da prova deve ser manuseado de maneira externa ao sistema')" />
 								<label for="ArquivoGabarito" class="width" >
 									<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Gabarito</a> 
 									<span id="DirArquivoGabarito"></span>
@@ -566,7 +567,7 @@
 						</div>	
 						
 						<div class="form-group pull-right col-md-4">
-							<button  class="btn btn-fill" style="width:100%" type="submit" onclick="pesquisar()">Download
+							<button  class="btn btn-fill" style="width:100%" type="button" onclick="alert('Esta função não foi implementada por dificuldades no tratamento de arquivos :(, o curriculo foi colocado manualmente no sistema, logo ainda é possível tratar os dados de processo seletivo, com a única excessão do arquivo de currículo')">Download
 								<i class=" fa fa-list-alt"></i>
 							</button>
 						</div>
@@ -592,6 +593,7 @@
                                                     
                                                     tag.send("acao=sugereContr&id=" + par);
                                                 }
+                                                
                                         </script>
 					<div class="row">
 						<div class="form-group pull-right col-md-4">
@@ -631,7 +633,7 @@
                         }
                 </script>
 					<div class="container">
-						<h3 class="header">Ver Currículo</h3>
+						<h3 class="header">Ver Detalhes</h3>
 						<div class="row">
 							<div class="form-group col-md-8">
 								<input placeholder="E-mail do candidato" id="emailcand" type="text" class="form-control">
@@ -685,7 +687,7 @@
 							</div>	
 							
 							<div class="form-group pull-right col-md-4">
-								<button  class="btn btn-fill" style="width:100%" type="button" onclick="pesquisar()">Download
+								<button  class="btn btn-fill" style="width:100%" type="button" onclick="alert('Esta função não foi implementada por dificuldades no tratamento de arquivos :(, o curriculo foi colocado manualmente no sistema, logo ainda é possível tratar os dados do processo seletivo com exceção única do currículo')">Download
 									<i class=" fa fa-download"></i>
 								</button>
 							</div>
@@ -714,8 +716,34 @@
                     </div>
                     <div class="row">
                             <div class="form-group col-md-12">
+                                <script>
+                                        function excluir(id){
+                                                    var tag = new XMLHttpRequest();
+                                                    tag.onreadystatechange = function(){
+                                                       if(tag.readyState === 4){
+                                                            if(tag.status === 200){
+                                                                alert(responseText);
+                                                            }else{
+                                                                alert(responseText);
+                                                            }
+                                                        }
+                                                    };
+                                                    tag.open("POST", "AjaxServlet");
+                                                    tag.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                                    tag.send("acao=excluirPart&id=" + id);
+                                        }
+                                </script>
                                     <ul class="list-group" id="SpecsList">
-                                      <li class="list-group-item">Cras justo odio<button  class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-check" onclick="alert('hehe')"></i><i class="fa fa-times" style="vertical-align:center"></i></button></li>
+                                        <%
+                                            ParticipanteDAO daopart = new ParticipanteDAO();
+                                            java.util.ArrayList<Participante> aprovados = daopart.getAprovados();
+                                            for(int i=0;i<aprovados.size();i++){
+                                        %>
+                                            <li class="list-group-item"><%=aprovados.get(i).getCandidato().getNom_cand() + " | "+aprovados.get(i).getCandidato().getEmail() + " | " + dao.consultarPorId(aprovados.get(i).getCodProcesso()).getNome()%><button id="part<%=aprovados.get(i).getNroInscricao()%>" class="btn btn-danger btn-circle btn-simple pull-right btn-deleter"><i class="fa fa-check" onclick="" style="vertical-align:center"></i><i  class="fa fa-times" style="vertical-align:center" onclick="excluir(<%=aprovados.get(i).getNroInscricao()%>)"></i></button></li>
+                                        <%
+                                            }
+                                        %>
+                                        
                                     </ul>
                             </div>
                     </div>

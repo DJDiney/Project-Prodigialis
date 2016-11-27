@@ -131,9 +131,21 @@ public class AjaxServlet extends HttpServlet {
                 } catch (PersistenciaException ex) {
                     ex.printStackTrace();
                 }
+        }else if(acao.equals("excluirPart")){
+            int nro = (Integer.parseInt(request.getParameter("id")));
+                ParticipanteDAO par = new ParticipanteDAO();
+                try {
+                    System.out.println(nro);
+                    if(par.excluir(nro)){
+                        response.getWriter().write("Sucesso");
+                    }else response.getWriter().write("ERRO");
+                    
+                    
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code."
 
     /**

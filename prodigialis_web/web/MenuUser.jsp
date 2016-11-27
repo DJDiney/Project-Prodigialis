@@ -421,7 +421,7 @@
 		</div>
 		
 					<hr/>
-                <form id="form1" action="ServletWeb?" method="post">
+                <form id="form1" action="ServletWeb" method="post">
                     <input type="hidden" name="acao" id="acao" value="enviaCur"/>
                     <input type="hidden" name="email" id="email" value="<%=request.getSession().getAttribute("email")%>"/>
                     <div class="container">	
@@ -563,7 +563,7 @@
 					<div class="row">
 
 						<div class="form-group col-md-8 col-xs-12" >
-							<input type="email" value="<%=request.getSession().getAttribute("email")%>"  placeholder="Email" class="form-control" />
+							<input type="email" value="<%=request.getSession().getAttribute("email")%>" name="curMail"  placeholder="Email" class="form-control" />
 						</div> 
 
 						<div class="form-group col-md-4" >
@@ -575,7 +575,7 @@
 					<div class="row">
 
 						<div class="form-group col-md-12" >
-							<input type="file" name="file-7[]" id="file-7" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
+							<input type="file" name="file-7" id="file-7" style="display:hidden" class="inputfile inputfile-6" data-multiple-caption="{count} arquivos selecionados" multiple="">
 							<label for="file-7" class="width" >
 								<a id="btnInput"  class="btn btn-fill" style="padding-left:60px;padding-right:60px;"> Arquivo</a> 
 								<span id="Filename"></span>
@@ -588,8 +588,8 @@
 					<div class="row">
 						<div class="form-group pull-right col-md-4">
 							<form id="form1" action="" method="post">
-								<button type="submit" style="width:100%"  id="btnSubmit"  class=" btn btn-fill">
-									Enviar <span class="fa fa-paper-plane" aria-hidden="true"></span>
+								<button type="button" style="width:100%"  id="btnSubmit"  class=" btn btn-fill" onclick="alert('Esta função não foi implementada por dificuldades no tratamento de arquivos :(, o curriculo foi colocado manualmente no sistema, logo ainda é possível se increver em processos seletivos')">
+									Enviar <span class="fa fa-paper-plane" aria-hidden="true" ></span>
 								</button>
 							</form>
 						</div>

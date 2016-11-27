@@ -9,11 +9,13 @@ import br.cefetmg.inf.prodigialis.model.dao.impl.CandidatoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.CargoDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ParticipanteDAO;
 import br.cefetmg.inf.prodigialis.model.dao.impl.ProcessoSeletivoDAO;
+import br.cefetmg.inf.prodigialis.model.domain.Candidato;
 import br.cefetmg.inf.prodigialis.model.domain.Cargo;
 import br.cefetmg.inf.prodigialis.model.domain.Participante;
 import br.cefetmg.inf.prodigialis.model.domain.ProcessoSeletivo;
 import br.cefetmg.inf.prodigialis.util.db.exception.PersistenciaException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -28,6 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -46,40 +49,8 @@ public class ServletWeb extends HttpServlet {
             jsp = Login.execute(request);
         }else if (acao.equals("Deslogar"))
             jsp = Login.terminaSessao(request,response);
-        else if(acao.equals("dadosProcesso")){
-            int  id = Integer.parseInt(request.getParameter("id"));
-            if(id != 0){
-                ProcessoSeletivoDAO dao = new ProcessoSeletivoDAO();
-                try {
-                    ProcessoSeletivo proc = dao.consultarPorId(id);
-                    request.getSession().setAttribute("nome", proc.getNome());
-                    request.getSession().setAttribute("vaga", proc.getCargoOferecido().getNom_cargo());
-                    request.getSession().setAttribute("nvaga", proc.getNroVagas());
-                    request.getSession().setAttribute("datin", proc.getDataInicio());
-                    request.getSession().setAttribute("datfim", proc.getDataFinal());
-                    response.getWriter().write("sucesso");
-                    
-                } catch (PersistenciaException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }else if (acao.equals("enviaCur")){
-            ParticipanteDAO dao = new ParticipanteDAO();
-            CandidatoDAO  cand= new CandidatoDAO();
-            try {
-                if(dao.consultarPorProc(cand.consultarPorEmail((String)request.getParameter("email")).getCpf(),Integer.parseInt(request.getParameter("cod"))) == null){
-                    Participante par = new Participante();
-                    par.setCodProcesso(Integer.parseInt(request.getParameter("cod")));
-                    par.setCandidato(cand.consultarPorEmail((String)request.getParameter("email")));
-                    par.setEst_aprov(false);
-                    if(dao.inserir(par)){
-                        
-                    }
-                    jsp = "/MenuUser.jsp";
-                }
-            } catch (PersistenciaException ex) {
-                Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        else if (acao.equals("enviaCur")){
+            jsp = ManterParticipante.execute(request);
         }else if (acao.equals("criaProcesso")){
             ProcessoSeletivoDAO proc = new ProcessoSeletivoDAO();
             ArrayList<String> specs = new ArrayList<String>();       
@@ -129,13 +100,12 @@ public class ServletWeb extends HttpServlet {
                         proc.inserir(processo);
                     }
                     jsp = "/MenuFuncAdm.jsp";
-                }else{
                 }
-            } catch (PersistenciaException ex) {
-                Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ServletWeb.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
         
             

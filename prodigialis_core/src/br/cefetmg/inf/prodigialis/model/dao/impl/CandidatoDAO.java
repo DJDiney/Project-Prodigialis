@@ -26,8 +26,8 @@ public class CandidatoDAO implements ICandidatoDAO{
             Connection connection = JDBCConnectionManager.getInstance().getConnection();
 
             String sql = "INSERT INTO candidato (cpf, cod_cur, cod_cep, nom_cand, "
-                    + "email, password, idt_perfil, tel_fixo, tel_movel, cod_cargo) "
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "email, password, idt_perfil, tel_fixo, tel_movel) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -40,7 +40,6 @@ public class CandidatoDAO implements ICandidatoDAO{
             statement.setString(7, String.valueOf(candidato.getIdt_perfil()));
             statement.setString(8, String.valueOf(candidato.getTel_fixo()));
             statement.setString(9, String.valueOf(candidato.getTel_movel()));
-            statement.setLong(10, candidato.getCod_cargoPretendido());
             
             statement.execute();
             
@@ -72,8 +71,7 @@ public class CandidatoDAO implements ICandidatoDAO{
                             + "password = ?, "
                             + "idt_perfil = ?, "
                             + "tel_fixo = ?, "
-                            + "tel_movel = ?, "
-                            + "cod_cur = ? " + 
+                            + "tel_movel = ?, "+ 
                             " WHERE cpf = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -86,8 +84,7 @@ public class CandidatoDAO implements ICandidatoDAO{
             statement.setString(6, String.valueOf(candidato.getIdt_perfil()));
             statement.setString(7, String.valueOf(candidato.getTel_fixo()));
             statement.setString(8, String.valueOf(candidato.getTel_movel()));
-            statement.setLong(9, candidato.getCod_cargoPretendido());
-            statement.setString(10, String.valueOf(candidato.getCpf()));
+            statement.setString(9, String.valueOf(candidato.getCpf()));
 
             statement.execute();
 
@@ -163,7 +160,6 @@ public class CandidatoDAO implements ICandidatoDAO{
                 Cargo vaga = cargoDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setCod_cargoPretendido(vaga.getCod_cargo());
 
                 CandidatoList.add(candidato);
                 
@@ -212,10 +208,8 @@ public class CandidatoDAO implements ICandidatoDAO{
                 candidato.setEmail(resultSet.getString("email"));
                 candidato.setPassword(resultSet.getString("password"));
                 candidato.setIdt_perfil(resultSet.getString("idt_perfil").charAt(0));
-                Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setCod_cargoPretendido(vaga.getCod_cargo());
                     
             }
             
@@ -265,7 +259,6 @@ public class CandidatoDAO implements ICandidatoDAO{
                 Cargo vaga = vagaDAO.consultarPorId(resultSet.getLong("cod_cargo"));
                 candidato.setTel_fixo(resultSet.getString("tel_fixo"));
                 candidato.setTel_movel(resultSet.getString("tel_movel"));
-                candidato.setCod_cargoPretendido(vaga.getCod_cargo());
                     
             }
             

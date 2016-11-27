@@ -187,6 +187,50 @@ public class ParticipanteDAO implements IParticipanteDAO{
         return ParticipanteList;
         
     }
+    
+    public ArrayList<Participante> getAprovados() throws PersistenciaException {
+
+        ArrayList<Participante> ParticipanteList = new ArrayList<Participante>();
+
+        try {
+            
+            Connection connection = JDBCConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM participante WHERE est_aprov = true";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+            
+            ICandidatoDAO candidatoDAO = new CandidatoDAO();
+            
+            while(resultSet.next()){
+                
+                Participante participante = new Participante();
+                participante.setNroInscricao(resultSet.getInt("nro_insc"));
+                Candidato candidato = candidatoDAO.consultarPorId(resultSet.getString("cpf"));
+                participante.setCandidato(candidato);
+                //participante.setArq_respostas(resultSet.getBytes("arq_repostas"));
+                participante.setCodProcesso(resultSet.getInt("cod_proc"));
+                participante.setEst_aprov(resultSet.getBoolean("est_aprov"));
+                participante.setNota(resultSet.getDouble("nota"));
+
+                ParticipanteList.add(participante);
+                
+            }
+            
+            connection.close();
+            
+        } catch (Exception e){
+            
+            e.printStackTrace();
+            throw new PersistenciaException(e.getMessage(), e);
+                
+        }
+        
+        return ParticipanteList;
+        
+    }
 
     @Override
     public Participante consultarPorId(int id) throws PersistenciaException {
